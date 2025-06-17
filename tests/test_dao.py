@@ -4,12 +4,15 @@ from src.models import Product
 from src.db import Base, engine
 
 @pytest.fixture(autouse=True, scope="function")
-def setup_db(monkeypatch):
-    # On utilise une base SQLite en mémoire pour les tests unitaires
-    monkeypatch.setenv("DATABASE_URL", "sqlite:///:memory:")
+def setup_db():
+    # Drop toutes les tables
+    Base.metadata.drop_all(bind=engine)
+    # Recrée toutes les tables
     Base.metadata.create_all(bind=engine)
     yield
+    # Après le test, re-drop pour le prochain test
     Base.metadata.drop_all(bind=engine)
+
 
 def test_create_and_search_product():
     dao = DAO()
