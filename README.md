@@ -106,7 +106,7 @@ Certaines routes de l’API REST nécessitent une authentification par token (ty
 3. Entrez le token suivant :
 
     ```
-    Supermarcher22102002
+    Bearer Supermarcher22102002
     ```
 
    (Ne pas mettre le mot "Bearer", il sera ajouté automatiquement.)
@@ -122,6 +122,7 @@ Certaines routes de l’API REST nécessitent une authentification par token (ty
     ```
 
 - Si le token est absent ou incorrect, la réponse est 401 Unauthorized.
+
 
 --------------------
 /////////////////////
