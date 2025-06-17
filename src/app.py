@@ -2,7 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from functools import wraps
 from service import Service
 from flasgger import Swagger
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "secret"
 swagger = Swagger(app)
 

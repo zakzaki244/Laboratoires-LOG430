@@ -2,8 +2,20 @@ from flask import Blueprint, jsonify, request
 from models import Product, Store, Sale
 from db import SessionLocal
 from service import Service
+from functools import wraps
+from flask import request, jsonify
 
 api = Blueprint('api', __name__, url_prefix='/api')
+API_TOKEN = "Supermarcher22102002"
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get("Authorization", "")
+        if token != f"Bearer {API_TOKEN}":
+            return jsonify({"error": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated
 
 # -------- PRODUITS --------
 @api.route("/products", methods=["GET"])
@@ -98,6 +110,7 @@ def get_product(pid):
     return jsonify(data)
 
 @api.route("/products", methods=["POST"])
+@token_required
 def create_product():
     """
     Créer un nouveau produit
@@ -137,6 +150,7 @@ def create_product():
     return jsonify({"success": True, "id": produit.id}), 201
 
 @api.route("/products/<int:pid>", methods=["PUT", "PATCH"])
+@token_required
 def update_product(pid):
     """
     Mettre à jour un produit existant
@@ -183,6 +197,7 @@ def update_product(pid):
     return jsonify({"success": True})
 
 @api.route("/products/<int:pid>", methods=["DELETE"])
+@token_required
 def delete_product(pid):
     """
     Supprimer un produit par son ID

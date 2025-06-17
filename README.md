@@ -54,7 +54,47 @@ etc...
 **Toutes les réponses sont au format JSON.**
 
 
+## Documentation de l’API REST (Swagger / OpenAPI)
 
+### Description
+
+L’API REST du projet permet d’effectuer toutes les opérations principales sur les magasins, produits, et ventes.  
+La documentation complète au format OpenAPI (Swagger) est générée automatiquement grâce à Flasgger.
+
+### Accéder à la documentation Swagger UI
+
+Après avoir démarré l’application (`docker compose up --build`), rendez-vous sur :
+
+- [http://10.194.32.174:5000/apidocs/#/](http://10.194.32.174:5000/apidocs/#/)
+
+Vous y trouverez :
+- La liste de tous les endpoints (magasins, produits, ventes)
+- Les méthodes HTTP disponibles (GET, POST, PUT, DELETE, PATCH…)
+- Les paramètres d’entrée et de sortie
+- Des exemples de requêtes/réponses
+- La possibilité de tester l’API directement via l’interface
+
+### Exemples de requêtes
+
+- `GET /api/products` — Récupérer la liste des produits
+- `POST /api/products` — Créer un produit (avec body JSON)
+- `GET /api/ventes` — Voir toutes les ventes
+
+### Standards
+
+- Toutes les routes suivent les conventions REST (`/api/resource`, `/api/resource/id`)
+- Les statuts de réponse HTTP sont respectés (200, 201, 404…)
+- Les formats d’entrée/sortie sont en JSON
+
+
+## Sécurité et accessibilité
+
+- **CORS** activé pour permettre l’accès distant à l’API.
+- **Authentification** : Toutes les requêtes POST/PUT/PATCH/DELETE exigent le header HTTP :
+    Authorization: Bearer Supermarcher22102002
+--------------------
+/////////////////////
+------------------------
 ## Description 
 Ce dépôt contient la nouvelle version de l’application POS (Point Of Sale), évoluant d’une architecture 2-tiers vers **une architecture 3-tiers** réalisée en Python et conteneurisée avec Docker :
 
