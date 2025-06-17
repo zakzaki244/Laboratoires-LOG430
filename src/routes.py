@@ -11,8 +11,11 @@ API_TOKEN = "Supermarcher22102002"
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.headers.get("Authorization", "")
-        if token != f"Bearer {API_TOKEN}":
+        auth_header = request.headers.get("Authorization", "")
+        if not auth_header.startswith("Bearer "):
+            return jsonify({"error": "Unauthorized"}), 401
+        token = auth_header.split(" ")[1]
+        if token != API_TOKEN:
             return jsonify({"error": "Unauthorized"}), 401
         return f(*args, **kwargs)
     return decorated
@@ -24,6 +27,8 @@ def get_products():
     """
     Récupérer la liste de tous les produits
     ---
+    security:
+      - Bearer: []
     tags:
       - Produits
     responses:
@@ -74,6 +79,8 @@ def get_product(pid):
     """
     Récupérer un produit par son ID
     ---
+    security:
+      - Bearer: []
     tags:
       - Produits
     parameters:
@@ -117,6 +124,8 @@ def create_product():
     """
     Créer un nouveau produit
     ---
+    security:
+      - Bearer: []
     tags:
       - Produits
     parameters:
@@ -157,6 +166,8 @@ def update_product(pid):
     """
     Mettre à jour un produit existant
     ---
+    security:
+      - Bearer: []
     tags:
       - Produits
     parameters:
@@ -204,6 +215,8 @@ def delete_product(pid):
     """
     Supprimer un produit par son ID
     ---
+    security:
+      - Bearer: []
     tags:
       - Produits
     parameters:
@@ -238,6 +251,8 @@ def get_magasins():
     """
     Récupérer la liste de tous les magasins
     ---
+    security:
+      - Bearer: []
     tags:
       - Magasins
     responses:
@@ -262,6 +277,8 @@ def get_magasin(mid):
     """
     Récupérer un magasin par son ID, avec ses produits
     ---
+    security:
+      - Bearer: []
     tags:
       - Magasins
     parameters:
@@ -318,6 +335,8 @@ def get_ventes():
     """
     Récupérer la liste des ventes (toutes les ventes)
     ---
+    security:
+      - Bearer: []
     tags:
       - Ventes
     responses:
