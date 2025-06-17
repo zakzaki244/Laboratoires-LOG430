@@ -8,7 +8,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 # -------- PRODUITS --------
 @api.route("/products", methods=["GET"])
 def get_products():
-      """
+    """
     Récupérer la liste de tous les produits
     ---
     tags:
