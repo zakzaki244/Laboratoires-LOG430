@@ -94,6 +94,35 @@ Vous y trouverez :
 - **CORS** activé pour permettre l’accès distant à l’API.
 - **Authentification** : Toutes les requêtes POST/PUT/PATCH/DELETE exigent le header HTTP :
     Authorization: Bearer Supermarcher22102002
+
+## Authentification & Sécurité API
+
+Certaines routes de l’API REST nécessitent une authentification par token (type Bearer token).
+
+### ➡️ Tester les endpoints sécurisés depuis Swagger
+
+1. Rendez-vous sur l’interface Swagger UI ([http://localhost:5000/apidocs ](http://10.194.32.174:5000/apidocs))
+2. Cliquez sur le bouton **“Authorize”** (icône de cadenas).
+3. Entrez le token suivant :
+
+    ```
+    Supermarcher22102002
+    ```
+
+   (Ne pas mettre le mot "Bearer", il sera ajouté automatiquement.)
+
+4. Les endpoints sécurisés peuvent désormais être testés via Swagger.
+
+### ⚙️ Comment le token est-il validé ?
+
+- À chaque requête, le serveur vérifie la présence de ce token dans l’en-tête HTTP :
+
+    ```
+    Authorization: Bearer supersecrettoken123
+    ```
+
+- Si le token est absent ou incorrect, la réponse est 401 Unauthorized.
+
 --------------------
 /////////////////////
 ------------------------

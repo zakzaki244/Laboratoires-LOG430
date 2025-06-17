@@ -19,6 +19,7 @@ def token_required(f):
 
 # -------- PRODUITS --------
 @api.route("/products", methods=["GET"])
+@token_required
 def get_products():
     """
     Récupérer la liste de tous les produits
@@ -68,6 +69,7 @@ def get_products():
     return jsonify(data)
 
 @api.route("/products/<int:pid>", methods=["GET"])
+@token_required
 def get_product(pid):
     """
     Récupérer un produit par son ID
@@ -231,6 +233,7 @@ def delete_product(pid):
 
 # -------- MAGASINS --------
 @api.route("/magasins", methods=["GET"])
+@token_required
 def get_magasins():
     """
     Récupérer la liste de tous les magasins
@@ -254,6 +257,7 @@ def get_magasins():
     return jsonify(data)
 
 @api.route("/magasins/<int:mid>", methods=["GET"])
+@token_required
 def get_magasin(mid):
     """
     Récupérer un magasin par son ID, avec ses produits
@@ -309,6 +313,7 @@ def get_magasin(mid):
 
 # --------- VENTES/RAPPORT ---------
 @api.route("/ventes", methods=["GET"])
+@token_required
 def get_ventes():
     """
     Récupérer la liste des ventes (toutes les ventes)
