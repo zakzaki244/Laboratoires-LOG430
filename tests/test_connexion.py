@@ -1,4 +1,3 @@
-
 from sqlalchemy import text
 conn.execute(text("SELECT version();")).fetchone()
 DATABASE_URL = "postgresql://log430:laboratoire@localhost:5432/log430" #postgresql://utilisateur:motdepasse@adresse_ip:port/nom_dbcd

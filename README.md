@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/zakzaki244/Lab0-LOG430/actions/workflows/ci.yml/badge.svg)](https://github.com/zakzaki244/Lab0-LOG430/actions)
 
-
 ## 1. Architecture du projet
 
 Le projet suit le principe MVC/hexagonal :
@@ -101,7 +100,7 @@ Certaines routes de l’API REST nécessitent une authentification par token (ty
 
 ### ➡️ Tester les endpoints sécurisés depuis Swagger
 
-1. Rendez-vous sur l’interface Swagger UI ([http://localhost:5000/apidocs ](http://10.194.32.174:5000/apidocs))
+1. Rendez-vous sur l’interface Swagger UI ([[http://10.194.32.174:5000/apidocs](http://10.194.32.174:5000/apidocs)]).
 2. Cliquez sur le bouton **“Authorize”** (icône de cadenas).
 3. Entrez le token suivant :
 
@@ -130,7 +129,19 @@ Certaines routes de l’API REST nécessitent une authentification par token (ty
 - Si le token est absent ou incorrect, la réponse est 401 Unauthorized.
 ![Swagger API documentation](docs/ADR/TestAPIgetmagasinsansAuthorization.png)
 
+##  Tests et Validation
 
+- **Tests unitaires automatisés** :  
+  Les endpoints REST de l’API sont testés avec `pytest` (voir `tests/test_api.py`).
+- **Lancer les tests** :  
+   ```bash
+   pytest tests/
+**Sécurité** :  
+Tous les tests incluent l’en-tête d’authentification requis.
+- **Swagger UI** :  
+Tous les endpoints sont interactifs/testables depuis [Swagger UI](http://10.194.32.174:5000/apidocs).
+- **CI/CD** :  
+Les tests sont automatiquement exécutés à chaque push via GitHub Actions.
 
 --------------------
 /////////////////////

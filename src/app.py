@@ -19,7 +19,7 @@ swagger_template = {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header",
-            "description": "Token d'authentification (ex: Bearer Supermarcher22102002)"
+            "description": "Token d'authentification"
         }
     },
     "security": [{"Bearer": []}]
