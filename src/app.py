@@ -7,6 +7,20 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 app.secret_key = "secret"
+
+app.config['SWAGGER'] = {
+    'title': 'A swagger API',
+    'uiversion': 3,
+    'securityDefinitions': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': "Token d'authentification (ex: Bearer Supermarcher22102002)"
+        }
+    },
+    'security': [{'Bearer': []}]
+}
 swagger = Swagger(app)
 
 from routes import api

@@ -86,6 +86,8 @@ Vous y trouverez :
 - Les statuts de réponse HTTP sont respectés (200, 201, 404…)
 - Les formats d’entrée/sortie sont en JSON
 
+![Swagger API documentation](docs/ADR/API.png)
+
 
 ## Sécurité et accessibilité
 
