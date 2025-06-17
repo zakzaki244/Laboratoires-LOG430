@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from db import Base
+from src.db import Base
 import datetime
 
 class Store(Base):

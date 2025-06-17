@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from models import Product, Store, Sale
 from db import SessionLocal
+from src.db import Base
 from service import Service
 from functools import wraps
 from flask import request, jsonify

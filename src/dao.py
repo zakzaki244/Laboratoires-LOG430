@@ -1,5 +1,6 @@
 from sqlalchemy.exc import NoResultFound
 from db import SessionLocal, init_db
+from src.db import Base
 from models import Product, Sale, SaleItem
 
 init_db()
