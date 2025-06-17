@@ -1,10 +1,10 @@
-name: CI Pipeline
+name: CI Pipeline - Lab3
 
 on:
   push:
-    branches: [ lab2, main ]
+    branches: [ lab3, main ]
   pull_request:
-    branches: [ lab2, main ]
+    branches: [ lab3, main ]
 
 jobs:
   build-and-test:
@@ -19,7 +19,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U log430" 
+          --health-cmd="pg_isready -U log430"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -29,20 +29,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install flake8 pytest
+
       - name: Lint (flake8)
         run: |
           flake8 src/
+
       - name: Run tests (pytest)
         run: |
-          pytest
+          PYTHONPATH=. pytest -v tests/
+
+      # Optionnel
       - name: Build Docker image (optionnel)
         run: |
           docker build -t pos-app .
