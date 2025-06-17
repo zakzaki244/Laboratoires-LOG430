@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from functools import wraps
 from service import Service
-
+from flasgger import Swagger
 app = Flask(__name__)
 app.secret_key = "secret"
+swagger = Swagger(app)
 
 from routes import api
 app.register_blueprint(api)

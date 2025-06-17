@@ -32,7 +32,26 @@ Exemples :
     - `/api/ventes`
 - Les méthodes HTTP utilisées sont conformes aux standards REST : `GET`, `POST`, `PUT`, `DELETE`.
 
+## Endpoints REST disponibles
 
+- `GET /api/products` : Liste de tous les produits
+- `GET /api/products/<id>` : Détail d’un produit
+- `POST /api/products` : Créer un produit (JSON attendu)
+- `PUT /api/products/<id>` : Modifier un produit
+- `DELETE /api/products/<id>` : Supprimer un produit
+
+- `GET /api/magasins` : Liste des magasins
+- `GET /api/magasins/<id>` : Détail d’un magasin (avec ses produits)
+- `GET /api/ventes` : Liste des ventes
+
+test :
+ http://10.194.32.174:5000/api/magasins 
+
+ http://10.194.32.174:5000/api/products
+
+etc...
+
+**Toutes les réponses sont au format JSON.**
 
 
 
