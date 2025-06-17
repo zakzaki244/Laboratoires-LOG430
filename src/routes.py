@@ -1,41 +1,41 @@
-from flask import Blueprint, jsonify, request
-from models import Product, Store, Sale
-from db import SessionLocal
-from service import Service
+    from flask import Blueprint, jsonify, request
+    from models import Product, Store, Sale
+    from db import SessionLocal
+    from service import Service
 
-api = Blueprint('api', __name__, url_prefix='/api')
+    api = Blueprint('api', __name__, url_prefix='/api')
 
-# -------- PRODUITS --------
-@api.route("/products", methods=["GET"])
-def get_products():
+    # -------- PRODUITS --------
+    @api.route("/products", methods=["GET"])
+    def get_products():
     """
     Récupérer la liste de tous les produits
     ---
     tags:
-      - Produits
+        - Produits
     responses:
-      200:
+        200:
         description: Liste des produits
         schema:
-          type: array
-          items:
+            type: array
+            items:
             properties:
-              id:
+                id:
                 type: integer
                 example: 1
-              name:
+                name:
                 type: string
                 example: "Oreo"
-              category:
+                category:
                 type: string
                 example: "Snack"
-              price:
+                price:
                 type: number
                 example: 2.5
-              stock:
+                stock:
                 type: integer
                 example: 100
-              store_id:
+                store_id:
                 type: integer
                 example: 1
     """
@@ -55,31 +55,31 @@ def get_products():
     session.close()
     return jsonify(data)
 
-@api.route("/products/<int:pid>", methods=["GET"])
-def get_product(pid):
+    @api.route("/products/<int:pid>", methods=["GET"])
+    def get_product(pid):
     """
     Récupérer un produit par son ID
     ---
     tags:
-      - Produits
+        - Produits
     parameters:
-      - in: path
+        - in: path
         name: pid
         type: integer
         required: true
         description: ID du produit
     responses:
-      200:
+        200:
         description: Le produit demandé
         schema:
-          properties:
+            properties:
             id: {type: integer}
             name: {type: string}
             category: {type: string}
             price: {type: number}
             stock: {type: integer}
             store_id: {type: integer}
-      404:
+        404:
         description: Produit non trouvé
     """
     session = SessionLocal()
@@ -97,28 +97,28 @@ def get_product(pid):
     session.close()
     return jsonify(data)
 
-@api.route("/products", methods=["POST"])
-def create_product():
+    @api.route("/products", methods=["POST"])
+    def create_product():
     """
     Créer un nouveau produit
     ---
     tags:
-      - Produits
+        - Produits
     parameters:
-      - in: body
+        - in: body
         name: body
         schema:
-          properties:
+            properties:
             name: {type: string, example: "Oreo"}
             category: {type: string, example: "Snack"}
             price: {type: number, example: 2.5}
             stock: {type: integer, example: 100}
             store_id: {type: integer, example: 1}
     responses:
-      201:
+        201:
         description: Produit créé avec succès
         schema:
-          properties:
+            properties:
             success: {type: boolean, example: true}
             id: {type: integer, example: 12}
     """
@@ -136,35 +136,35 @@ def create_product():
     session.close()
     return jsonify({"success": True, "id": produit.id}), 201
 
-@api.route("/products/<int:pid>", methods=["PUT", "PATCH"])
-def update_product(pid):
+    @api.route("/products/<int:pid>", methods=["PUT", "PATCH"])
+    def update_product(pid):
     """
     Mettre à jour un produit existant
     ---
     tags:
-      - Produits
+        - Produits
     parameters:
-      - in: path
+        - in: path
         name: pid
         type: integer
         required: true
         description: ID du produit à modifier
-      - in: body
+        - in: body
         name: body
         schema:
-          properties:
+            properties:
             name: {type: string, example: "Oreo"}
             category: {type: string, example: "Snack"}
             price: {type: number, example: 2.5}
             stock: {type: integer, example: 100}
             store_id: {type: integer, example: 1}
     responses:
-      200:
+        200:
         description: Produit mis à jour avec succès
         schema:
-          properties:
+            properties:
             success: {type: boolean, example: true}
-      404:
+        404:
         description: Produit non trouvé
     """
     session = SessionLocal()
@@ -182,26 +182,26 @@ def update_product(pid):
     session.close()
     return jsonify({"success": True})
 
-@api.route("/products/<int:pid>", methods=["DELETE"])
-def delete_product(pid):
+    @api.route("/products/<int:pid>", methods=["DELETE"])
+    def delete_product(pid):
     """
     Supprimer un produit par son ID
     ---
     tags:
-      - Produits
+        - Produits
     parameters:
-      - in: path
+        - in: path
         name: pid
         type: integer
         required: true
         description: ID du produit à supprimer
     responses:
-      200:
+        200:
         description: Produit supprimé avec succès
         schema:
-          properties:
+            properties:
             success: {type: boolean, example: true}
-      404:
+        404:
         description: Produit non trouvé
     """
     session = SessionLocal()
@@ -214,23 +214,23 @@ def delete_product(pid):
     session.close()
     return jsonify({"success": True})
 
-# -------- MAGASINS --------
-@api.route("/magasins", methods=["GET"])
-def get_magasins():
-     """
+    # -------- MAGASINS --------
+    @api.route("/magasins", methods=["GET"])
+    def get_magasins():
+        """
     Récupérer la liste de tous les magasins
     ---
     tags:
-      - Magasins
+        - Magasins
     responses:
-      200:
+        200:
         description: Liste des magasins
         schema:
-          type: array
-          items:
+            type: array
+            items:
             properties:
-              id: {type: integer, example: 1}
-              name: {type: string, example: "Magasin A"}
+                id: {type: integer, example: 1}
+                name: {type: string, example: "Magasin A"}
     """
     session = SessionLocal()
     magasins = session.query(Store).all()
@@ -238,36 +238,36 @@ def get_magasins():
     session.close()
     return jsonify(data)
 
-@api.route("/magasins/<int:mid>", methods=["GET"])
-def get_magasin(mid):
+    @api.route("/magasins/<int:mid>", methods=["GET"])
+    def get_magasin(mid):
     """
     Récupérer un magasin par son ID, avec ses produits
     ---
     tags:
-      - Magasins
+        - Magasins
     parameters:
-      - in: path
+        - in: path
         name: mid
         type: integer
         required: true
         description: ID du magasin
     responses:
-      200:
+        200:
         description: Détail du magasin et ses produits
         schema:
-          properties:
+            properties:
             id: {type: integer}
             name: {type: string}
             produits:
-              type: array
-              items:
+                type: array
+                items:
                 properties:
-                  id: {type: integer}
-                  name: {type: string}
-                  category: {type: string}
-                  price: {type: number}
-                  stock: {type: integer}
-      404:
+                    id: {type: integer}
+                    name: {type: string}
+                    category: {type: string}
+                    price: {type: number}
+                    stock: {type: integer}
+        404:
         description: Magasin non trouvé
     """
     session = SessionLocal()
@@ -292,27 +292,27 @@ def get_magasin(mid):
     session.close()
     return jsonify(data)
 
-# --------- VENTES/RAPPORT ---------
-@api.route("/ventes", methods=["GET"])
-def get_ventes():
-     """
+    # --------- VENTES/RAPPORT ---------
+    @api.route("/ventes", methods=["GET"])
+    def get_ventes():
+        """
     Récupérer la liste des ventes (toutes les ventes)
     ---
     tags:
-      - Ventes
+        - Ventes
     responses:
-      200:
+        200:
         description: Liste des ventes
         schema:
-          type: array
-          items:
+            type: array
+            items:
             properties:
-              id: {type: integer, example: 3}
-              timestamp: {type: string, example: "2024-06-12T14:00:00Z"}
-              items:
+                id: {type: integer, example: 3}
+                timestamp: {type: string, example: "2024-06-12T14:00:00Z"}
+                items:
                 type: array
                 items:
-                  properties:
+                    properties:
                     product_id: {type: integer}
                     quantity: {type: integer}
     """
