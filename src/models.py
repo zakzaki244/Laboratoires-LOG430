@@ -13,6 +13,7 @@ class Store(Base):
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = {'extend_existing': True}
     id       = Column(Integer, primary_key=True)
     name     = Column(String, index=True)
     category = Column(String, index=True)
@@ -23,12 +24,14 @@ class Product(Base):
 
 class Sale(Base):
     __tablename__ = "sales"
+    __table_args__ = {'extend_existing': True}
     id        = Column(Integer, primary_key=True)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
     items     = relationship("SaleItem", back_populates="sale", cascade="all, delete")
 
 class SaleItem(Base):
     __tablename__ = "sale_items"
+    __table_args__ = {'extend_existing': True}
     id         = Column(Integer, primary_key=True)
     sale_id    = Column(Integer, ForeignKey("sales.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
@@ -39,6 +42,7 @@ class SaleItem(Base):
 # Ajoute ce modèle si non existant
 class ReapproRequest(Base):
     __tablename__ = "reappro_requests"
+    __table_args__ = {'extend_existing': True}
     id = Column(Integer, primary_key=True)
     store_id = Column(Integer, ForeignKey("stores.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
