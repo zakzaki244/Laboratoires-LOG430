@@ -8,6 +8,37 @@ api = Blueprint('api', __name__, url_prefix='/api')
 # -------- PRODUITS --------
 @api.route("/products", methods=["GET"])
 def get_products():
+      """
+    Récupérer la liste de tous les produits
+    ---
+    tags:
+      - Produits
+    responses:
+      200:
+        description: Liste des produits
+        schema:
+          type: array
+          items:
+            properties:
+              id:
+                type: integer
+                example: 1
+              name:
+                type: string
+                example: "Oreo"
+              category:
+                type: string
+                example: "Snack"
+              price:
+                type: number
+                example: 2.5
+              stock:
+                type: integer
+                example: 100
+              store_id:
+                type: integer
+                example: 1
+    """
     session = SessionLocal()
     produits = session.query(Product).all()
     data = [
@@ -26,6 +57,31 @@ def get_products():
 
 @api.route("/products/<int:pid>", methods=["GET"])
 def get_product(pid):
+    """
+    Récupérer un produit par son ID
+    ---
+    tags:
+      - Produits
+    parameters:
+      - in: path
+        name: pid
+        type: integer
+        required: true
+        description: ID du produit
+    responses:
+      200:
+        description: Le produit demandé
+        schema:
+          properties:
+            id: {type: integer}
+            name: {type: string}
+            category: {type: string}
+            price: {type: number}
+            stock: {type: integer}
+            store_id: {type: integer}
+      404:
+        description: Produit non trouvé
+    """
     session = SessionLocal()
     produit = session.query(Product).get(pid)
     if not produit:
@@ -43,6 +99,29 @@ def get_product(pid):
 
 @api.route("/products", methods=["POST"])
 def create_product():
+    """
+    Créer un nouveau produit
+    ---
+    tags:
+      - Produits
+    parameters:
+      - in: body
+        name: body
+        schema:
+          properties:
+            name: {type: string, example: "Oreo"}
+            category: {type: string, example: "Snack"}
+            price: {type: number, example: 2.5}
+            stock: {type: integer, example: 100}
+            store_id: {type: integer, example: 1}
+    responses:
+      201:
+        description: Produit créé avec succès
+        schema:
+          properties:
+            success: {type: boolean, example: true}
+            id: {type: integer, example: 12}
+    """
     session = SessionLocal()
     data = request.get_json()
     produit = Product(
@@ -59,6 +138,35 @@ def create_product():
 
 @api.route("/products/<int:pid>", methods=["PUT", "PATCH"])
 def update_product(pid):
+    """
+    Mettre à jour un produit existant
+    ---
+    tags:
+      - Produits
+    parameters:
+      - in: path
+        name: pid
+        type: integer
+        required: true
+        description: ID du produit à modifier
+      - in: body
+        name: body
+        schema:
+          properties:
+            name: {type: string, example: "Oreo"}
+            category: {type: string, example: "Snack"}
+            price: {type: number, example: 2.5}
+            stock: {type: integer, example: 100}
+            store_id: {type: integer, example: 1}
+    responses:
+      200:
+        description: Produit mis à jour avec succès
+        schema:
+          properties:
+            success: {type: boolean, example: true}
+      404:
+        description: Produit non trouvé
+    """
     session = SessionLocal()
     produit = session.query(Product).get(pid)
     if not produit:
@@ -76,6 +184,26 @@ def update_product(pid):
 
 @api.route("/products/<int:pid>", methods=["DELETE"])
 def delete_product(pid):
+    """
+    Supprimer un produit par son ID
+    ---
+    tags:
+      - Produits
+    parameters:
+      - in: path
+        name: pid
+        type: integer
+        required: true
+        description: ID du produit à supprimer
+    responses:
+      200:
+        description: Produit supprimé avec succès
+        schema:
+          properties:
+            success: {type: boolean, example: true}
+      404:
+        description: Produit non trouvé
+    """
     session = SessionLocal()
     produit = session.query(Product).get(pid)
     if not produit:
@@ -89,6 +217,21 @@ def delete_product(pid):
 # -------- MAGASINS --------
 @api.route("/magasins", methods=["GET"])
 def get_magasins():
+     """
+    Récupérer la liste de tous les magasins
+    ---
+    tags:
+      - Magasins
+    responses:
+      200:
+        description: Liste des magasins
+        schema:
+          type: array
+          items:
+            properties:
+              id: {type: integer, example: 1}
+              name: {type: string, example: "Magasin A"}
+    """
     session = SessionLocal()
     magasins = session.query(Store).all()
     data = [{"id": m.id, "name": m.name} for m in magasins]
@@ -97,6 +240,36 @@ def get_magasins():
 
 @api.route("/magasins/<int:mid>", methods=["GET"])
 def get_magasin(mid):
+    """
+    Récupérer un magasin par son ID, avec ses produits
+    ---
+    tags:
+      - Magasins
+    parameters:
+      - in: path
+        name: mid
+        type: integer
+        required: true
+        description: ID du magasin
+    responses:
+      200:
+        description: Détail du magasin et ses produits
+        schema:
+          properties:
+            id: {type: integer}
+            name: {type: string}
+            produits:
+              type: array
+              items:
+                properties:
+                  id: {type: integer}
+                  name: {type: string}
+                  category: {type: string}
+                  price: {type: number}
+                  stock: {type: integer}
+      404:
+        description: Magasin non trouvé
+    """
     session = SessionLocal()
     magasin = session.query(Store).get(mid)
     if not magasin:
@@ -122,6 +295,27 @@ def get_magasin(mid):
 # --------- VENTES/RAPPORT ---------
 @api.route("/ventes", methods=["GET"])
 def get_ventes():
+     """
+    Récupérer la liste des ventes (toutes les ventes)
+    ---
+    tags:
+      - Ventes
+    responses:
+      200:
+        description: Liste des ventes
+        schema:
+          type: array
+          items:
+            properties:
+              id: {type: integer, example: 3}
+              timestamp: {type: string, example: "2024-06-12T14:00:00Z"}
+              items:
+                type: array
+                items:
+                  properties:
+                    product_id: {type: integer}
+                    quantity: {type: integer}
+    """
     session = SessionLocal()
     ventes = session.query(Sale).all()
     data = []
