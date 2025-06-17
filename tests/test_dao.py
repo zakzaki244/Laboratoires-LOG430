@@ -1,7 +1,7 @@
 import pytest
-from dao import DAO
-from models import Product
-from db import Base, engine
+from src.dao import DAO
+from src.models import Product
+from src.db import Base, engine
 
 @pytest.fixture(autouse=True, scope="function")
 def setup_db(monkeypatch):

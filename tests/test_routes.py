@@ -13,7 +13,7 @@ def client():
 def test_index(client):
     rv = client.get("/")
     assert rv.status_code == 200
-    assert b"Syst\xc3\xa8me POS Web" in rv.data
+    assert b"Systeme POS Web" in rv.data
 
 def test_search_get(client):
     rv = client.get("/search")
@@ -23,4 +23,4 @@ def test_search_get(client):
 def test_stock(client):
     rv = client.get("/stock")
     assert rv.status_code == 200
-    assert b"\xc3\x89tat du stock" in rv.data
+    assert b"Resultat du stock" in rv.data

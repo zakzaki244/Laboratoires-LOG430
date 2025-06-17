@@ -1,11 +1,11 @@
-from sqlalchemy import text
-conn.execute(text("SELECT version();")).fetchone()
-DATABASE_URL = "postgresql://log430:laboratoire@localhost:5432/log430" #postgresql://utilisateur:motdepasse@adresse_ip:port/nom_dbcd
+from sqlalchemy import create_engine, text
 
-try:
-    engine = create_engine(DATABASE_URL)
-    with engine.connect() as conn:
-        print("Connexion réussie !")
-        print("Version de PostgreSQL :", conn.execute("SELECT version();").fetchone())
-except Exception as e:
-    print("Erreur de connexion :", e)
+def test_postgres_connection():
+    DATABASE_URL = "postgresql://log430:laboratoire@localhost:5432/log430"
+    try:
+        engine = create_engine(DATABASE_URL)
+        with engine.connect() as conn:
+            version = conn.execute(text("SELECT version();")).fetchone()
+            assert version is not None
+    except Exception as e:
+        assert False, f"Connexion à la BDD impossible: {e}"
