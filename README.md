@@ -120,8 +120,16 @@ Certaines routes de l’API REST nécessitent une authentification par token (ty
     ```
     Authorization: Bearer supersecrettoken123
     ```
+![Swagger API documentation](docs/ADR/TestAPIgetmagasinavecAuthorization.png)
+
+
+
+
+
 
 - Si le token est absent ou incorrect, la réponse est 401 Unauthorized.
+![Swagger API documentation](docs/ADR/TestAPIgetmagasinsansAuthorization.png)
+
 
 
 --------------------
