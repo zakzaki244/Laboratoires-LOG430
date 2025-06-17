@@ -43,8 +43,8 @@ jobs:
 
       - name: Run tests (pytest)
         run: |
-          PYTHONPATH=. pytest -v tests/
-
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+          pytest
       # Optionnel
       - name: Build Docker image (optionnel)
         run: |
