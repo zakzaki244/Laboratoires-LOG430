@@ -18,11 +18,8 @@
       <td>
         <form method="post" style="display:inline;">
           <input type="hidden" name="request_id" value="{{ demande.id }}">
-          <button type="submit">Valider</button>
-        </form>
-        <form method="post" style="display:inline;">
-          <input type="hidden" name="request_id" value="{{ demande.id }}">
-          <button type="submit" style="color:red;">Refuser</button>
+          <button type="submit" name="action" value="valider" class="btn btn-primary">Valider</button>
+          <button type="submit" name="action" value="supprimer" class="btn btn-danger">Refuser</button>
         </form>
       </td>
     </tr>

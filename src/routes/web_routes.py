@@ -107,6 +107,7 @@ def reapprovisionnement_magasin(product_id):
     session_db.close()
     flash("Demande de réapprovisionnement envoyée au responsable logistique.")
     return redirect(url_for('web.stock'))
+    
 @web.route("/demande_reappro", methods=["GET", "POST"])
 @login_required
 def demande_reappro():
@@ -124,7 +125,7 @@ def demande_reappro():
 
     if request.method == "POST":
         req_id = int(request.form["request_id"])
-        action = request.form.get("action")  # 🟢 tu avais oublié cette ligne !
+        action = request.form.get("action")
         req = session_db.query(ReapproRequest).get(req_id)
 
         if not req:
