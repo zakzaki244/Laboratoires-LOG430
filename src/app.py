@@ -29,12 +29,12 @@ swagger_template = {
 }
 swagger = Swagger(app, template=swagger_template)
 
+app.register_blueprint(api)
+app.register_blueprint(web)
+
 # Ajout de Prometheus
 metrics = PrometheusMetrics(app)
 metrics.info('app_info', 'LOG430 Flask App', version='4.0')
-
-app.register_blueprint(api)
-app.register_blueprint(web)
 
 if __name__ == "__main__":
     init_db()
