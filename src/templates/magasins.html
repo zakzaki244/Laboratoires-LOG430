@@ -4,7 +4,7 @@
 <h2>Liste des magasins</h2>
 <ul>
    {% for store in magasins %}
-    <li>{{ store.name }} (<a href="{{ url_for('store_stock', store_id=store.id) }}">Voir le stock</a>)</li>
+    <li>{{ store.name }} (<a href="{{ url_for('web.store_stock', store_id=store.id) }}">Voir le stock</a>)</li>
 {% endfor %}
 </ul>
 {% endblock %}

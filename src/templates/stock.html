@@ -20,7 +20,7 @@
     {% if session.role == "employe" %}
       <td>
         {% if product.stock < 50 %}
-        <form action="{{ url_for('reapprovisionnement', product_id=product.id) }}" method="post" style="display:inline;">
+        <form action="{{ url_for('web.reapprovisionnement', product_id=product.id) }}" method="post" style="display:inline;">
             <input type="number" name="qte" min="1" max="100" value="1" required>
             <button type="submit">Demander réappro</button>
         </form>

@@ -97,33 +97,33 @@ form {
 </head>
 <body>
     <div class="nav">
-    <a href="{{ url_for('index') }}">Accueil</a>
+    <a href="{{ url_for('web.index') }}">Accueil</a>
     {% if session.role == "logistique" %}
-    <a href="{{ url_for('demande_reappro') }}">Demandes de réappro</a>
+    <a href="{{ url_for('web.demande_reappro') }}">Demandes de réappro</a>
     {% endif %}
     {% if session.role != "employe" %}
-    <a href="{{ url_for('manage_products') }}">Gérer les produits</a>
+    <a href="{{ url_for('web.manage_products') }}">Gérer les produits</a>
     {% endif %}
-    <a href="{{ url_for('magasins') }}">Magasins</a>
+    <a href="{{ url_for('web.magasins') }}">Magasins</a>
     {% if centre_id %}
-    <a href="{{ url_for('store_stock', store_id=centre_id) }}">Centre logistique</a>
+    <a href="{{ url_for('web.store_stock', store_id=centre_id) }}">Centre logistique</a>
     {% endif %}
-    <a href="{{ url_for('search') }}">Rechercher produit</a>
+    <a href="{{ url_for('web.search') }}">Rechercher produit</a>
     {% if session.role == "employe" %}
-        <a href="{{ url_for('stock') }}">Voir le stock</a>
+        <a href="{{ url_for('web.stock') }}">Voir le stock</a>
     {% else %}
-        <a href="{{ url_for('magasins') }}">Stocks magasins</a>
+        <a href="{{ url_for('web.magasins') }}">Stocks magasins</a>
     {% endif %}
-    <a href="{{ url_for('sale') }}">Nouvelle vente</a>
-    <a href="{{ url_for('refund') }}">Annuler vente</a>
+    <a href="{{ url_for('web.sale') }}">Nouvelle vente</a>
+    <a href="{{ url_for('web.refund') }}">Annuler vente</a>
     {% if session.role == "gestionnaire" %}
-        <a href="{{ url_for('rapport') }}">Rapport consolidé</a>
+        <a href="{{ url_for('web.rapport') }}">Rapport consolidé</a>
     {% endif %}
-    <a href="{{ url_for('login') }}">Se connecter</a>
+    <a href="{{ url_for('web.login') }}">Se connecter</a>
 </div>
     <div class="session">
         {% if session.username %}
-          Connecté en tant que <b>{{ session.username }}</b> ({{ session.role }}) — <a href="{{ url_for('logout') }}">Déconnexion</a>
+          Connecté en tant que <b>{{ session.username }}</b> ({{ session.role }}) — <a href="{{ url_for('web.logout') }}">Déconnexion</a>
         {% endif %}
     </div>
     {% with messages = get_flashed_messages() %}
