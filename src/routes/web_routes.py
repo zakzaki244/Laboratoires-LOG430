@@ -13,6 +13,7 @@ from models.store import Store
 from models.reappro_request import ReapproRequest
 from models.sale import Sale
 from models.sale_item import SaleItem
+from sqlalchemy.orm import joinedload
 
 web = Blueprint('web', __name__)
 
