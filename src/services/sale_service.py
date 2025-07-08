@@ -1,4 +1,5 @@
-from dao.sale_dao import SaleDAO, ProductDAO
+from dao.sale_dao import SaleDAO
+from dao.product_dao import ProductDAO
 from sqlalchemy.exc import NoResultFound
 
 class SaleService:
