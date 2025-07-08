@@ -55,19 +55,6 @@ def index():
     return render_template("index.html", magasins=magasins, centre_id=get_centre_logistique_id())
 
 
-
-@web.route("/reapprovisionnement/<int:product_id>", methods=["POST"])
-@login_required
-def reapprovisionnement(product_id):
-    from db.db import SessionLocal
-    from models.product import Product
-    qte = int(request.form["qte"])
-    session_db = SessionLocal()
-    produit = session_db.query(Product).get(product_id)
-    session_db.close()
-    flash(f"Demande de réapprovisionnement de {qte}x {produit.name} envoyée à la logistique.")
-    return redirect(url_for('web.stock'))
-
 @web.route("/login", methods=["GET", "POST"])
 def login():
     from db.db import SessionLocal
