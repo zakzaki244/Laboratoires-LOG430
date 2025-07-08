@@ -1,8 +1,8 @@
 from flask import Flask
 from flasgger import Swagger
 from flask_cors import CORS
-from routes import api
-from web_routes import web
+from routes.routes import api
+from routes.web_routes import web
 
 app = Flask(__name__)
 CORS(app)
