@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, request
-from models import Product, Store, Sale
-from db import SessionLocal
-from src.db import Base
-from service import Service
+from models.product import Product
+from models.store import Store
+from models.sale import Sale
+from db.db import SessionLocal
+from db.db import Base
 from functools import wraps
-from flask import request, jsonify
+
 
 api = Blueprint('api', __name__, url_prefix='/api')
 API_TOKEN = "Supermarcher22102002"
@@ -20,6 +21,7 @@ def token_required(f):
             return jsonify({"error": "Unauthorized"}), 401
         return f(*args, **kwargs)
     return decorated
+
 
 # -------- PRODUITS --------
 @api.route("/products", methods=["GET"])
