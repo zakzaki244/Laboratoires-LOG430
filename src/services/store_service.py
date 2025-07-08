@@ -6,8 +6,8 @@ from models.product import Product
 from models.sale import Sale
 
 class StoreService:
-# --- Utilitaire : obtenir l'ID du centre logistique ---
-def get_centre_logistique_id():
+    # --- Utilitaire : obtenir l'ID du centre logistique ---
+    def get_centre_logistique_id():
     from db.db import SessionLocal
     from models.store import Store
     session = SessionLocal()
