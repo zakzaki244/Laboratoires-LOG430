@@ -3,29 +3,30 @@ from src.models.product import Product
 from src.models.reappro_request import ReapproRequest
 from src.models.sale import Sale
 from src.models.sale_item import SaleItem
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from src.db.db import Base
 
-init_db()
-session = SessionLocal()
+def init_db():
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
 
-Base.metadata.create_all(bind=engine)
 
-# --- Ajout magasins ---
-def add_store(name):
-    store = session.query(Store).filter_by(name=name).first()
-    if not store:
-        store = Store(name=name)
-        session.add(store)
-        session.commit()
-    return store
+    # --- Ajout magasins ---
+    def add_store(name):
+        store = session.query(Store).filter_by(name=name).first()
+        if not store:
+            store = Store(name=name)
+            session.add(store)
+            session.commit()
+        return store
 
-magasin1 = add_store("Magasin A")
-magasin2 = add_store("Magasin B")
-centre = add_store("Centre Logistique")
+    magasin1 = add_store("Magasin A")
+    magasin2 = add_store("Magasin B")
+    centre = add_store("Centre Logistique")
 
-# --- Ajout produits pour chaque magasin ---
-if session.query(Product).filter_by(store_id=magasin1.id).count() == 0:
+    # --- Ajout produits pour chaque magasin ---
+    if session.query(Product).filter_by(store_id=magasin1.id).count() == 0:
     produits1 = [
         Product(name="Bouteille d'eau", category="Boisson", price=1.5, stock=50, store=magasin1),
         Product(name="Chocolat", category="Snack", price=2.0, stock=30, store=magasin1),
@@ -33,7 +34,7 @@ if session.query(Product).filter_by(store_id=magasin1.id).count() == 0:
     session.add_all(produits1)
     session.commit()
 
-if session.query(Product).filter_by(store_id=magasin2.id).count() == 0:
+    if session.query(Product).filter_by(store_id=magasin2.id).count() == 0:
     produits2 = [
         Product(name="Coca Cola", category="Boisson", price=1.5, stock=150, store=magasin2),
         Product(name="Sandwich", category="Snack", price=2.0, stock=400, store=magasin2),
@@ -41,7 +42,7 @@ if session.query(Product).filter_by(store_id=magasin2.id).count() == 0:
     session.add_all(produits2)
     session.commit()
 
-if session.query(Product).filter_by(store_id=centre.id).count() == 0:
+    if session.query(Product).filter_by(store_id=centre.id).count() == 0:
     produits_centre = [
         Product(name="Coca Cola", category="Boisson", price=1.5, stock=500, store=centre),
         Product(name="Sandwich", category="Snack", price=2.0, stock=300, store=centre),
@@ -52,5 +53,6 @@ if session.query(Product).filter_by(store_id=centre.id).count() == 0:
     session.add_all(produits_centre)
     session.commit()
 
-session.close()
-print("BD initialisée !")
+    session.close()
+    print("BD initialisée !")
+    # Configuration de la base de données
