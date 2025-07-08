@@ -66,7 +66,7 @@ def reapprovisionnement(product_id):
     produit = session_db.query(Product).get(product_id)
     session_db.close()
     flash(f"Demande de réapprovisionnement de {qte}x {produit.name} envoyée à la logistique.")
-    return redirect(url_for('stock'))
+    return redirect(url_for('web.stock'))
 
 @web.route("/login", methods=["GET", "POST"])
 def login():
@@ -89,7 +89,7 @@ def login():
             else:
                 session.pop("store_id", None)
             flash(f"Connecté en tant que {role} ({username})")
-            return redirect(url_for("index"))
+            return redirect(url_for("web.index"))
         else:
             message = "Veuillez remplir tous les champs"
     return render_template("login.html", message=message, magasins=magasins,centre_id=get_centre_logistique_id())
@@ -118,14 +118,14 @@ def reapprovisionnement_magasin(product_id):
     session_db.commit()
     session_db.close()
     flash("Demande de réapprovisionnement envoyée au responsable logistique.")
-    return redirect(url_for('stock'))
+    return redirect(url_for('web.stock'))
 
 @web.route("/demande_reappro", methods=["GET", "POST"])
 @login_required
 def demande_reappro():
     if session.get("role") != "logistique":
         flash("Accès réservé au responsable logistique.")
-        return redirect(url_for("index"))
+        return redirect(url_for("web.index"))
     from db.db import SessionLocal
     from models.product import Product
     from models.reappro_request import ReapproRequest
@@ -162,7 +162,7 @@ def demande_reappro():
             else:
                 flash("Stock insuffisant au centre logistique !")
         session_db.close()
-        return redirect(url_for("demande_reappro"))
+        return redirect(url_for("web.demande_reappro"))
 
     # Affichage des demandes en attente
     demandes = (
@@ -177,7 +177,7 @@ def demande_reappro():
 def logout():
     session.clear()
     flash("Déconnecté")
-    return redirect(url_for("login"))
+    return redirect(url_for("web.login"))
 
 @web.route("/magasins")
 def magasins():
@@ -264,7 +264,7 @@ def sale():
             try:
                 sale_id = sale_service.sale(cart)
                 flash(f"Vente #{sale_id} enregistrée !")
-                return redirect(url_for("sale"))
+                return redirect(url_for("web.sale"))
             except Exception as e:
                 message = str(e)
         else:
@@ -281,7 +281,7 @@ def refund():
         try:
             refund_service.refund(int(sid))
             flash(f"Vente #{sid} annulée.")
-            return redirect(url_for("refund"))
+            return redirect(url_for("web.refund"))
         except Exception as e:
             message = str(e)
     return render_template("refund.html", message=message, centre_id=get_centre_logistique_id())
@@ -342,7 +342,7 @@ def manage_products():
 def rapport():
     if session.get("role") != "gestionnaire":
         flash("Accès réservé aux gestionnaires de la maison mère.")
-        return redirect(url_for("index"))
+        return redirect(url_for("web.index"))
     from db.db import SessionLocal
     from models.product import Product
     from models.sale import Sale
