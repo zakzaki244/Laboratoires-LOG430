@@ -1,7 +1,8 @@
-from src.db.db import SessionLocal
-from src.db.db import init_db
 from src.models.store import Store
 from src.models.product import Product
+from src.models.reappro_request import ReapproRequest
+from src.models.sale import Sale
+from src.models.sale_item import SaleItem
 
 from src.db.db import Base
 

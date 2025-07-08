@@ -40,7 +40,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if "username" not in session:
             flash("Veuillez vous connecter.")
-            return redirect(url_for("login"))
+            return redirect(url_for("web.login"))
         return f(*args, **kwargs)
     return decorated_function
 

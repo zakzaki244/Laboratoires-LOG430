@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from db.db import Base
+import datetime
 
 class Store(Base):
     __tablename__ = "stores"
