@@ -1,7 +1,7 @@
 from src.db.db import SessionLocal
-from db import init_db
-from models.store import Store
-from models.product import Product
+from src.db.db import init_db
+from src.models.store import Store
+from src.models.product import Product
 
 from db import Base
 init_db()
