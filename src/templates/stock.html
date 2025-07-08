@@ -1,4 +1,13 @@
 <h2>État du stock{% if store %} - {{ store.name }} (ID: {{ store.id }}){% endif %}</h2>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: green;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <table>
   <tr>
     <th>ID</th>
@@ -32,3 +41,6 @@
   </tr>
   {% endfor %}
 </table>
+<a href="{{ url_for('web.index') }}">
+    <button style="margin-bottom: 20px;">⬅️ Retour au menu</button>
+</a>

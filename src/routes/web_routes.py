@@ -154,11 +154,13 @@ def demande_reappro():
     # Affichage des demandes en attente
     demandes = (
         session_db.query(ReapproRequest)
+        .options(joinedload(ReapproRequest.product), joinedload(ReapproRequest.store))
         .filter_by(status="en attente")
         .all()
     )
     session_db.close()
     return render_template("demande_reappro.html", demandes=demandes, centre_id=get_centre_logistique_id())
+
 
 @web.route("/logout")
 def logout():
