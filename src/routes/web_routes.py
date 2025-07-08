@@ -107,57 +107,64 @@ def reapprovisionnement_magasin(product_id):
     session_db.close()
     flash("Demande de réapprovisionnement envoyée au responsable logistique.")
     return redirect(url_for('web.stock'))
-
 @web.route("/demande_reappro", methods=["GET", "POST"])
 @login_required
 def demande_reappro():
     if session.get("role") != "logistique":
         flash("Accès réservé au responsable logistique.")
         return redirect(url_for("web.index"))
+
     from db.db import SessionLocal
     from models.product import Product
     from models.reappro_request import ReapproRequest
     from models.store import Store
+    from sqlalchemy.orm import joinedload
+
     session_db = SessionLocal()
 
-    # Validation d’une demande
     if request.method == "POST":
         req_id = int(request.form["request_id"])
+        action = request.form.get("action")  # 🟢 tu avais oublié cette ligne !
         req = session_db.query(ReapproRequest).get(req_id)
-    if action == "valider":
-        if req and req.status == "en attente":
-            # Approvisionne le magasin (retire du centre logistique, ajoute au magasin)
-            centre = session_db.query(Store).filter_by(name="Centre Logistique").first()
-            prod_centre = session_db.query(Product).filter_by(store_id=centre.id, name=req.product.name).first()
-            prod_mag = session_db.query(Product).filter_by(store_id=req.store_id, name=req.product.name).first()
 
-            if prod_centre and prod_centre.stock >= req.quantity:
-                prod_centre.stock -= req.quantity
-                if prod_mag:
-                    prod_mag.stock += req.quantity
+        if not req:
+            flash("Demande non trouvée.")
+            session_db.close()
+            return redirect(url_for("web.demande_reappro"))
+
+        if action == "valider":
+            if req.status == "en attente":
+                centre = session_db.query(Store).filter_by(name="Centre Logistique").first()
+                prod_centre = session_db.query(Product).filter_by(store_id=centre.id, name=req.product.name).first()
+                prod_mag = session_db.query(Product).filter_by(store_id=req.store_id, name=req.product.name).first()
+
+                if prod_centre and prod_centre.stock >= req.quantity:
+                    prod_centre.stock -= req.quantity
+                    if prod_mag:
+                        prod_mag.stock += req.quantity
+                    else:
+                        prod_mag = Product(
+                            name=prod_centre.name,
+                            category=prod_centre.category,
+                            price=prod_centre.price,
+                            stock=req.quantity,
+                            store_id=req.store_id
+                        )
+                        session_db.add(prod_mag)
+                    req.status = "validée"
+                    session_db.commit()
+                    flash("Réapprovisionnement validé !")
                 else:
-                    # Si le produit n'existe pas dans le magasin, crée-le
-                    prod_mag = Product(
-                        name=prod_centre.name,
-                        category=prod_centre.category,
-                        price=prod_centre.price,
-                        stock=req.quantity,
-                        store_id=req.store_id
-                    )
-                    session_db.add(prod_mag)
-                req.status = "validée"
-                session_db.commit()
-                flash("Réapprovisionnement validé !")
-            else:
-                flash("Stock insuffisant au centre logistique !")
+                    flash("Stock insuffisant au centre logistique !")
         elif action == "supprimer":
             session_db.delete(req)
             session_db.commit()
             flash("Demande supprimée avec succès.")
+
         session_db.close()
         return redirect(url_for("web.demande_reappro"))
 
-    # Affichage des demandes en attente
+    # GET : affichage des demandes
     demandes = (
         session_db.query(ReapproRequest)
         .options(joinedload(ReapproRequest.product), joinedload(ReapproRequest.store))
