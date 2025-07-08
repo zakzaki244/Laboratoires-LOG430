@@ -1,10 +1,10 @@
-name: CI Pipeline - Lab3
+name: CI Pipeline - Lab4
 
 on:
   push:
-    branches: [ lab3, main ]
+    branches: [ lab4, main ]
   pull_request:
-    branches: [ lab3, main ]
+    branches: [ lab4, main ]
 
 jobs:
   build-and-test:
