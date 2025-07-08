@@ -1,11 +1,11 @@
-from src.models.store import Store
-from src.models.product import Product
-from src.models.reappro_request import ReapproRequest
-from src.models.sale import Sale
-from src.models.sale_item import SaleItem
+from models.store import Store
+from models.product import Product
+from models.reappro_request import ReapproRequest
+from models.sale import Sale
+from models.sale_item import SaleItem
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.db.db import Base
+from db.db import Base
 
 def init_db():
     Base.metadata.create_all(bind=engine)
