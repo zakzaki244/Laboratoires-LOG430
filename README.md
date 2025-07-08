@@ -36,6 +36,8 @@ Le projet suit :
   - Role : Contient la logique métier (business logic) et les fonctions/services manipulant les entités (ex : création d’un produit, vente, remboursement, etc.). Elle sert d’interface entre les routes et les modèles. Elle permet de garder les routes propres et de factoriser le code métier.
 - `src/templates/` : Fichiers HTML (Jinja2). Ce sont tous tes templates pour l’affichage côté utilisateur.
 
+**Voici la difference entre les deux routes :**
+web_routes.py permet aux utilisateurs d’utiliser le système dans un navigateur web. Mais routes.py sert à exposer les données et opérations pour des machines ou autres systèmes. Ainsi, le but principal de routes.py = rendre ton backend réutilisable et ouvert
 
 
 ##  Instructions
