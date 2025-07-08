@@ -3,7 +3,7 @@ from flasgger import Swagger
 from flask_cors import CORS
 from routes.routes import api
 from routes.web_routes import web
-from src.db.init_db import init_db
+from db.init_db import init_db
 
 app = Flask(__name__)
 CORS(app)
