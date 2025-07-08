@@ -149,6 +149,10 @@ def demande_reappro():
                 flash("Réapprovisionnement validé !")
             else:
                 flash("Stock insuffisant au centre logistique !")
+        elif action == "supprimer":
+            session_db.delete(req)
+            session_db.commit()
+            flash("Demande supprimée avec succès.")
         session_db.close()
         return redirect(url_for("web.demande_reappro"))
 

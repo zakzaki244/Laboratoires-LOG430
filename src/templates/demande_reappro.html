@@ -20,6 +20,10 @@
           <input type="hidden" name="request_id" value="{{ demande.id }}">
           <button type="submit">Valider</button>
         </form>
+        <form method="post" style="display:inline;">
+          <input type="hidden" name="request_id" value="{{ demande.id }}">
+          <button type="submit" style="color:red;">Refuser</button>
+        </form>
       </td>
     </tr>
     {% else %}
