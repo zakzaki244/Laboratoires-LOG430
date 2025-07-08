@@ -419,7 +419,7 @@ def create_reappro():
 
     return jsonify({"success": True, "id": demande.id}), 201
 
-    @api.route("/reappro", methods=["GET"])
+@api.route("/reappro", methods=["GET"])
 @token_required
 def get_reappro_requests():
     """
