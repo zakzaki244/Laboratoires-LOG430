@@ -1,4 +1,4 @@
-from db import SessionLocal
+from src.db.db import SessionLocal
 from db import init_db
 from models.store import Store
 from models.product import Product
