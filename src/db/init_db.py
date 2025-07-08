@@ -5,7 +5,7 @@ from models.sale import Sale
 from models.sale_item import SaleItem
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db.db import Base
+from db.db import Base, SessionLocal, engine
 
 def init_db():
     Base.metadata.create_all(bind=engine)

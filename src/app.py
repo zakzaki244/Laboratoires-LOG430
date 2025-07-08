@@ -3,6 +3,7 @@ from flasgger import Swagger
 from flask_cors import CORS
 from routes.routes import api
 from routes.web_routes import web
+from db.init_db import init_db
 
 
 app = Flask(__name__)
@@ -32,4 +33,5 @@ app.register_blueprint(api)
 app.register_blueprint(web)
 
 if __name__ == "__main__":
+     init_db()
     app.run(host="0.0.0.0", port=5000, debug=True)
