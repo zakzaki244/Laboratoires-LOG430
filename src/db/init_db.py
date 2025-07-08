@@ -8,6 +8,8 @@ from src.db.db import Base
 init_db()
 session = SessionLocal()
 
+Base.metadata.create_all(bind=engine)
+
 # --- Ajout magasins ---
 def add_store(name):
     store = session.query(Store).filter_by(name=name).first()
