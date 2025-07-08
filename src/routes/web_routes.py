@@ -124,6 +124,7 @@ def demande_reappro():
     if request.method == "POST":
         req_id = int(request.form["request_id"])
         req = session_db.query(ReapproRequest).get(req_id)
+    if action == "valider":
         if req and req.status == "en attente":
             # Approvisionne le magasin (retire du centre logistique, ajoute au magasin)
             centre = session_db.query(Store).filter_by(name="Centre Logistique").first()
