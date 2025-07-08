@@ -3,6 +3,7 @@ from db.db import SessionLocal, init_db
 from db.db import Base
 from models.sale import Sale
 from models.sale_item import SaleItem
+from models.product import Product
 
 class SaleDAO:
     def __init__(self):
