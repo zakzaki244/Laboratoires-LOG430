@@ -1,4 +1,5 @@
-from db import SessionLocal, init_db
+from db import SessionLocal
+from db import init_db
 from models.store import Store
 from models.product import Product
 
