@@ -6,4 +6,5 @@ Flask>=2.3
 Jinja2>=3.0 
 flasgger
 flask-cors
+prometheus-flask-exporter
 #python -m pip install click python -m pip install SQLAlchemy>=2.0 python -m pip install psycopg2-binary python -m pip install flake8
