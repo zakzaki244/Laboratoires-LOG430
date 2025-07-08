@@ -4,6 +4,7 @@ from src.models.store import Store
 from src.models.product import Product
 
 from src.db.db import Base
+
 init_db()
 session = SessionLocal()
 
