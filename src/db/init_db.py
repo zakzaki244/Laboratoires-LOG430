@@ -1,6 +1,6 @@
 from db import SessionLocal, init_db
 from models import Store, Product
-from src.db import Base
+from db.db import Base
 init_db()
 session = SessionLocal()
 
