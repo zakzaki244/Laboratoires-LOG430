@@ -4,7 +4,6 @@ from flasgger import Swagger
 from flask_cors import CORS
 from flask import Blueprint
 from services.product_service import ProductService
-from services.store_service import get_centre_logistique_id
 from services.store_service import StoreService
 from services.refund_service import RefundService
 from services.sale_service import SaleService
