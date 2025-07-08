@@ -6,10 +6,6 @@ from src.models.product import Product
 from src.models.sale import Sale
 
 
-@app.context_processor
-def inject_centre_id():
-    return dict(centre_id=get_centre_logistique_id())
-
 # --- Utilitaire : obtenir l'ID du centre logistique ---
 def get_centre_logistique_id():
     from src.db.db import SessionLocal

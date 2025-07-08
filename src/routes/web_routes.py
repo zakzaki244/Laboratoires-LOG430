@@ -3,7 +3,10 @@ from functools import wraps
 from flasgger import Swagger
 from flask_cors import CORS
 from flask import Blueprint
-from services.service import Service
+from services.product_service import Service
+from services.store_service import get_centre_logistique_id
+from services.refund_service import RefundService
+from services.sale_service import SaleService
 from db.db import SessionLocal
 from models.product import Product
 from models.store import Store
