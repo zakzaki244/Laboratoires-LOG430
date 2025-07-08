@@ -16,7 +16,10 @@ from models.sale_item import SaleItem
 
 web = Blueprint('web', __name__)
 
-svc = Service()
+product_service = ProductService()
+refund_service = RefundService()
+sale_service = SaleService()
+store_service = StoreService()
 
 
 @web.app_context_processor
@@ -182,7 +185,7 @@ def search():
     results = []
     if request.method == "POST":
         term = request.form["term"]
-        results = svc.search(term)
+        results = product_service.search(term)
     return render_template("search.html", results=results, centre_id=get_centre_logistique_id())
 
 @web.route("/store/<int:store_id>/stock")
@@ -250,7 +253,7 @@ def sale():
                 cart.append((produit.id, qte))
         if cart:
             try:
-                sale_id = svc.sale(cart)
+                sale_id = sale_service.sale(cart)
                 flash(f"Vente #{sale_id} enregistrée !")
                 return redirect(url_for("sale"))
             except Exception as e:
@@ -267,7 +270,7 @@ def refund():
     if request.method == "POST":
         sid = request.form.get("sale_id", "")
         try:
-            svc.refund(int(sid))
+            refund_service.refund(int(sid))
             flash(f"Vente #{sid} annulée.")
             return redirect(url_for("refund"))
         except Exception as e:
