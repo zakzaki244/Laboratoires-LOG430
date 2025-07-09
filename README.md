@@ -100,6 +100,28 @@ Voici les conditions :
 - Aucun échec constaté (http_req_failed = 0.00%)
 
 #### B: Génération de rapports consolidés
+L'objectif est de tester la robustesse du serveur avec jusqu’à 500 utilisateurs simultanés accédant à un rapport. Le fichier de test est dans le dossier `src/k6/test_reports.js`
+
+
+Résultats :
+- ❌ 10 510 requêtes, dont 1.86% échouées (soit 196 erreurs)
+- ❌ 98 requêtes n’ont pas renvoyé de status 200
+- ❌ Check rapport contient données échoué dans 98 cas (données manquantes ou incorrectes)
+- ❌ Seuil p(95)<500ms non respecté :
+  - Temps de réponse p(95) : ~12.1s
+  - Max : ~52.8s
+- ❌ Le système a montré des signes de saturation au-delà de 4 VUs effectifs (malgré la cible de 500)
+
+Conclusion :
+Le endpoint /api/rapport ne tient pas la charge à grande échelle (≥ 500 VUs). Il nécessite : une optimisation backend (base de données, logique métier)
+
+Voici les résultats à Faible charge : ![latence](./docs/test20vuegenerationrapport1B.png)
+
+
+Voici les resultat à forte charge : 
+![latence](./docs/testrapportfortecharge1B.png)
+![latence](./docs/vuegenerationrapport.png)
+![latence](./docs/vuegenrationrapport2.png)
 
 #### C: Mise à jour de produits à forte fréquence
 
