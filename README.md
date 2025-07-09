@@ -166,6 +166,11 @@ Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des ut
 - améliorer les performances,
 - garantir la résilience (si une instance tombe, les autres prennent le relais).
 
+Je vais choisir NGINX, il est tres populaire et facile à configurer. C'est tres simple il suffit de créer un simple fichier `nginx.conf` pour répartir les requêtes entre les containers.
+
+#### Load Balancing avec NGINX
+
+JE vais utilisé NGINX comme répartiteur de charge. Il a été configuré pour distribuer les requêtes entrantes vers plusieurs instances du service API (`web1`, `web2`, etc.) en utilisant la stratégie Round Robin. Cela permet d’améliorer la scalabilité et la tolérance aux pannes.
 
 
 ### Scénario 3 — Ajout du cache (Redis)
