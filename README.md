@@ -157,7 +157,19 @@ Le serveur a parfaitement géré la charge, avec un temps de réponse stable et 
 
 Ainsi c'est pour cela que nous allons passer au scénario 2. 
 
+
+
 ### Scénario 2 — Ajout du Load Balancer
+#### Load Balancing avec NGINX
+
+Je vais utilisé NGINX comme répartiteur de charge. Il a été configuré pour distribuer les requêtes entrantes vers plusieurs instances du service API (`web1`, `web2`, etc.) en utilisant la stratégie Round Robin. Cela permet d’améliorer la scalabilité et la tolérance aux pannes.
+
+
+Pour répartir les requêtes entrantes entre deux services Flask (`web1` et `web2`), nous avons utilisé NGINX comme reverse proxy avec load balancing.
+
+NGINX écoute sur le port `5000` (comme le service web original) et redirige vers l'un des services disponibles. Cela permet une répartition automatique de la charge tout en gardant l'URL identique à celle utilisée précédemment :
+- `http://10.194.32.174:5000/`
+
 Objectif : Répartir la charge entre plusieurs instances de l’application.
 
 Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des utilisateurs et les répartit intelligemment entre plusieurs instances de l'application Flask (ex : web1, web2, etc.) pour :
@@ -166,11 +178,52 @@ Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des ut
 - améliorer les performances,
 - garantir la résilience (si une instance tombe, les autres prennent le relais).
 
-Je vais choisir NGINX, il est tres populaire et facile à configurer. C'est tres simple il suffit de créer un simple fichier `nginx.conf` pour répartir les requêtes entre les containers.
+**Maintenant l'objectif c'est d'évaluer les performances de l'application dans sa version avec un Load Balancer :**
 
-#### Load Balancing avec NGINX
+#### A: Consultation simultanée des stocks
+Ce test simule une charge générée par 80 utilisateurs virtuels (VUs) accédant simultanément aux stocks de trois magasins via l’API REST (GET /api/magasins/:id), avec authentification Bearer. Le fichier de test est dans le dossier `src/k6/test_stocks.js`
 
-JE vais utilisé NGINX comme répartiteur de charge. Il a été configuré pour distribuer les requêtes entrantes vers plusieurs instances du service API (`web1`, `web2`, etc.) en utilisant la stratégie Round Robin. Cela permet d’améliorer la scalabilité et la tolérance aux pannes.
+Voici les conditions : 
+>p(95)<500 : 95% des requêtes doivent répondre en moins de 500 ms.
+
+>rate<0.01 : Moins de 1% d'échecs tolérés.
+
+![latence](./docs/testscenario1A.png)
+![latence](./docs/imagescenario1Agrafana.png)
+
+✅ Résultats observés :
+
+#### B: Génération de rapports consolidés
+L'objectif est de tester la robustesse du serveur avec jusqu’à 500 utilisateurs simultanés accédant à un rapport. Le fichier de test est dans le dossier `src/k6/test_reports.js`
+
+
+Résultats :
+
+Conclusion :
+
+Voici les résultats à Faible charge : ![latence](./docs/test20vuegenerationrapport1B.png)
+
+
+Voici les resultat à forte charge : 
+![latence](./docs/testrapportfortecharge1B.png)
+![latence](./docs/vuegenerationrapport.png)
+![latence](./docs/vuegenrationrapport2.png)
+
+#### C: Mise à jour de produits à forte fréquence
+L'objectif est de mettre à jour un produit (productId = 1) de manière concurrente en simulant jusqu’à 500 utilisateurs virtuels (vus) durant 30 secondes
+
+
+![latence](./docs/testupdate20users.png)
+
+
+![latence](./docs/testupdate2.png)
+
+
+![latence](./docs/grafanascenario1C.png)
+![latence](./docs/grafanascenario1C2.png)
+
+
+
 
 
 ### Scénario 3 — Ajout du cache (Redis)
