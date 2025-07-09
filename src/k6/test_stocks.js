@@ -3,10 +3,14 @@ import { sleep, check } from 'k6';
 
 export let options = {
   stages: [
-    { duration: '10s', target: 50 },
-    { duration: '30s', target: 50 },
-    { duration: '10s', target: 0 },
+    { duration: '10s', target: 80 },
+    { duration: '30s', target: 80 },
+    { duration: '10s', target: 30 },
   ],
+  thresholds: {
+    http_req_duration: ['p(95)<500'],
+    http_req_failed: ['rate<0.01'],
+  },
 };
 
 const headers = {
@@ -16,7 +20,7 @@ const headers = {
 };
 
 export default function () {
-  const ids = [1, 2, 3]; // Ids de magasins à tester
+  const ids = [1, 2, 3];
   for (const id of ids) {
     const res = http.get(`http://10.194.32.174:5000/api/magasins/${id}`, headers);
     check(res, {
