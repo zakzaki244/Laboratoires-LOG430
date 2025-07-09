@@ -41,6 +41,9 @@ Le projet suit :
 **Voici la difference entre les deux routes :**
 web_routes.py permet aux utilisateurs d’utiliser le système dans un navigateur web. Mais routes.py sert à exposer les données et opérations pour des machines ou autres systèmes. Ainsi, le but principal de routes.py = rendre ton backend réutilisable et ouvert
 
+
+> Pour accêder au metrics brut : http://10.194.32.174:5000/metrics
+> 
 ---
 
 ## 2. Test de charge initial avec K6
@@ -76,7 +79,30 @@ Des dashboards Grafana sont utilisés pour visualiser les résultats du test :
 ## 3. Résultats des tests de charge (K6 + Grafana)
 
 ### Scénario 1 — Infrastructure de base (sans cache, sans load balancer)
-Objectif : Évaluer les performances de l'application dans sa version initiale.
+L'objectif c'est d'évaluer les performances de l'application dans sa version initiale.
+
+#### A: Consultation simultanée des stocks
+Ce test simule une charge générée par 80 utilisateurs virtuels (VUs) accédant simultanément aux stocks de trois magasins via l’API REST (GET /api/magasins/:id), avec authentification Bearer. Le fichier de test est dans le dossier `src/k6/test_stocks.js`
+
+Voici les conditions : 
+>p(95)<500 : 95% des requêtes doivent répondre en moins de 500 ms.
+
+>rate<0.01 : Moins de 1% d'échecs tolérés.
+
+![latence](./docs/testscenario1A.png)
+![latence](./docs/imagescenario1Agrafana.png)
+
+✅ Résultats observés :
+- Total des requêtes HTTP : 6561
+- Taux de succès : 100% (6561/6561)
+- Durée moyenne de requête : ~18.7 ms (p95 = 52.96 ms)
+- Durée moyenne d'une itération : ~1.56 s
+- Aucun échec constaté (http_req_failed = 0.00%)
+
+#### B: Génération de rapports consolidés
+
+#### C: Mise à jour de produits à forte fréquence
+
 
 ### Scénario 2 — Ajout du cache (Redis)
 Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
@@ -85,16 +111,6 @@ Objectif : Réduire les accès fréquents à la base de données et améliorer l
 Objectif : Répartir la charge entre plusieurs instances de l’application.
 
 ## 4. Prochaines étapes
-
-- Mise en place du cache avec Redis
-- Ajout d’un Load Balancer (via Nginx ou autre)
-- 
-- Comparaison des résultats de test de charge :
-  - avant optimisation (baseline)
-  - après ajout du cache
-  - après ajout du load balancing
-
-Chaque étape sera documentée avec captures Grafana et analyse.
 
 ---
 
