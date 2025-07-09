@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/zakzaki244/Lab0-LOG430/actions/workflows/ci.yml/badge.svg)](https://github.com/zakzaki244/Lab0-LOG430/actions)
 
+Dans ce laboratoire j'ai effectué la correction des remarques du professeur Fabio et implémenter les fonctionnalitées correctement !
+
 ## 1. Architecture du projet
 
 Le projet suit :
@@ -39,6 +41,70 @@ Le projet suit :
 **Voici la difference entre les deux routes :**
 web_routes.py permet aux utilisateurs d’utiliser le système dans un navigateur web. Mais routes.py sert à exposer les données et opérations pour des machines ou autres systèmes. Ainsi, le but principal de routes.py = rendre ton backend réutilisable et ouvert
 
+---
+
+## 2. Test de charge initial avec K6
+
+Un test de charge est réalisé avec l’outil K6 pour simuler une montée en charge et observer les métriques suivantes : les 4 Golden Signals
+
+- Latence (p95 / p99) : temps de reponse moyen
+- Trafic/Requêtes par seconde
+- Saturation : utilisation charge CPU / Mémoire, threads, pool de connexions.
+-  Erreurs : taux de réponses HTTP 4xx ou 5xx.
+
+### 🔍 Tableau de bord Grafana
+Des dashboards Grafana sont utilisés pour visualiser les résultats du test :
+
+- **Latence** (95e et 99e percentile) : ![latence](./docs/Tableaudebordinitial1.png)
+- **Requêtes par seconde** : ![rps](./docs/requeteparsecondeinitial.png)
+- **Utilisation CPU & RAM** : ![cpu_ram](./docs/RAMinitial.png)
+- **Fichiers ouverts** : ![fds](./docs/Saturationinitial.png) ![fds](./docs/httperreur.png)
+
+> Les graphiques qui ne présentent pas de data c'est parcequ'il n'y a pas de données d'erreur. 
+
+### Explication des axes sur les graphes Grafana :
+
+- **Axe des abscisses (horizontal)** : Temps (en heures:minutes)
+- **Axe des ordonnées (vertical)** :
+  - Pour la latence : temps de réponse en secondes
+  - Pour la charge CPU : pourcentage d’utilisation (de 0 à 1 = 0% à 100%)
+  - Pour la mémoire : en octets
+  - Pour les requêtes par seconde : nombre de requêtes traitées par seconde
+
+---
+
+## 3. Résultats des tests de charge (K6 + Grafana)
+
+### Scénario 1 — Infrastructure de base (sans cache, sans load balancer)
+Objectif : Évaluer les performances de l'application dans sa version initiale.
+
+### Scénario 2 — Ajout du cache (Redis)
+Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
+
+### Scénario 3 — Ajout du Load Balancer
+Objectif : Répartir la charge entre plusieurs instances de l’application.
+
+## 4. Prochaines étapes
+
+- Mise en place du cache avec Redis
+- Ajout d’un Load Balancer (via Nginx ou autre)
+- 
+- Comparaison des résultats de test de charge :
+  - avant optimisation (baseline)
+  - après ajout du cache
+  - après ajout du load balancing
+
+Chaque étape sera documentée avec captures Grafana et analyse.
+
+---
+
+## 5. Objectifs pédagogiques
+
+- Utiliser un outil de test de charge (K6)
+- Observer les métriques d’un système web via Prometheus + Grafana
+- Identifier les goulots d’étranglement
+- Implémenter des solutions d’amélioration (cache, équilibrage de charge)
+- Évaluer l’impact sur les performances
 
 ##  Instructions
 ## Prérequis
