@@ -3,6 +3,7 @@
 [![CI](https://github.com/zakzaki244/Lab0-LOG430/actions/workflows/ci.yml/badge.svg)](https://github.com/zakzaki244/Lab0-LOG430/actions)
 
 Dans ce laboratoire j'ai effectué la correction des remarques du professeur Fabio et implémenter les fonctionnalitées correctement !
+Vous pouvez essayer toute les nouvelles fonctionnalitées : `http://10.194.32.174:5000/login`
 
 ## 1. Architecture du projet
 
@@ -124,7 +125,29 @@ Voici les resultat à forte charge :
 ![latence](./docs/vuegenrationrapport2.png)
 
 #### C: Mise à jour de produits à forte fréquence
+L'objectif est de mettre à jour un produit (productId = 1) de manière concurrente en simulant jusqu’à 500 utilisateurs virtuels (vus) durant 30 secondes
 
+On a effectué 2 tests avec des charges utilisateurs differents et bien evidamment comme avec les autres API des qu'on passe au dessus de 50 users l'application Python n'est plus capable de repondre à 100% des requetes.
+
+✅ Test 1 : Charge modérée (40 VUs max)
+- Nombre total de requêtes : 1200
+- Taux de succès : 100%
+- Durée moyenne des requêtes : 24.5 ms
+- Aucune erreur HTTP détectée
+
+Le serveur a parfaitement géré la charge, avec un temps de réponse stable et rapide.
+
+⚠️ Test 2 : Charge élevée (500 VUs)
+- Nombre total de requêtes : 4736
+- Taux de succès : 99.66%
+- Taux d’échec : 0.33% (16 erreurs)
+- Durée moyenne des requêtes HTTP : ~2s
+- Pire temps de réponse : 53.01s
+- Durée d’exécution moyenne : 3.56s, avec un pic à 56.14s
+
+**Cela indique une limite d’échelle au-delà de laquelle une mise en cache, un load balancing ou une optimisation du backend serait nécessaire.**
+
+Ainsi c'est pour cela que nous allons passer au scénario 2. 
 
 ### Scénario 2 — Ajout du cache (Redis)
 Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
@@ -132,7 +155,8 @@ Objectif : Réduire les accès fréquents à la base de données et améliorer l
 ### Scénario 3 — Ajout du Load Balancer
 Objectif : Répartir la charge entre plusieurs instances de l’application.
 
-## 4. Prochaines étapes
+
+
 
 ---
 
