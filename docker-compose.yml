@@ -27,7 +27,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-  web:
+
+  web1:
     build:
       context: .
       dockerfile: Dockerfile
@@ -35,11 +36,49 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
-    ports:
-      - "5000:5000"
     volumes:
       - ./src:/app
     restart: always
+    expose:
+      - "5000"
+
+  web2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
+    volumes:
+      - ./src:/app
+    restart: always
+    expose:
+      - "5000"
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - web1
+      - web2
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./src:/app
+  #   restart: always
 
 volumes:
   db:

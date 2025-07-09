@@ -135,6 +135,8 @@ On a effectué 2 tests avec des charges utilisateurs differents et bien evidamme
 - Durée moyenne des requêtes : 24.5 ms
 - Aucune erreur HTTP détectée
 
+![latence](./docs/testupdate20users.png)
+
 Le serveur a parfaitement géré la charge, avec un temps de réponse stable et rapide.
 
 ⚠️ Test 2 : Charge élevée (500 VUs)
@@ -145,18 +147,29 @@ Le serveur a parfaitement géré la charge, avec un temps de réponse stable et 
 - Pire temps de réponse : 53.01s
 - Durée d’exécution moyenne : 3.56s, avec un pic à 56.14s
 
+![latence](./docs/testupdate2.png)
+
+
+![latence](./docs/grafanascenario1C.png)
+![latence](./docs/grafanascenario1C2.png)
+
 **Cela indique une limite d’échelle au-delà de laquelle une mise en cache, un load balancing ou une optimisation du backend serait nécessaire.**
 
 Ainsi c'est pour cela que nous allons passer au scénario 2. 
 
-### Scénario 2 — Ajout du cache (Redis)
-Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
-
-### Scénario 3 — Ajout du Load Balancer
+### Scénario 2 — Ajout du Load Balancer
 Objectif : Répartir la charge entre plusieurs instances de l’application.
 
+Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des utilisateurs et les répartit intelligemment entre plusieurs instances de l'application Flask (ex : web1, web2, etc.) pour :
+
+- éviter qu’une seule instance ne soit surchargée,
+- améliorer les performances,
+- garantir la résilience (si une instance tombe, les autres prennent le relais).
 
 
+
+### Scénario 3 — Ajout du cache (Redis)
+Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
 
 ---
 
