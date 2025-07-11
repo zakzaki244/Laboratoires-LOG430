@@ -234,21 +234,33 @@ Voici les resultat à forte charge :
 ![latence](./docs/testchargesloadbalancer2B4.png)
 
 #### C: Mise à jour de produits à forte fréquence
-L'objectif est de mettre à jour un produit (productId = 1) de manière concurrente en simulant jusqu’à 500 utilisateurs virtuels (vus) durant 30 secondes
+Dans ce test, nous avons simulé une charge importante de 200 utilisateurs virtuels pendant 60 secondes, chacun effectuant une requête PUT sur un produit existant via l’endpoint /api/products/{id}. L’objectif était de valider la robustesse du système sous forte sollicitation et d’observer l'impact de la montée en charge grâce à l’introduction d’un load balancer NGINX.
 
+✅ Résultats console
+- Nombre total de requêtes : 7415
+- Taux de succès : 100% (aucune erreur HTTP)
+- Latence moyenne : 631 ms
+- Latence 95e percentile : 1.52 s
+- Requêtes par seconde : ~120 req/s
 
-![latence](./docs/testupdate20users.png)
+Ce test montre que toutes les requêtes ont reçu un statut 200, ce qui prouve que le système a très bien absorbé la charge.
 
+📊 Résultats Grafana
+- Latence (95e et 99e percentile) : Malgré les 500 utilisateurs, la latence reste raisonnable (< 2s pour 95% des requêtes).
+- CPU & RAM : Une montée de l’utilisation CPU et mémoire est visible pendant le test, mais reste sous contrôle.
+- Requêtes par seconde : Le trafic a atteint un pic à plus de 60 requêtes/sec, bien réparties entre les deux instances web1 et web2 grâce au load balancing.
 
-![latence](./docs/testupdate2.png)
+![latence](./docs/testloadbalancer2C1.png)
+![latence](./docs/testloadbalancer2C2.png)
+![latence](./docs/testloadbalancer2C3.png)
 
+Contrairement aux tests précédents avec un nombre d’utilisateurs plus faible, ce test montre clairement les bénéfices de l’architecture distribuée avec load balancer :
 
-![latence](./docs/grafanascenario1C.png)
-![latence](./docs/grafanascenario1C2.png)
+- Sans load balancing, une seule instance aurait été submergée.
+- Ici, la répartition des requêtes sur deux serveurs (web1 et web2) a permis de maintenir la stabilité du système sans saturation.
+- Le temps de réponse reste stable, et aucune panne ni erreur n’a été enregistrée.
 
-
-
-
+Ce test valide donc le comportement de montée en charge, et montre que l’architecture avec NGINX est scalable et résiliente.
 
 ### Scénario 3 — Ajout du cache (Redis)
 Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
