@@ -158,7 +158,6 @@ Le serveur a parfaitement géré la charge, avec un temps de réponse stable et 
 Ainsi c'est pour cela que nous allons passer au scénario 2. 
 
 
-
 ### Scénario 2 — Ajout du Load Balancer
 #### Load Balancing avec NGINX
 
@@ -183,23 +182,35 @@ Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des ut
 
 
 #### A: Consultation simultanée des stocks
-Ce test simule une charge générée par 80 utilisateurs virtuels (VUs) accédant simultanément aux stocks de trois magasins via l’API REST (GET /api/magasins/:id), avec authentification Bearer. Le fichier de test est dans le dossier `src/k6/test_stocks.js`
+Dans ce test (test_stocks.js), nous avons simulé jusqu’à 200 utilisateurs virtuels simultanés accédant à l’endpoint /api/magasins/{id} avec trois identifiants différents (/1, /2, /3) via des requêtes GET. L’objectif était de valider les performances de l’infrastructure avec le load balancer activé.
 
-Voici les conditions : 
->p(95)<500 : 95% des requêtes doivent répondre en moins de 500 ms.
+Contrairement aux tests précédents (qui utilisaient un seul conteneur Flask sans load balancing), ce test a été exécuté avec un load balancer NGINX répartissant les requêtes entre deux instances (web1 et web2). Cela permet de comparer directement l’efficacité d’une architecture distribuée.
 
->rate<0.01 : Moins de 1% d'échecs tolérés.
+📈 Résultats observés (console K6) :
+- Nombre total de requêtes réussies : 14 604 (100% de réussite)
+- Latence moyenne : ~545 ms
+- Latence au 95e percentile : 1.13 s (seuil défini : < 500 ms → dépassé)
+- Taux d’erreur : 0.00% ✅
+- Temps d’exécution total : 1 min 22 s
+- 200 utilisateurs simultanés sans aucune interruption ni échec
 
-![latence](./docs/testscenario1A.png)
-![latence](./docs/imagescenario1Agrafana.png)
+📊 Visualisation Grafana :
+- Les graphes de latence (95e et 99e percentile) montrent une augmentation normale mais contrôlée de la latence sous charge.
+- Le graphique du trafic (req/s) montre une montée rapide des requêtes jusqu'à 100 req/s, puis une stabilisation.
+- Les indicateurs de CPU, mémoire et fichiers ouverts montrent que les ressources sont bien maîtrisées, sans saturation critique.
+
+![latence](./docs/testloadbalancer2A1.png)
+![latence](./docs/testloadbalancer2A2.png)
+![latence](./docs/testloadbalancer2A3.png)
 
 ✅ Résultats observés :
 
+Ce test montre clairement que l’ajout d’un load balancer (NGINX) combiné à deux instances de l’application Flask permet de gérer une charge utilisateur beaucoup plus importante de manière fiable et fluide. Aucun plantage, aucune erreur HTTP, et une répartition efficace des requêtes ont permis d’absorber les pics de trafic, ce qui démontre la scalabilité horizontale de l’architecture.
 #### B: Génération de rapports consolidés
 Ce test visait à vérifier les performances et la tolérance de l’application lors d’une montée en charge importante grâce à l’introduction d’un Load Balancer (NGINX) répartissant les requêtes entre deux instances web1 et web2.
 
-- 200 utilisateurs virtuels simulés pendant 1 minute (phase de charge stable)
-- 
+200 utilisateurs virtuels simulés pendant 1 minute (phase de charge stable)
+  
 Résultats :
 - Requêtes totales : 8 724
 - Succès :	100 % (17 448 validations de statut 200 et contenu correct)
