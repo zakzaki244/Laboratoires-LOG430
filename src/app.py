@@ -7,6 +7,8 @@ from db.init_db import init_db
 from prometheus_flask_exporter import PrometheusMetrics
 from prometheus_client import make_wsgi_app
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from flask_caching import Cache
+
 
 app = Flask(__name__)
 CORS(app)
@@ -42,6 +44,9 @@ metrics.info('app_info', 'LOG430 Flask App', version='4.0')
 app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
     '/metrics': make_wsgi_app()
 })
+
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+cache.init_app(app)
 
 if __name__ == "__main__":
     init_db()

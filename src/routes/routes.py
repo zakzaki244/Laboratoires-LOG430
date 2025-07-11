@@ -277,6 +277,7 @@ def get_magasins():
 
 @api.route("/magasins/<int:mid>", methods=["GET"])
 @token_required
+@cache.cached(timeout=30)
 def get_magasin(mid):
     """
     Récupérer un magasin par son ID, avec ses produits
@@ -653,6 +654,7 @@ def refund_sale():
 
 @api.route("/rapport", methods=["GET"])
 @token_required
+@cache.cached(timeout=60)
 def get_rapport():
     """
     Rapport consolidé des ventes et des stocks

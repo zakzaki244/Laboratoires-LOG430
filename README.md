@@ -263,7 +263,12 @@ Contrairement aux tests précédents avec un nombre d’utilisateurs plus faible
 Ce test valide donc le comportement de montée en charge, et montre que l’architecture avec NGINX est scalable et résiliente.
 
 ### Scénario 3 — Ajout du cache (Redis)
-Objectif : Réduire les accès fréquents à la base de données et améliorer la latence.
+L'objectif de cette section est de réduire les accès fréquents à la base de données et améliorer la latence.
+
+Les endpoints critiques sont :
+- `/api/stores/<int:store_id>/stock` – coût élevé si de nombreuses requêtes consultent le stock en temps réel.
+- `/api/reports/sales` – potentiellement lent car il effectue une agrégation.
+
 
 ---
 
