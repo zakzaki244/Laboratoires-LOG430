@@ -180,6 +180,8 @@ Un Load Balancer (répartiteur de charge) reçoit les requêtes entrantes des ut
 
 **Maintenant l'objectif c'est d'évaluer les performances de l'application dans sa version avec un Load Balancer :**
 
+
+
 #### A: Consultation simultanée des stocks
 Ce test simule une charge générée par 80 utilisateurs virtuels (VUs) accédant simultanément aux stocks de trois magasins via l’API REST (GET /api/magasins/:id), avec authentification Bearer. Le fichier de test est dans le dossier `src/k6/test_stocks.js`
 
@@ -194,20 +196,31 @@ Voici les conditions :
 ✅ Résultats observés :
 
 #### B: Génération de rapports consolidés
-L'objectif est de tester la robustesse du serveur avec jusqu’à 500 utilisateurs simultanés accédant à un rapport. Le fichier de test est dans le dossier `src/k6/test_reports.js`
+Ce test visait à vérifier les performances et la tolérance de l’application lors d’une montée en charge importante grâce à l’introduction d’un Load Balancer (NGINX) répartissant les requêtes entre deux instances web1 et web2.
 
-
+- 200 utilisateurs virtuels simulés pendant 1 minute (phase de charge stable)
+- 
 Résultats :
+- Requêtes totales : 8 724
+- Succès :	100 % (17 448 validations de statut 200 et contenu correct)
+- Durée moyenne d’une requête	: 648.25 ms
+- P95 (95% des req.)	≤ 1.19 s
+- Utilisateurs simultanés max.	200
+
+🟢 Aucun échec, tous les checks ont réussi. Le système a bien résisté à une charge élevée.
+
 
 Conclusion :
-
-Voici les résultats à Faible charge : ![latence](./docs/test20vuegenerationrapport1B.png)
-
+- Une meilleure répartition de la charge grâce à NGINX (load balancing round-robin).
+- Une réduction des erreurs de surcharge ou de timeout, avec zéro requête échouée.
+- Une meilleure tolérance aux pics de charge.
+- Un comportement scalable et fiable même avec 200 utilisateurs simultanés (contre 10 ou 30 avant).
 
 Voici les resultat à forte charge : 
-![latence](./docs/testrapportfortecharge1B.png)
-![latence](./docs/vuegenerationrapport.png)
-![latence](./docs/vuegenrationrapport2.png)
+![latence](./docs/testchargeloadbalancer2B.png)
+![latence](./docs/testchargesloadbalancer2B2.png)
+![latence](./docs/testchargesloadbalancer2B3.png)
+![latence](./docs/testchargesloadbalancer2B4.png)
 
 #### C: Mise à jour de produits à forte fréquence
 L'objectif est de mettre à jour un produit (productId = 1) de manière concurrente en simulant jusqu’à 500 utilisateurs virtuels (vus) durant 30 secondes

@@ -3,9 +3,9 @@ import { sleep, check } from 'k6';
 
 export let options = {
   stages: [
-    { duration: '10s', target: 80 },
-    { duration: '60s', target: 80 },
-    { duration: '10s', target: 30 },
+    { duration: '10s', target: 200 },
+    { duration: '60s', target: 200 },
+    { duration: '10s', target: 200 },
   ],
   thresholds: {
     http_req_duration: ['p(95)<500'],
