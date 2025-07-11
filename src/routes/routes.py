@@ -7,7 +7,7 @@ from db.db import Base
 from functools import wraps
 from models.reappro_request import ReapproRequest
 from sqlalchemy.orm import joinedload
-from app import cache 
+from app.extensions import cache
 
 api = Blueprint('api', __name__, url_prefix='/api')
 API_TOKEN = "Supermarcher22102002"
