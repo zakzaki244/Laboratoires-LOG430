@@ -1,4 +1,4 @@
-# Lab4-LOG430 – Test de charge et Observabilite
+# Lab5 -LOG430 – Passage à une Architecture Microservices avec API Gateway et Observabilité
 
 [![CI](https://github.com/zakzaki244/Lab0-LOG430/actions/workflows/ci.yml/badge.svg)](https://github.com/zakzaki244/Lab0-LOG430/actions)
 
