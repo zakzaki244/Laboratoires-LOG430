@@ -13,6 +13,8 @@ from app.extensions import cache
 app = Flask(__name__)
 CORS(app)
 app.secret_key = "secret"
+app.config['CACHE_TYPE'] = 'simple'
+cache.init_app(app)
 
 
 swagger_template = {
@@ -46,7 +48,7 @@ app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {
 })
 
 
-cache.init_app(app)
+
 
 if __name__ == "__main__":
     init_db()
