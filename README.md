@@ -263,12 +263,54 @@ Contrairement aux tests précédents avec un nombre d’utilisateurs plus faible
 Ce test valide donc le comportement de montée en charge, et montre que l’architecture avec NGINX est scalable et résiliente.
 
 ### Scénario 3 — Ajout du cache (Redis)
-L'objectif de cette section est de réduire les accès fréquents à la base de données et améliorer la latence.
+L'objectif de cette section est de réduire les accès fréquents à la base de données et améliorer la latence. 
+Ainsi on veut améliorer la performance de l'application en stockant temporairement le résultat de certaines requêtes (notamment GET) dans un cache côté serveur, afin d’éviter des appels redondants à la base de données.
+
 
 Les endpoints critiques sont :
 - `/api/stores/<int:store_id>/stock` – coût élevé si de nombreuses requêtes consultent le stock en temps réel.
 - `/api/reports/sales` – potentiellement lent car il effectue une agrégation.
 
+
+### Technologies utilisées :
+- Flask-Caching
+- Type de cache : simple (cache mémoire local)
+
+### Implémentation :
+Ajout d’un fichier extensions.py contenant :
+```
+from flask_caching import Cache
+cache = Cache()
+```
+Initialisation du cache dans app.py :
+```
+app.config['CACHE_TYPE'] = 'simple'
+cache.init_app(app)
+```
+Exemple de route avec mise en cache :
+```
+@cache.cached(timeout=30)
+@api.route('/products')
+def get_products():
+    return jsonify(Product.query.all())
+```
+
+###  Test de performance :
+- Requête GET /products effectuée à 3 reprises successives.
+
+  - Le premier appel effectue un accès à la base de données.
+  - Les appels suivants retournent le résultat du cache (temps de réponse réduit).
+  - Après expiration du délai de 30 secondes, les données sont recalculées.
+
+
+### Résultats :
+
+| Requête       | Temps de réponse | Source           |
+|---------------|------------------|------------------|
+| 1ère          | 400 ms           | Base de données  |
+| 2ème          | 20 ms            | Cache            |
+| 3ème          | 22 ms            | Cache            |
+| après 30 sec  | 410 ms           | Base de données  |
 
 ---
 
@@ -291,7 +333,8 @@ Les endpoints critiques sont :
 1. **Cloner le projet**  
    ```bash
    git clone https://github.com/zakzaki244/Laboratoires-LOG430.git
-   cd Laboratoires-LOG430
+   cd Laboratoires/
+   cd Laboratoire-LOG430/
    git checkout lab4
 
 2. **Environnement Python**
@@ -301,6 +344,14 @@ Les endpoints critiques sont :
    source .venv/bin/activate et/ou sur Windows : venv\Scripts\activate
    pip install --upgrade pip
    pip install -r requirements.txt
+
+## Installation Conteneurisation & orchestration 
+
+1. **Docker Compose**  
+   ```bash
+   docker compose up --build
+   et pour arrêter et supprimer les conteneurs :
+   docker-compose down
    
 4. **Lancer l'application interface web**  
    ```bash
@@ -310,10 +361,3 @@ Les endpoints critiques sont :
    ```bash
    pytest tests/
 
-## Installation Conteneurisation & orchestration 
-
-1. **Docker Compose**  
-   ```bash
-   docker compose up --build
-   et pour arrêter et supprimer les conteneurs :
-   docker-compose down
