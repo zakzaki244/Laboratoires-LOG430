@@ -40,6 +40,9 @@ customer_service = CustomerService(customer_repository)
 # Création du contrôleur
 customer_controller = create_customer_controller(customer_service)
 
+# Enregistrement du blueprint
+app.register_blueprint(customer_controller)
+
 # Routes DDD
 @app.route('/customers', methods=['POST'])
 @token_required
