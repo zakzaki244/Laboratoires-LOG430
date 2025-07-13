@@ -46,6 +46,7 @@ def forward_request(service_name, path, method='GET'):
     try:
         service_url = SERVICES[service_name]
         url = f"{service_url}/{path}"
+        print(f"DEBUG: Forwarding {method} request to {url}")
         
         # Transférer les headers d'authentification
         headers = {}
@@ -62,9 +63,14 @@ def forward_request(service_name, path, method='GET'):
         elif method == 'DELETE':
             response = requests.delete(url, headers=headers)
         
+        print(f"DEBUG: Response from {service_name}: {response.status_code}")
         return response.json(), response.status_code
     except requests.exceptions.RequestException as e:
+        print(f"DEBUG: Request error: {e}")
         logging.error(f"Erreur lors de la communication avec {service_name}: {e}")
+        return {"error": "Service indisponible"}, 503
+    except Exception as e:
+        print(f"DEBUG: Unexpected error: {e}")
         return {"error": "Service indisponible"}, 503
 
 # Routes pour les magasins
@@ -123,32 +129,32 @@ def stock_proxy():
 @app.route('/api/customers/register', methods=['POST'])
 @limiter.limit("5 per minute")
 def customer_register_proxy():
-    return forward_request('customer', 'customers/register', 'POST')
+    return forward_request('customer', 'api/customers/register', 'POST')
 
 @app.route('/api/customers/login', methods=['POST'])
 @limiter.limit("10 per minute")
 def customer_login_proxy():
-    return forward_request('customer', 'customers/login', 'POST')
+    return forward_request('customer', 'api/customers/login', 'POST')
 
 @app.route('/api/customers', methods=['GET'])
 @app.route('/api/customers/<int:customer_id>', methods=['GET', 'PUT'])
 @token_required
 @limiter.limit("30 per minute")
 def customers_proxy(customer_id=None):
-    path = f"customers/{customer_id}" if customer_id else "customers"
+    path = f"api/customers/{customer_id}" if customer_id else "api/customers"
     return forward_request('customer', path, request.method)
 
 @app.route('/api/customers/<int:customer_id>/change-password', methods=['POST'])
 @token_required
 @limiter.limit("3 per minute")
 def change_password_proxy(customer_id):
-    return forward_request('customer', f'customers/{customer_id}/change-password', 'POST')
+    return forward_request('customer', f'api/customers/{customer_id}/change-password', 'POST')
 
 @app.route('/api/customers/search', methods=['GET'])
 @token_required
 @limiter.limit("20 per minute")
 def customer_search_proxy():
-    return forward_request('customer', 'customers/search', 'GET')
+    return forward_request('customer', 'api/customers/search', 'GET')
 
 # Routes pour le panier
 @app.route('/api/cart/<int:customer_id>', methods=['GET'])

@@ -5,9 +5,9 @@ from functools import wraps
 
 # Import des composants DDD
 from src.infrastructure.database import create_database_engine, create_session_factory
-from src.presentation.controllers import create_customer_controller
+from src.presentation.controllers.customer_controller import create_customer_controller
 from src.application.services.customer_service import CustomerService
-from src.infrastructure.repositories.customer_repository import CustomerRepository
+from src.infrastructure.repositories.customer_repository_simple import SqlCustomerRepository
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
@@ -37,12 +37,11 @@ def token_required(f):
 def get_customer_service():
     """Factory pour créer le service customer avec une session"""
     session = SessionLocal()
-    customer_repository = CustomerRepository(session)
+    customer_repository = SqlCustomerRepository(session)
     return CustomerService(customer_repository)
 
 # Création du contrôleur
-customer_service = get_customer_service()
-customer_controller = create_customer_controller(customer_service)
+customer_controller = create_customer_controller(SessionLocal)
 
 # Enregistrement du blueprint
 app.register_blueprint(customer_controller)
