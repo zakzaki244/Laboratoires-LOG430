@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 text-center mb-4">
+            <i class="fas fa-store"></i> Dashboard E-Commerce
+        </h1>
+        <p class="lead text-center text-muted">
+            Bienvenue {{ session.username or 'Utilisateur' }} sur votre plateforme de gestion e-commerce moderne
+        </p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Magasins</h5>
+                        <h2>{{ stores|length }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-store fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Produits</h5>
+                        <h2>{{ products|length }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-box fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Ventes</h5>
+                        <h2>{{ stats.total_sales or 0 }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Revenue</h5>
+                        <h2>${{ "%.2f"|format(stats.total_revenue or 0) }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-dollar-sign fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-store"></i> Magasins Actifs</h5>
+            </div>
+            <div class="card-body">
+                {% if stores %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Adresse</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for store in stores %}
+                                <tr>
+                                    <td>{{ store.name }}</td>
+                                    <td>{{ store.address }}</td>
+                                    <td><span class="badge bg-success">Actif</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">Aucun magasin trouvé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-fire"></i> Produits Populaires</h5>
+            </div>
+            <div class="card-body">
+                {% if products %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prix</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>${{ "%.2f"|format(product.price) }}</td>
+                                    <td>
+                                        {% if product.stock > 10 %}
+                                            <span class="badge bg-success">{{ product.stock }}</span>
+                                        {% elif product.stock > 0 %}
+                                            <span class="badge bg-warning">{{ product.stock }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Épuisé</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">Aucun produit trouvé.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-tachometer-alt"></i> Actions Rapides</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg w-100 mb-2">
+                            <i class="fas fa-box"></i><br>
+                            Gérer Produits
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url_for('inventory') }}" class="btn btn-success btn-lg w-100 mb-2">
+                            <i class="fas fa-warehouse"></i><br>
+                            Gérer Stock
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url_for('sales') }}" class="btn btn-info btn-lg w-100 mb-2">
+                            <i class="fas fa-chart-line"></i><br>
+                            Voir Ventes
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url_for('health_status') }}" class="btn btn-warning btn-lg w-100 mb-2">
+                            <i class="fas fa-heartbeat"></i><br>
+                            Statut Système
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

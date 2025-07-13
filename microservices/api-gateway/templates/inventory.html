@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}Inventaire - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 text-center mb-4">
+            <i class="fas fa-warehouse"></i> Gestion des Stocks
+        </h1>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Stock Total</h5>
+                        <h2>{{ inventory|length }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-boxes fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Stock Faible</h5>
+                        <h2>{{ inventory|selectattr('stock', '<', 10)|list|length }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Rupture</h5>
+                        <h2>{{ inventory|selectattr('stock', '==', 0)|list|length }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-times-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-search"></i> Rechercher</h5>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#restockModal">
+                    <i class="fas fa-plus"></i> Réapprovisionner
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="searchStock" placeholder="Rechercher un produit...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="stockFilter">
+                            <option value="">Tous les stocks</option>
+                            <option value="low">Stock faible (&lt; 10)</option>
+                            <option value="out">Rupture de stock</option>
+                            <option value="good">Stock normal</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" onclick="searchStock()">
+                            <i class="fas fa-search"></i> Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> État des Stocks</h5>
+            </div>
+            <div class="card-body">
+                {% if inventory %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID Produit</th>
+                                    <th>Nom du Produit</th>
+                                    <th>Stock Actuel</th>
+                                    <th>Stock Minimum</th>
+                                    <th>Dernière MAJ</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in inventory %}
+                                <tr>
+                                    <td>{{ item.product_id }}</td>
+                                    <td>{{ item.product_name or 'N/A' }}</td>
+                                    <td>
+                                        <span class="badge 
+                                        {% if item.stock == 0 %}bg-danger
+                                        {% elif item.stock < 10 %}bg-warning
+                                        {% else %}bg-success
+                                        {% endif %}">
+                                            {{ item.stock }}
+                                        </span>
+                                    </td>
+                                    <td>{{ item.min_stock or 10 }}</td>
+                                    <td>{{ item.last_updated or 'N/A' }}</td>
+                                    <td>
+                                        {% if item.stock == 0 %}
+                                            <span class="badge bg-danger">Rupture</span>
+                                        {% elif item.stock < 10 %}
+                                            <span class="badge bg-warning">Faible</span>
+                                        {% else %}
+                                            <span class="badge bg-success">Normal</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success" onclick="restockItem({{ item.product_id }})">
+                                            <i class="fas fa-plus"></i> Réappro
+                                        </button>
+                                        <button class="btn btn-sm btn-info" onclick="viewHistory({{ item.product_id }})">
+                                            <i class="fas fa-history"></i> Historique
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-warehouse fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Aucun stock trouvé.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour réapprovisionner -->
+<div class="modal fade" id="restockModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Réapprovisionner un Produit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="restockForm">
+                    <div class="mb-3">
+                        <label for="productSelect" class="form-label">Produit</label>
+                        <select class="form-select" id="productSelect" required>
+                            <option value="">Sélectionner un produit</option>
+                            {% for item in inventory %}
+                            <option value="{{ item.product_id }}">{{ item.product_name }} (Stock: {{ item.stock }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="restockQuantity" class="form-label">Quantité à ajouter</label>
+                        <input type="number" class="form-control" id="restockQuantity" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="restockNote" class="form-label">Note (optionnel)</label>
+                        <textarea class="form-control" id="restockNote" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" onclick="processRestock()">Réapprovisionner</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function searchStock() {
+    const searchTerm = document.getElementById('searchStock').value;
+    const filter = document.getElementById('stockFilter').value;
+    
+    console.log('Recherche stock:', searchTerm, 'Filter:', filter);
+}
+
+function restockItem(productId) {
+    document.getElementById('productSelect').value = productId;
+    new bootstrap.Modal(document.getElementById('restockModal')).show();
+}
+
+function viewHistory(productId) {
+    console.log('Voir historique pour produit:', productId);
+}
+
+function processRestock() {
+    const productId = document.getElementById('productSelect').value;
+    const quantity = document.getElementById('restockQuantity').value;
+    const note = document.getElementById('restockNote').value;
+    
+    if (!productId || !quantity) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+    }
+    
+    // Implémenter la logique de réapprovisionnement
+    console.log('Réapprovisionnement:', productId, quantity, note);
+}
+</script>
+{% endblock %}

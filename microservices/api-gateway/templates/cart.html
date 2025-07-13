@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Panier - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 text-center mb-4">
+            <i class="fas fa-shopping-cart"></i> Mon Panier
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Articles dans le panier</h5>
+            </div>
+            <div class="card-body">
+                {% if cart and cart.items %}
+                    {% for item in cart.items %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="https://via.placeholder.com/80x80" class="img-fluid rounded" alt="Product">
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="card-title">{{ item.product_name }}</h6>
+                                    <p class="card-text text-muted">{{ item.product_description or 'Description non disponible' }}</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="fw-bold">${{ "%.2f"|format(item.price) }}</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary" onclick="updateQuantity({{ item.product_id }}, {{ item.quantity - 1 }})">-</button>
+                                        <input type="number" class="form-control text-center" value="{{ item.quantity }}" min="1" onchange="updateQuantity({{ item.product_id }}, this.value)">
+                                        <button class="btn btn-outline-secondary" onclick="updateQuantity({{ item.product_id }}, {{ item.quantity + 1 }})">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold">${{ "%.2f"|format(item.price * item.quantity) }}</span>
+                                        <button class="btn btn-sm btn-danger" onclick="removeItem({{ item.product_id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-warning" onclick="clearCart()">
+                            <i class="fas fa-trash"></i> Vider le panier
+                        </button>
+                        <a href="{{ url_for('products') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Continuer mes achats
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">Votre panier est vide</h4>
+                        <p class="text-muted">Ajoutez des produits à votre panier pour commencer vos achats.</p>
+                        <a href="{{ url_for('products') }}" class="btn btn-primary">
+                            <i class="fas fa-shopping-bag"></i> Parcourir les produits
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-calculator"></i> Résumé de la commande</h5>
+            </div>
+            <div class="card-body">
+                {% if cart and cart.items %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Sous-total:</span>
+                        <span>${{ "%.2f"|format(cart.subtotal or 0) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Frais de livraison:</span>
+                        <span>${{ "%.2f"|format(cart.shipping_cost or 5.99) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Taxes:</span>
+                        <span>${{ "%.2f"|format(cart.tax or 0) }}</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fw-bold">Total:</span>
+                        <span class="fw-bold">${{ "%.2f"|format(cart.total or 0) }}</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="promoCode" class="form-label">Code promo</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="promoCode" placeholder="Entrez votre code">
+                            <button class="btn btn-outline-secondary" onclick="applyPromoCode()">Appliquer</button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-lg" onclick="proceedToCheckout()">
+                            <i class="fas fa-credit-card"></i> Procéder au paiement
+                        </button>
+                        <button class="btn btn-outline-success" onclick="saveForLater()">
+                            <i class="fas fa-bookmark"></i> Sauvegarder pour plus tard
+                        </button>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">Aucun article dans le panier</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6><i class="fas fa-truck"></i> Livraison</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="delivery" id="standard" checked>
+                    <label class="form-check-label" for="standard">
+                        Standard (3-5 jours) - $5.99
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="delivery" id="express">
+                    <label class="form-check-label" for="express">
+                        Express (1-2 jours) - $12.99
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="delivery" id="overnight">
+                    <label class="form-check-label" for="overnight">
+                        Livraison le lendemain - $24.99
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateQuantity(productId, quantity) {
+    if (quantity < 1) {
+        removeItem(productId);
+        return;
+    }
+    
+    console.log('Mettre à jour quantité:', productId, quantity);
+    // Implémenter la logique de mise à jour
+}
+
+function removeItem(productId) {
+    if (confirm('Êtes-vous sûr de vouloir retirer cet article du panier ?')) {
+        console.log('Retirer article:', productId);
+        // Implémenter la logique de suppression
+    }
+}
+
+function clearCart() {
+    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+        console.log('Vider panier');
+        // Implémenter la logique de vidage
+    }
+}
+
+function applyPromoCode() {
+    const code = document.getElementById('promoCode').value;
+    if (code) {
+        console.log('Appliquer code promo:', code);
+        // Implémenter la logique du code promo
+    }
+}
+
+function proceedToCheckout() {
+    console.log('Procéder au paiement');
+    // Rediriger vers la page de checkout
+    window.location.href = '/checkout';
+}
+
+function saveForLater() {
+    console.log('Sauvegarder panier');
+    // Implémenter la logique de sauvegarde
+}
+</script>
+{% endblock %}

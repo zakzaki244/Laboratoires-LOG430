@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Status Services - E-Commerce Platform{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-heartbeat"></i> État des Services</h1>
+        <p class="text-muted">Monitoring en temps réel de l'architecture microservices</p>
+    </div>
+</div>
+
+<!-- Overall Health -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-shield-alt"></i> État Général du Système</h4>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <h3 class="text-{{ 'success' if overall_health >= 80 else 'warning' if overall_health >= 50 else 'danger' }}">
+                            {{ overall_health or 0 }}%
+                        </h3>
+                        <small>Santé Globale</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="text-success">{{ online_services or 0 }}</h3>
+                        <small>Services En Ligne</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="text-danger">{{ offline_services or 0 }}</h3>
+                        <small>Services Hors Ligne</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 class="text-info">{{ total_services or 7 }}</h3>
+                        <small>Total Services</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Services Details -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-server"></i> Détails des Microservices</h4>
+                <button class="btn btn-sm btn-outline-primary" onclick="refreshAllStatus()">
+                    <i class="fas fa-sync-alt"></i> Actualiser
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for service in services %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100 border-{{ 'success' if service.status else 'danger' }}">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong>
+                                    <span class="service-status {{ 'online' if service.status else 'offline' }}" 
+                                          id="status-{{ service.name }}"></span>
+                                    {{ service.display_name }}
+                                </strong>
+                                <span class="badge bg-{{ 'success' if service.status else 'danger' }}">
+                                    {{ 'En ligne' if service.status else 'Hors ligne' }}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <small class="text-muted">{{ service.description }}</small>
+                                </p>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <strong>{{ service.port }}</strong><br>
+                                        <small>Port</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>{{ service.response_time or '-' }}ms</strong><br>
+                                        <small>Réponse</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="btn-group w-100" role="group">
+                                    <a href="http://localhost:{{ service.port }}/health" 
+                                       target="_blank" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-external-link-alt"></i> Health
+                                    </a>
+                                    <a href="http://localhost:{{ service.port }}/metrics" 
+                                       target="_blank" 
+                                       class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-chart-line"></i> Métriques
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Information -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-info-circle"></i> Informations Système</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Load Balancer:</strong></td>
+                        <td>Nginx (Port 80)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base de données:</strong></td>
+                        <td>PostgreSQL 15</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conteneurisation:</strong></td>
+                        <td>Docker & Docker Compose</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Architecture:</strong></td>
+                        <td>Domain-Driven Design (DDD)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitoring:</strong></td>
+                        <td>Prometheus & Grafana</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-network-wired"></i> Configuration Réseau</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Réseau:</strong></td>
+                        <td>microservices-network</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Proxy:</strong></td>
+                        <td>API Gateway (Port 5000)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Frontend:</strong></td>
+                        <td>Nginx (Port 80)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base de données:</strong></td>
+                        <td>Ports 5433-5439</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitoring:</strong></td>
+                        <td>Grafana (Port 3000)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function refreshAllStatus() {
+    const refreshBtn = document.querySelector('button[onclick="refreshAllStatus()"] i');
+    refreshBtn.classList.add('fa-spin');
+    
+    fetch('/api/health/all')
+        .then(response => response.json())
+        .then(data => {
+            Object.keys(data).forEach(service => {
+                const statusElement = document.getElementById(`status-${service}`);
+                if (statusElement) {
+                    statusElement.className = `service-status ${data[service] ? 'online' : 'offline'}`;
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error refreshing status:', error);
+            alert('Erreur lors de l\'actualisation du statut');
+        })
+        .finally(() => {
+            refreshBtn.classList.remove('fa-spin');
+        });
+}
+
+// Auto-refresh every 10 seconds
+setInterval(refreshAllStatus, 10000);
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial status check
+    refreshAllStatus();
+});
+</script>
+{% endblock %}

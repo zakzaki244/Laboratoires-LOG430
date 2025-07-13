@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Produits - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 text-center mb-4">
+            <i class="fas fa-box"></i> Gestion des Produits
+        </h1>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-search"></i> Rechercher</h5>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-plus"></i> Ajouter Produit
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="searchProduct" placeholder="Rechercher un produit...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">Toutes les catégories</option>
+                            <option value="electronics">Électronique</option>
+                            <option value="clothing">Vêtements</option>
+                            <option value="books">Livres</option>
+                            <option value="sports">Sports</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" onclick="searchProducts()">
+                            <i class="fas fa-search"></i> Rechercher
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Liste des Produits</h5>
+            </div>
+            <div class="card-body">
+                {% if products %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Description</th>
+                                    <th>Prix</th>
+                                    <th>Stock</th>
+                                    <th>Catégorie</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.description[:50] }}...</td>
+                                    <td>${{ "%.2f"|format(product.price) }}</td>
+                                    <td>
+                                        {% if product.stock > 10 %}
+                                            <span class="badge bg-success">{{ product.stock }}</span>
+                                        {% elif product.stock > 0 %}
+                                            <span class="badge bg-warning">{{ product.stock }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Épuisé</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ product.category or 'N/A' }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewProduct({{ product.id }})">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" onclick="editProduct({{ product.id }})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteProduct({{ product.id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-box fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Aucun produit trouvé.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour ajouter un produit -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un Produit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Nom du produit</label>
+                        <input type="text" class="form-control" id="productName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Prix</label>
+                                <input type="number" class="form-control" id="productPrice" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productStock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="productStock" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productCategory" class="form-label">Catégorie</label>
+                        <select class="form-select" id="productCategory">
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="electronics">Électronique</option>
+                            <option value="clothing">Vêtements</option>
+                            <option value="books">Livres</option>
+                            <option value="sports">Sports</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="addProduct()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function searchProducts() {
+    const searchTerm = document.getElementById('searchProduct').value;
+    const category = document.getElementById('categoryFilter').value;
+    
+    // Implémenter la logique de recherche
+    console.log('Recherche:', searchTerm, 'Catégorie:', category);
+}
+
+function viewProduct(productId) {
+    console.log('Voir produit:', productId);
+}
+
+function editProduct(productId) {
+    console.log('Éditer produit:', productId);
+}
+
+function deleteProduct(productId) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+        console.log('Supprimer produit:', productId);
+    }
+}
+
+function addProduct() {
+    const form = document.getElementById('addProductForm');
+    const formData = new FormData(form);
+    
+    // Implémenter la logique d'ajout
+    console.log('Ajouter produit');
+}
+</script>
+{% endblock %}
