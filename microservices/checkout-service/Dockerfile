@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5007
 
-CMD ["python", "app.py"]
+CMD ["python", "app_ddd.py"]
