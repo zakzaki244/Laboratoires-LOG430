@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
-from ..value_objects.checkout_value_objects import Address
+from ...domain.value_objects.checkout_value_objects import Address
 
 
 @dataclass

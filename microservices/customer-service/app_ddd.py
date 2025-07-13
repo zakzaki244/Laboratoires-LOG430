@@ -6,6 +6,8 @@ from functools import wraps
 # Import des composants DDD
 from src.infrastructure.database import create_database_engine, create_session_factory
 from src.presentation.controllers import create_customer_controller
+from src.application.services.customer_service import CustomerService
+from src.infrastructure.repositories.customer_repository import CustomerRepository
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
@@ -31,8 +33,12 @@ def token_required(f):
         return f(*args, **kwargs)
     return decorated
 
+# Création des services
+customer_repository = CustomerRepository(SessionLocal)
+customer_service = CustomerService(customer_repository)
+
 # Création du contrôleur
-customer_controller = create_customer_controller(SessionLocal, API_TOKEN)
+customer_controller = create_customer_controller(customer_service)
 
 # Routes DDD
 @app.route('/customers', methods=['POST'])
