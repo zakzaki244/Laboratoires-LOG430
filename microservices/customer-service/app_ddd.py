@@ -34,10 +34,14 @@ def token_required(f):
     return decorated
 
 # Création des services
-customer_repository = CustomerRepository(SessionLocal)
-customer_service = CustomerService(customer_repository)
+def get_customer_service():
+    """Factory pour créer le service customer avec une session"""
+    session = SessionLocal()
+    customer_repository = CustomerRepository(session)
+    return CustomerService(customer_repository)
 
 # Création du contrôleur
+customer_service = get_customer_service()
 customer_controller = create_customer_controller(customer_service)
 
 # Enregistrement du blueprint

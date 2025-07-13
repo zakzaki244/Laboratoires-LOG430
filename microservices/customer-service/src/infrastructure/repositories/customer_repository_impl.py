@@ -14,7 +14,7 @@ class SqlCustomerRepository(CustomerRepository):
     def __init__(self, session: Session):
         self._session = session
     
-    async def save(self, customer: Customer) -> Customer:
+    def save(self, customer: Customer) -> Customer:
         """Sauvegarder un client"""
         try:
             if customer.id:
@@ -60,7 +60,7 @@ class SqlCustomerRepository(CustomerRepository):
             self._session.rollback()
             raise Exception(f"Erreur lors de la sauvegarde: {str(e)}")
     
-    async def get_by_id(self, customer_id: str) -> Optional[Customer]:
+    def get_by_id(self, customer_id: str) -> Optional[Customer]:
         """Récupérer un client par ID"""
         customer_model = self._session.query(CustomerModel).filter(
             CustomerModel.id == customer_id
@@ -68,7 +68,7 @@ class SqlCustomerRepository(CustomerRepository):
         
         return self._model_to_entity(customer_model) if customer_model else None
     
-    async def get_by_email(self, email: Email) -> Optional[Customer]:
+    def get_by_email(self, email: Email) -> Optional[Customer]:
         """Récupérer un client par email"""
         customer_model = self._session.query(CustomerModel).filter(
             CustomerModel.email == email.value
@@ -76,7 +76,7 @@ class SqlCustomerRepository(CustomerRepository):
         
         return self._model_to_entity(customer_model) if customer_model else None
     
-    async def get_all_active(self) -> List[Customer]:
+    def get_all_active(self) -> List[Customer]:
         """Récupérer tous les clients actifs"""
         customer_models = self._session.query(CustomerModel).filter(
             CustomerModel.is_active == True
@@ -84,7 +84,7 @@ class SqlCustomerRepository(CustomerRepository):
         
         return [self._model_to_entity(model) for model in customer_models]
     
-    async def delete(self, customer_id: str) -> None:
+    def delete(self, customer_id: str) -> None:
         """Supprimer un client"""
         customer_model = self._session.query(CustomerModel).filter(
             CustomerModel.id == customer_id
@@ -94,7 +94,7 @@ class SqlCustomerRepository(CustomerRepository):
             self._session.delete(customer_model)
             self._session.commit()
     
-    async def email_exists(self, email: Email) -> bool:
+    def email_exists(self, email: Email) -> bool:
         """Vérifier si un email existe déjà"""
         count = self._session.query(CustomerModel).filter(
             CustomerModel.email == email.value
