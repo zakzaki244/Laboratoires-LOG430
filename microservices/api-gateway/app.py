@@ -11,10 +11,10 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
 metrics = PrometheusMetrics(app)
 limiter = Limiter(
-    app,
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
+limiter.init_app(app)
 
 # Configuration des services
 SERVICES = {
@@ -280,8 +280,10 @@ def login():
             
             success = False
             for pwd in passwords:
-                response = requests.post(f"{SERVICES['customer']}/api/customers/login", 
-                                       json={'email': email, 'password': pwd})
+                url = f"{SERVICES['customer']}/api/customers/login"
+                print(f"DEBUG: Attempting login with URL: {url}")
+                response = requests.post(url, json={'email': email, 'password': pwd})
+                print(f"DEBUG: Response status: {response.status_code}")
                 
                 if response.status_code == 200:
                     user_data = response.json()
