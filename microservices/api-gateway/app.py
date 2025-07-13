@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
 metrics = PrometheusMetrics(app)
 limiter = Limiter(
+    app,
     key_func=get_remote_address,
-    app=app,
     default_limits=["200 per day", "50 per hour"]
 )
 
