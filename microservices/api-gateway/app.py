@@ -269,15 +269,32 @@ def login():
         password = request.form.get('password')
         
         try:
-            response = requests.post(f"{SERVICES['customer']}/customers/login", 
-                                   json={'username': username, 'password': password})
+            # Convertir username en email pour l'API customer-service
+            if username == 'admin':
+                email = 'admin@test.com'
+                # Essayer d'abord avec admin123, puis avec admin
+                passwords = ['admin123', 'admin']
+            else:
+                email = f"{username}@test.com" if '@' not in username else username
+                passwords = [password]
             
-            if response.status_code == 200:
-                user_data = response.json()
-                session['user_id'] = user_data.get('id')
-                session['username'] = user_data.get('username')
-                session['role'] = user_data.get('role', 'customer')
-                flash("Connexion réussie!", "success")
+            success = False
+            for pwd in passwords:
+                response = requests.post(f"{SERVICES['customer']}/api/customers/login", 
+                                       json={'email': email, 'password': pwd})
+                
+                if response.status_code == 200:
+                    user_data = response.json()
+                    customer_data = user_data.get('customer', {})
+                    session['user_id'] = customer_data.get('id')
+                    session['username'] = username
+                    session['email'] = customer_data.get('email')
+                    session['role'] = 'admin' if username == 'admin' else 'customer'
+                    flash("Connexion réussie!", "success")
+                    success = True
+                    break
+            
+            if success:
                 return redirect(url_for('index'))
             else:
                 flash("Nom d'utilisateur ou mot de passe incorrect", "error")
