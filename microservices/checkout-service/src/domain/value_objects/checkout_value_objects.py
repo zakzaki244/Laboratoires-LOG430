@@ -101,3 +101,30 @@ class CartId:
     def __post_init__(self):
         if self.value <= 0:
             raise ValueError("L'ID du panier doit être positif.")
+
+
+@dataclass(frozen=True)
+class CustomerReference:
+    value: int
+    
+    def __post_init__(self):
+        if self.value <= 0:
+            raise ValueError("La référence client doit être positive.")
+
+
+@dataclass(frozen=True)
+class PaymentMethod:
+    value: str
+    
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("Le mode de paiement est requis.")
+
+
+@dataclass(frozen=True)
+class OrderTimestamp:
+    value: datetime
+    
+    def __post_init__(self):
+        if not self.value:
+            raise ValueError("L'horodatage de la commande est requis.")
