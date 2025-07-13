@@ -1,15 +1,122 @@
-# global:
-#   scrape_interval: 5s
-
-# scrape_configs:
-#   - job_name: 'flask-app'
-#     static_configs:
-#       - targets: ['web:5000']
-
 global:
-  scrape_interval: 5s
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+rule_files:
+  - "prometheus-alerts.yml"
 
 scrape_configs:
-  - job_name: 'flask-app'
+  # API Gateway (point d'entrée principal)
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:5000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Microservices individuels
+  - job_name: 'store-service'
+    static_configs:
+      - targets: ['store-service:5001']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'product-service'
+    static_configs:
+      - targets: ['product-service:5002']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'sales-service'
+    static_configs:
+      - targets: ['sales-service:5003']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'inventory-service'
+    static_configs:
+      - targets: ['inventory-service:5004']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'customer-service'
+    static_configs:
+      - targets: ['customer-service:5005']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'cart-service'
+    static_configs:
+      - targets: ['cart-service:5006']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'checkout-service'
+    static_configs:
+      - targets: ['checkout-service:5007']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Infrastructure services
+  - job_name: 'nginx'
     static_configs:
       - targets: ['nginx:80']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Bases de données PostgreSQL (si exporters configurés)
+  - job_name: 'postgres-stores'
+    static_configs:
+      - targets: ['db-stores:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-products'
+    static_configs:
+      - targets: ['db-products:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-sales'
+    static_configs:
+      - targets: ['db-sales:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-inventory'
+    static_configs:
+      - targets: ['db-inventory:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-customers'
+    static_configs:
+      - targets: ['db-customers:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-cart'
+    static_configs:
+      - targets: ['db-cart:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  - job_name: 'postgres-checkout'
+    static_configs:
+      - targets: ['db-checkout:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  # Auto-monitoring de Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: '/metrics'
+    scrape_interval: 30s

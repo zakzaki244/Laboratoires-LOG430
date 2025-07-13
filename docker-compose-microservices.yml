@@ -1,0 +1,300 @@
+services:
+  # Bases de données
+  db-stores:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: stores_db
+    volumes:
+      - stores_db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U log430 -d stores_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  db-products:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: products_db
+    volumes:
+      - products_db:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - microservices-network
+
+  db-sales:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: sales_db
+    volumes:
+      - sales_db:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - microservices-network
+
+  db-inventory:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: inventory_db
+    volumes:
+      - inventory_db:/var/lib/postgresql/data
+    ports:
+      - "5436:5432"
+    networks:
+      - microservices-network
+
+  db-customers:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: customers_db
+    volumes:
+      - customers_db:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+    networks:
+      - microservices-network
+
+  db-cart:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: cart_db
+    volumes:
+      - cart_db:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    networks:
+      - microservices-network
+
+  db-checkout:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+      POSTGRES_DB: checkout_db
+    volumes:
+      - checkout_db:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+    networks:
+      - microservices-network
+
+  # Cache Redis pour l'API Gateway
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Microservices
+  api-gateway:
+    build:
+      context: ./microservices/api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - store-service
+      - product-service
+      - sales-service
+      - inventory-service
+      - customer-service
+      - cart-service
+      - checkout-service
+      - redis
+    environment:
+      - STORE_SERVICE_URL=http://store-service:5001
+      - PRODUCT_SERVICE_URL=http://product-service:5002
+      - SALES_SERVICE_URL=http://sales-service:5003
+      - INVENTORY_SERVICE_URL=http://inventory-service:5004
+      - CUSTOMER_SERVICE_URL=http://customer-service:5005
+      - CART_SERVICE_URL=http://cart-service:5006
+      - CHECKOUT_SERVICE_URL=http://checkout-service:5007
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  store-service:
+    build:
+      context: ./microservices/store-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db-stores
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-stores:5432/stores_db
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  product-service:
+    build:
+      context: ./microservices/product-service
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - db-products
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-products:5432/products_db
+      - STORE_SERVICE_URL=http://store-service:5001
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  sales-service:
+    build:
+      context: ./microservices/sales-service
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+    depends_on:
+      - db-sales
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-sales:5432/sales_db
+      - PRODUCT_SERVICE_URL=http://product-service:5002
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  inventory-service:
+    build:
+      context: ./microservices/inventory-service
+      dockerfile: Dockerfile
+    ports:
+      - "5004:5004"
+    depends_on:
+      - db-inventory
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-inventory:5432/inventory_db
+      - PRODUCT_SERVICE_URL=http://product-service:5002
+      - STORE_SERVICE_URL=http://store-service:5001
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  customer-service:
+    build:
+      context: ./microservices/customer-service
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5005"
+    depends_on:
+      - db-customers
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-customers:5432/customers_db
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  cart-service:
+    build:
+      context: ./microservices/cart-service
+      dockerfile: Dockerfile
+    ports:
+      - "5006:5006"
+    depends_on:
+      - db-cart
+      - redis
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-cart:5432/cart_db
+      - REDIS_URL=redis://redis:6379
+      - PRODUCT_SERVICE_URL=http://product-service:5002
+      - CUSTOMER_SERVICE_URL=http://customer-service:5005
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  checkout-service:
+    build:
+      context: ./microservices/checkout-service
+      dockerfile: Dockerfile
+    ports:
+      - "5007:5007"
+    depends_on:
+      - db-checkout
+    environment:
+      - DATABASE_URL=postgresql://log430:laboratoire@db-checkout:5432/checkout_db
+      - CART_SERVICE_URL=http://cart-service:5006
+      - CUSTOMER_SERVICE_URL=http://customer-service:5005
+      - SALES_SERVICE_URL=http://sales-service:5003
+      - PRODUCT_SERVICE_URL=http://product-service:5002
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  # Load Balancer (optionnel)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx-microservices.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api-gateway
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  # Monitoring
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - microservices-network
+    restart: unless-stopped
+
+volumes:
+  stores_db:
+  products_db:
+  sales_db:
+  inventory_db:
+  customers_db:
+  cart_db:
+  checkout_db:
+  grafana_data:
+
+networks:
+  microservices-network:
+    driver: bridge
