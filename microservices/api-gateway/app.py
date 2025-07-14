@@ -83,21 +83,11 @@ def forward_request(service_name, path, method='GET'):
 
 # ========== NOUVEAU SYSTÈME DE CONNEXION SIMPLIFIÉ ==========
 
-# Définition des utilisateurs de test
-TEST_USERS = {
-    'admin@supermarcher.com': {'password': 'admin123', 'role': 'admin', 'name': 'Admin System'},
-    'gestionnaire@supermarcher.com': {'password': 'gestionnaire123', 'role': 'gestionnaire', 'name': 'Gestionnaire Maison Mère'},
-    'responsable.produit@supermarcher.com': {'password': 'produit123', 'role': 'responsable_produit', 'name': 'Responsable Produit'},
-    'responsable.logistique@supermarcher.com': {'password': 'logistique123', 'role': 'responsable_logistique', 'name': 'Responsable Logistique'},
-    'employe.magasin@supermarcher.com': {'password': 'employe123', 'role': 'employe_magasin', 'name': 'Employé Magasin'},
-    'client@supermarcher.com': {'password': 'client123', 'role': 'client', 'name': 'Client Test'},
-}
-
 def authenticate_user(username, password):
     """Authentifier un utilisateur via le customer-service"""
     try:
-        # Essayer d'abord avec l'email direct
-        email = username if '@' in username else f"{username}@example.com"
+        # Utiliser directement l'email/username fourni
+        email = username
         
         logger.info(f"Attempting to authenticate user: {email}")
         
@@ -126,33 +116,15 @@ def authenticate_user(username, password):
             }
         else:
             logger.warning(f"Authentication failed for {email}: {response.status_code}")
-            return {'success': False, 'error': 'Invalid credentials'}
+            return {'success': False, 'error': 'Email ou mot de passe incorrect'}
             
     except requests.exceptions.RequestException as e:
         logger.error(f"Customer service unavailable: {str(e)}")
-        
-        # Fallback vers les utilisateurs de test
-        logger.info("Using fallback authentication")
-        if username in TEST_USERS:
-            test_user = TEST_USERS[username]
-            if test_user['password'] == password:
-                return {
-                    'success': True,
-                    'user': {
-                        'id': 1,
-                        'email': username if '@' in username else f"{username}@example.com",
-                        'first_name': test_user['name'].split()[0],
-                        'last_name': test_user['name'].split()[1],
-                        'role': test_user['role'],
-                        'store_id': 1
-                    }
-                }
-        
-        return {'success': False, 'error': 'Service unavailable'}
+        return {'success': False, 'error': 'Service d\'authentification indisponible'}
     
     except Exception as e:
         logger.error(f"Authentication error: {str(e)}")
-        return {'success': False, 'error': 'Authentication error'}
+        return {'success': False, 'error': 'Erreur d\'authentification'}
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
