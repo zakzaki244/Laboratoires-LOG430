@@ -3,7 +3,7 @@ Script d'initialisation des utilisateurs par défaut selon les acteurs du systè
 """
 from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash
-from .models import CustomerModel, Customer
+from .models import CustomerModel
 from .database import session
 import logging
 
@@ -139,34 +139,3 @@ def seed_default_users(session: Session):
         logger.error(f"Erreur lors de la création des utilisateurs par défaut: {str(e)}")
         session.rollback()
         raise
-
-# Ajout des utilisateurs
-users = [
-    Customer(
-        email="gestionnaire@maisonmere.com",
-        first_name="Gestionnaire",
-        last_name="MaisonMere",
-        phone="123456789",
-        password_hash="hashed_password",
-        role="admin",
-        store_id=None,
-        address="123 Main Street",
-        is_active=True
-    ),
-    Customer(
-        email="employe@magasin1.com",
-        first_name="Employe",
-        last_name="Magasin1",
-        phone="987654321",
-        password_hash="hashed_password",
-        role="employee",
-        store_id=1,
-        address="456 Elm Street",
-        is_active=True
-    )
-]
-
-# Insertion dans la base de données
-for user in users:
-    session.add(user)
-session.commit()
