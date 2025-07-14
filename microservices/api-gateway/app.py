@@ -336,6 +336,68 @@ def stores():
         flash('Erreur lors du chargement des magasins', 'error')
         return render_template('stores.html', stores=[])
 
+@app.route('/stores/<int:store_id>', methods=['GET', 'POST'])
+@require_login
+def edit_store(store_id):
+    """Éditer un magasin"""
+    if request.method == 'POST':
+        # Mise à jour du magasin
+        try:
+            store_data = {
+                'name': request.form.get('name'),
+                'address': request.form.get('address'),
+                'phone': request.form.get('phone', ''),
+                'manager': request.form.get('manager', '')
+            }
+            
+            response = requests.put(f"{SERVICES['store']}/stores/{store_id}", 
+                                   json=store_data,
+                                   headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                   timeout=5)
+            
+            if response.status_code == 200:
+                flash('Magasin modifié avec succès!', 'success')
+            else:
+                flash('Erreur lors de la modification du magasin', 'error')
+                
+        except Exception as e:
+            logger.error(f"Error updating store: {str(e)}")
+            flash('Erreur lors de la modification du magasin', 'error')
+        
+        return redirect(url_for('stores'))
+    
+    # Affichage du formulaire d'édition
+    try:
+        response = requests.get(f"{SERVICES['store']}/stores/{store_id}", 
+                              headers={'Authorization': f'Bearer {API_TOKEN}'},
+                              timeout=5)
+        store_data = response.json() if response.status_code == 200 else {}
+        return render_template('edit_store.html', store=store_data)
+    except Exception as e:
+        logger.error(f"Error loading store: {str(e)}")
+        flash('Erreur lors du chargement du magasin', 'error')
+        return redirect(url_for('stores'))
+
+@app.route('/stores/<int:store_id>/delete', methods=['POST'])
+@require_login
+def delete_store(store_id):
+    """Supprimer un magasin"""
+    try:
+        response = requests.delete(f"{SERVICES['store']}/stores/{store_id}", 
+                                 headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                 timeout=5)
+        
+        if response.status_code == 200:
+            flash('Magasin supprimé avec succès!', 'success')
+        else:
+            flash('Erreur lors de la suppression du magasin', 'error')
+            
+    except Exception as e:
+        logger.error(f"Error deleting store: {str(e)}")
+        flash('Erreur lors de la suppression du magasin', 'error')
+    
+    return redirect(url_for('stores'))
+
 @app.route('/products', methods=['GET', 'POST'])
 @require_login
 def products():
