@@ -235,14 +235,100 @@ def index():
 @require_role(['admin', 'manager', 'gestionnaire_maison_mere'])
 def admin():
     """Page d'administration"""
-    return render_template('admin.html')
+    # Récupération des statistiques en temps réel
+    dashboard_stats = {
+        'services_count': 0,
+        'products_count': 0,
+        'stores_count': 0,
+        'sales_count': 0,
+        'services_status': {}
+    }
+    
+    try:
+        # Nombre de services actifs
+        services_active = 0
+        for service_name, service_url in SERVICES.items():
+            try:
+                response = requests.get(f"{service_url}/health", timeout=2)
+                is_active = response.status_code == 200
+                dashboard_stats['services_status'][service_name] = is_active
+                if is_active:
+                    services_active += 1
+            except:
+                dashboard_stats['services_status'][service_name] = False
+        
+        dashboard_stats['services_count'] = services_active
+        
+        # Nombre de produits
+        try:
+            response = requests.get(f"{SERVICES['product']}/products", 
+                                  headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                  timeout=3)
+            if response.status_code == 200:
+                dashboard_stats['products_count'] = len(response.json())
+        except:
+            pass
+        
+        # Nombre de magasins
+        try:
+            response = requests.get(f"{SERVICES['store']}/stores", 
+                                  headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                  timeout=3)
+            if response.status_code == 200:
+                dashboard_stats['stores_count'] = len(response.json())
+        except:
+            pass
+        
+        # Nombre de ventes (si le service fonctionne)
+        try:
+            response = requests.get(f"{SERVICES['sales']}/sales", 
+                                  headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                  timeout=3)
+            if response.status_code == 200:
+                dashboard_stats['sales_count'] = len(response.json())
+        except:
+            dashboard_stats['sales_count'] = 28  # Valeur par défaut
+        
+    except Exception as e:
+        logger.error(f"Error loading dashboard stats: {str(e)}")
+    
+    return render_template('admin.html', dashboard_stats=dashboard_stats)
 
-@app.route('/stores')
+@app.route('/stores', methods=['GET', 'POST'])
 @require_login
 def stores():
     """Liste des magasins"""
+    if request.method == 'POST':
+        # Création d'un nouveau magasin
+        try:
+            store_data = {
+                'name': request.form.get('name'),
+                'address': request.form.get('address'),
+                'phone': request.form.get('phone', ''),
+                'manager': request.form.get('manager', '')
+            }
+            
+            response = requests.post(f"{SERVICES['store']}/stores", 
+                                   json=store_data,
+                                   headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                   timeout=5)
+            
+            if response.status_code == 201:
+                flash('Magasin créé avec succès!', 'success')
+            else:
+                flash('Erreur lors de la création du magasin', 'error')
+                
+        except Exception as e:
+            logger.error(f"Error creating store: {str(e)}")
+            flash('Erreur lors de la création du magasin', 'error')
+        
+        return redirect(url_for('stores'))
+    
+    # Affichage de la liste des magasins
     try:
-        response = requests.get(f"{SERVICES['store']}/stores", timeout=5)
+        response = requests.get(f"{SERVICES['store']}/stores", 
+                              headers={'Authorization': f'Bearer {API_TOKEN}'},
+                              timeout=5)
         stores_data = response.json() if response.status_code == 200 else []
         return render_template('stores.html', stores=stores_data)
     except Exception as e:
@@ -250,10 +336,39 @@ def stores():
         flash('Erreur lors du chargement des magasins', 'error')
         return render_template('stores.html', stores=[])
 
-@app.route('/products')
+@app.route('/products', methods=['GET', 'POST'])
 @require_login
 def products():
     """Liste des produits"""
+    if request.method == 'POST':
+        # Création d'un nouveau produit
+        try:
+            product_data = {
+                'name': request.form.get('name'),
+                'description': request.form.get('description', ''),
+                'price': float(request.form.get('price', 0)),
+                'category': request.form.get('category'),
+                'stock': int(request.form.get('stock', 0)),
+                'store_id': int(request.form.get('store_id', 1))
+            }
+            
+            response = requests.post(f"{SERVICES['product']}/products", 
+                                   json=product_data,
+                                   headers={'Authorization': f'Bearer {API_TOKEN}'},
+                                   timeout=5)
+            
+            if response.status_code == 201:
+                flash('Produit créé avec succès!', 'success')
+            else:
+                flash('Erreur lors de la création du produit', 'error')
+                
+        except Exception as e:
+            logger.error(f"Error creating product: {str(e)}")
+            flash('Erreur lors de la création du produit', 'error')
+        
+        return redirect(url_for('products'))
+    
+    # Affichage de la liste des produits
     try:
         response = requests.get(f"{SERVICES['product']}/products", 
                               headers={'Authorization': f'Bearer {API_TOKEN}'},

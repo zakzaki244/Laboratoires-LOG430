@@ -28,10 +28,15 @@
                     <div class="col-md-3">
                         <select class="form-select" id="categoryFilter">
                             <option value="">Toutes les catégories</option>
-                            <option value="electronics">Électronique</option>
-                            <option value="clothing">Vêtements</option>
-                            <option value="books">Livres</option>
-                            <option value="sports">Sports</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Légumes">Légumes</option>
+                            <option value="Viandes">Viandes</option>
+                            <option value="Poissons">Poissons</option>
+                            <option value="Produits laitiers">Produits laitiers</option>
+                            <option value="Épicerie">Épicerie</option>
+                            <option value="Boissons">Boissons</option>
+                            <option value="Hygiène">Hygiène</option>
+                            <option value="Entretien">Entretien</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -119,44 +124,49 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="addProductForm">
+                <form id="addProductForm" method="POST" action="/products">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Nom du produit</label>
-                        <input type="text" class="form-control" id="productName" required>
+                        <input type="text" class="form-control" id="productName" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="productDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                        <textarea class="form-control" id="productDescription" name="description" rows="3"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="productPrice" class="form-label">Prix</label>
-                                <input type="number" class="form-control" id="productPrice" step="0.01" required>
+                                <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="productStock" class="form-label">Stock</label>
-                                <input type="number" class="form-control" id="productStock" required>
+                                <input type="number" class="form-control" id="productStock" name="stock" required>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="productCategory" class="form-label">Catégorie</label>
-                        <select class="form-select" id="productCategory">
+                        <select class="form-select" id="productCategory" name="category">
                             <option value="">Sélectionner une catégorie</option>
-                            <option value="electronics">Électronique</option>
-                            <option value="clothing">Vêtements</option>
-                            <option value="books">Livres</option>
-                            <option value="sports">Sports</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Légumes">Légumes</option>
+                            <option value="Viandes">Viandes</option>
+                            <option value="Poissons">Poissons</option>
+                            <option value="Produits laitiers">Produits laitiers</option>
+                            <option value="Épicerie">Épicerie</option>
+                            <option value="Boissons">Boissons</option>
+                            <option value="Hygiène">Hygiène</option>
+                            <option value="Entretien">Entretien</option>
                         </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary" onclick="addProduct()">Ajouter</button>
+                <button type="submit" class="btn btn-primary" form="addProductForm">Ajouter</button>
             </div>
         </div>
     </div>
