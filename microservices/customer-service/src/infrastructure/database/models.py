@@ -15,10 +15,12 @@ class CustomerModel(Base):
     last_name = Column(String(100), nullable=False)
     phone = Column(String(20), nullable=False)
     password_hash = Column(String(255), nullable=False)
+    role = Column(String(50), nullable=False, default='client')  # Nouveau champ pour le rôle
+    store_id = Column(Integer, nullable=True)  # ID du magasin pour les employés
     address = Column(JSON, nullable=False)  # {street, city, postal_code, country}
     is_active = Column(Boolean, nullable=False, default=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def __repr__(self):
-        return f"<Customer(id={self.id}, email='{self.email}', name='{self.first_name} {self.last_name}')>"
+        return f"<Customer(id={self.id}, email='{self.email}', name='{self.first_name} {self.last_name}', role='{self.role}')>"

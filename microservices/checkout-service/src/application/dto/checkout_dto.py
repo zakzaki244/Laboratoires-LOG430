@@ -22,6 +22,13 @@ class UpdateOrderRequest:
 
 
 @dataclass
+class UpdateOrderStatusRequest:
+    order_id: int
+    status: str
+    notes: Optional[str] = None
+
+
+@dataclass
 class ProcessPaymentRequest:
     order_id: int
     payment_method: str
@@ -29,11 +36,42 @@ class ProcessPaymentRequest:
 
 
 @dataclass
+class PaymentRequest:
+    order_id: int
+    payment_method: str
+    amount: float
+    payment_details: Dict[str, Any]
+
+
+@dataclass
+class PaymentResponse:
+    id: int
+    order_id: int
+    payment_method: str
+    amount: float
+    status: str
+    transaction_id: Optional[str]
+    created_at: str
+    processed_at: Optional[str]
+
+
+@dataclass
+class OrderItemResponse:
+    id: int
+    product_id: int
+    quantity: int
+    unit_price: float
+    total_price: float
+    product_name: Optional[str] = None
+    product_sku: Optional[str] = None
+
+
+@dataclass
 class OrderResponse:
     id: int
     order_number: str
     customer_id: int
-    items: List[Dict[str, Any]]
+    items: List[OrderItemResponse]
     shipping_address: Optional[Dict[str, str]]
     billing_address: Optional[Dict[str, str]]
     subtotal: float

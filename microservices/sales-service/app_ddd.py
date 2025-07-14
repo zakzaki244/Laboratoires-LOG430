@@ -37,7 +37,6 @@ def token_required(f):
 sales_controller = create_sales_controller(
     SessionLocal, 
     PRODUCT_SERVICE_URL, 
-    STORE_SERVICE_URL, 
     API_TOKEN
 )
 

@@ -45,3 +45,48 @@ class RequestId:
     def __post_init__(self):
         if self.value <= 0:
             raise ValueError("L'ID de la demande doit être positif.")
+
+
+@dataclass(frozen=True)
+class StockQuantity:
+    value: int
+    
+    def __post_init__(self):
+        if self.value < 0:
+            raise ValueError("La quantité de stock ne peut pas être négative.")
+
+
+@dataclass(frozen=True)
+class MinimumThreshold:
+    value: int
+    
+    def __post_init__(self):
+        if self.value < 0:
+            raise ValueError("Le seuil minimum ne peut pas être négatif.")
+
+
+@dataclass(frozen=True)
+class MaximumThreshold:
+    value: int
+    
+    def __post_init__(self):
+        if self.value < 0:
+            raise ValueError("Le seuil maximum ne peut pas être négatif.")
+
+
+@dataclass(frozen=True)
+class ProductReference:
+    value: str
+    
+    def __post_init__(self):
+        if not self.value or not self.value.strip():
+            raise ValueError("La référence produit ne peut pas être vide.")
+
+
+@dataclass(frozen=True)
+class StoreReference:
+    value: str
+    
+    def __post_init__(self):
+        if not self.value or not self.value.strip():
+            raise ValueError("La référence magasin ne peut pas être vide.")

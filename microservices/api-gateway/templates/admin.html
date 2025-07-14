@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+
+{% block title %}Administration - E-Commerce{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 text-center mb-4">
+            <i class="fas fa-cogs"></i> Administration Système
+        </h1>
+        <p class="lead text-center text-muted">
+            Interface réservée aux gestionnaires et responsables
+        </p>
+    </div>
+</div>
+
+<!-- Vérification des permissions -->
+{% if not session.user_role or session.user_role not in ['gestionnaire_maison_mere', 'responsable_produit', 'responsable_logistique'] %}
+    <div class="alert alert-danger" role="alert">
+        <i class="fas fa-ban"></i> Accès refusé. Cette page est réservée aux administrateurs.
+    </div>
+{% else %}
+
+<!-- Onglets pour les différentes sections -->
+<ul class="nav nav-tabs" id="adminTabs" role="tablist">
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
+    <li class="nav-item">
+        <a class="nav-link active" id="stores-tab" data-bs-toggle="tab" href="#stores" role="tab">
+            <i class="fas fa-store"></i> Gestion des Magasins
+        </a>
+    </li>
+    {% endif %}
+    
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
+    <li class="nav-item">
+        <a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products" role="tab">
+            <i class="fas fa-box"></i> Gestion des Produits
+        </a>
+    </li>
+    {% endif %}
+    
+    {% if session.user_role in ['gestionnaire_maison_mere'] %}
+    <li class="nav-item">
+        <a class="nav-link" id="users-tab" data-bs-toggle="tab" href="#users" role="tab">
+            <i class="fas fa-users"></i> Gestion des Utilisateurs
+        </a>
+    </li>
+    {% endif %}
+    
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_logistique'] %}
+    <li class="nav-item">
+        <a class="nav-link" id="logistics-tab" data-bs-toggle="tab" href="#logistics" role="tab">
+            <i class="fas fa-truck"></i> Logistique
+        </a>
+    </li>
+    {% endif %}
+</ul>
+
+<div class="tab-content" id="adminTabsContent">
+    <!-- Gestion des Magasins -->
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
+    <div class="tab-pane fade show active" id="stores" role="tabpanel">
+        <div class="card mt-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-store"></i> Gestion des Magasins</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStoreModal">
+                    <i class="fas fa-plus"></i> Ajouter un Magasin
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="storesTable">
+                            <!-- Données chargées via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Gestion des Produits -->
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
+    <div class="tab-pane fade" id="products" role="tabpanel">
+        <div class="card mt-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-box"></i> Gestion des Produits</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fas fa-plus"></i> Ajouter un Produit
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Catégorie</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <!-- Données chargées via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Gestion des Utilisateurs -->
+    {% if session.user_role == 'gestionnaire_maison_mere' %}
+    <div class="tab-pane fade" id="users" role="tabpanel">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5><i class="fas fa-users"></i> Gestion des Utilisateurs</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Magasin</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Données chargées via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Logistique -->
+    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_logistique'] %}
+    <div class="tab-pane fade" id="logistics" role="tabpanel">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5><i class="fas fa-truck"></i> Gestion Logistique</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Demandes de Réapprovisionnement</h6>
+                        <div id="reapproRequests">
+                            <!-- Données chargées via JavaScript -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Inventaire Central</h6>
+                        <div id="centralInventory">
+                            <!-- Données chargées via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modal pour ajouter un magasin -->
+<div class="modal fade" id="addStoreModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un Magasin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addStoreForm">
+                    <div class="mb-3">
+                        <label for="storeName" class="form-label">Nom du Magasin</label>
+                        <input type="text" class="form-control" id="storeName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="storeAddress" class="form-label">Adresse</label>
+                        <input type="text" class="form-control" id="storeAddress" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="storePhone" class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control" id="storePhone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="storeEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="storeEmail" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="addStore()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour ajouter un produit -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un Produit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Nom du Produit</label>
+                        <input type="text" class="form-control" id="productName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productCategory" class="form-label">Catégorie</label>
+                        <select class="form-select" id="productCategory" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="Electronics">Électronique</option>
+                            <option value="Clothing">Vêtements</option>
+                            <option value="Books">Livres</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Home">Maison</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Prix</label>
+                        <input type="number" class="form-control" id="productPrice" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="addProduct()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Fonctions JavaScript pour l'administration
+const API_TOKEN = 'Bearer Supermarcher22102002';
+
+// Charger les données au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    loadStores();
+    loadProducts();
+    loadUsers();
+    loadLogistics();
+});
+
+// Fonctions pour la gestion des magasins
+function loadStores() {
+    fetch('/api/stores', {
+        headers: {
+            'Authorization': API_TOKEN
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('storesTable');
+        if (data.stores) {
+            tbody.innerHTML = data.stores.map(store => `
+                <tr>
+                    <td>${store.id}</td>
+                    <td>${store.name}</td>
+                    <td>${store.address}</td>
+                    <td>${store.phone}</td>
+                    <td>${store.email}</td>
+                    <td><span class="badge bg-${store.is_active ? 'success' : 'danger'}">${store.is_active ? 'Actif' : 'Inactif'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editStore(${store.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteStore(${store.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    })
+    .catch(error => console.error('Erreur lors du chargement des magasins:', error));
+}
+
+function addStore() {
+    const formData = {
+        name: document.getElementById('storeName').value,
+        address: document.getElementById('storeAddress').value,
+        phone: document.getElementById('storePhone').value,
+        email: document.getElementById('storeEmail').value
+    };
+
+    fetch('/api/stores', {
+        method: 'POST',
+        headers: {
+            'Authorization': API_TOKEN,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Erreur: ' + data.error);
+        } else {
+            alert('Magasin ajouté avec succès');
+            loadStores();
+            bootstrap.Modal.getInstance(document.getElementById('addStoreModal')).hide();
+            document.getElementById('addStoreForm').reset();
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'ajout du magasin');
+    });
+}
+
+// Fonctions pour la gestion des produits
+function loadProducts() {
+    fetch('/api/products', {
+        headers: {
+            'Authorization': API_TOKEN
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('productsTable');
+        if (data.products) {
+            tbody.innerHTML = data.products.map(product => `
+                <tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price}</td>
+                    <td>${product.stock_quantity || 0}</td>
+                    <td><span class="badge bg-${product.is_active ? 'success' : 'danger'}">${product.is_active ? 'Actif' : 'Inactif'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    })
+    .catch(error => console.error('Erreur lors du chargement des produits:', error));
+}
+
+function addProduct() {
+    const formData = {
+        name: document.getElementById('productName').value,
+        category: document.getElementById('productCategory').value,
+        price: parseFloat(document.getElementById('productPrice').value),
+        description: document.getElementById('productDescription').value
+    };
+
+    fetch('/api/products', {
+        method: 'POST',
+        headers: {
+            'Authorization': API_TOKEN,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Erreur: ' + data.error);
+        } else {
+            alert('Produit ajouté avec succès');
+            loadProducts();
+            bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+            document.getElementById('addProductForm').reset();
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'ajout du produit');
+    });
+}
+
+// Fonctions pour la gestion des utilisateurs
+function loadUsers() {
+    fetch('/api/customers', {
+        headers: {
+            'Authorization': API_TOKEN
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('usersTable');
+        if (data.customers) {
+            tbody.innerHTML = data.customers.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.first_name} ${user.last_name}</td>
+                    <td>${user.email}</td>
+                    <td><span class="badge bg-info">${user.role}</span></td>
+                    <td>${user.store_id || 'N/A'}</td>
+                    <td><span class="badge bg-${user.is_active ? 'success' : 'danger'}">${user.is_active ? 'Actif' : 'Inactif'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="toggleUserStatus(${user.id})">
+                            <i class="fas fa-toggle-on"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    })
+    .catch(error => console.error('Erreur lors du chargement des utilisateurs:', error));
+}
+
+function loadLogistics() {
+    // Placeholder pour la logistique
+    console.log('Chargement des données logistiques...');
+}
+
+</script>
+
+{% endif %}
+{% endblock %}

@@ -144,6 +144,13 @@ def customers_proxy(customer_id=None):
     path = f"api/customers/{customer_id}" if customer_id else "api/customers"
     return forward_request('customer', path, request.method)
 
+@app.route('/api/customers/role/<role>', methods=['GET'])
+@token_required
+@limiter.limit("20 per minute")
+def customers_by_role_proxy(role):
+    """Récupérer les clients par rôle"""
+    return forward_request('customer', f'api/customers/role/{role}', 'GET')
+
 @app.route('/api/customers/<int:customer_id>/change-password', methods=['POST'])
 @token_required
 @limiter.limit("3 per minute")
@@ -269,37 +276,57 @@ def login():
         password = request.form.get('password')
         
         try:
-            # Convertir username en email pour l'API customer-service
-            if username == 'admin':
-                email = 'admin@test.com'
-                # Essayer d'abord avec admin123, puis avec admin
-                passwords = ['admin123', 'admin']
-            else:
-                email = f"{username}@test.com" if '@' not in username else username
-                passwords = [password]
+            # Mapping des utilisateurs connus
+            user_mappings = {
+                'admin': 'gestionnaire@maisonmere.com',
+                'gestionnaire': 'gestionnaire@maisonmere.com',
+                'employe': 'employe@magasin1.com',
+                'logistique': 'logistique@centre.com',
+                'produit': 'produit@maisonmere.com',
+                'client1': 'client1@test.com',
+                'client2': 'client2@test.com'
+            }
             
-            success = False
-            for pwd in passwords:
-                url = f"{SERVICES['customer']}/api/customers/login"
-                print(f"DEBUG: Attempting login with URL: {url}")
-                response = requests.post(url, json={'email': email, 'password': pwd})
-                print(f"DEBUG: Response status: {response.status_code}")
+            # Déterminer l'email à utiliser
+            if username in user_mappings:
+                email = user_mappings[username]
+            elif '@' in username:
+                email = username
+            else:
+                email = f"{username}@test.com"
+            
+            # Essayer la connexion
+            url = f"{SERVICES['customer']}/api/customers/login"
+            print(f"DEBUG: Attempting login with URL: {url}")
+            response = requests.post(url, 
+                                   json={'email': email, 'password': password}, 
+                                   headers={'Authorization': f'Bearer {API_TOKEN}'})
+            print(f"DEBUG: Response status: {response.status_code}")
+            
+            if response.status_code == 200:
+                user_data = response.json()
+                customer_data = user_data.get('customer', {})
                 
-                if response.status_code == 200:
-                    user_data = response.json()
-                    customer_data = user_data.get('customer', {})
-                    session['user_id'] = customer_data.get('id')
-                    session['username'] = username
-                    session['email'] = customer_data.get('email')
-                    session['role'] = 'admin' if username == 'admin' else 'customer'
-                    flash("Connexion réussie!", "success")
-                    success = True
-                    break
-            
-            if success:
-                return redirect(url_for('index'))
+                # Sauvegarder les données de session
+                session['user_id'] = customer_data.get('id')
+                session['username'] = username
+                session['email'] = customer_data.get('email')
+                session['user_role'] = customer_data.get('role', 'client')
+                session['store_id'] = customer_data.get('store_id')
+                session['first_name'] = customer_data.get('first_name')
+                session['last_name'] = customer_data.get('last_name')
+                
+                flash("Connexion réussie!", "success")
+                
+                # Rediriger selon le rôle
+                if session['user_role'] in ['gestionnaire_maison_mere', 'responsable_produit', 'responsable_logistique']:
+                    return redirect(url_for('admin'))
+                else:
+                    return redirect(url_for('index'))
             else:
-                flash("Nom d'utilisateur ou mot de passe incorrect", "error")
+                error_data = response.json() if response.content else {}
+                flash(f"Erreur de connexion: {error_data.get('error', 'Identifiants incorrects')}", "error")
+                
         except Exception as e:
             flash(f"Erreur de connexion: {str(e)}", "error")
     
@@ -408,6 +435,80 @@ def health_status():
             }
     
     return render_template('health_status.html', services=services_status)
+
+# Routes pour l'administration
+@app.route('/admin')
+def admin():
+    """Interface d'administration"""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    # Vérifier les permissions d'accès
+    user_role = session.get('user_role', 'client')
+    if user_role not in ['gestionnaire_maison_mere', 'responsable_produit', 'responsable_logistique']:
+        flash("Accès refusé. Cette page est réservée aux administrateurs.", "error")
+        return redirect(url_for('index'))
+    
+    return render_template('admin.html')
+
+@app.route('/admin/stores')
+def admin_stores():
+    """Gestion des magasins (admin)"""
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    
+    try:
+        response = requests.get(f"{SERVICES['store']}/stores")
+        stores_data = response.json() if response.status_code == 200 else []
+        return render_template('admin/stores.html', stores=stores_data)
+    except Exception as e:
+        flash(f"Erreur lors du chargement des magasins: {str(e)}", "error")
+        return render_template('admin/stores.html', stores=[])
+
+@app.route('/admin/products')
+def admin_products():
+    """Gestion des produits (admin)"""
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    
+    try:
+        response = requests.get(f"{SERVICES['product']}/products", 
+                              headers={'Authorization': f'Bearer {API_TOKEN}'})
+        products_data = response.json() if response.status_code == 200 else []
+        return render_template('admin/products.html', products=products_data)
+    except Exception as e:
+        flash(f"Erreur lors du chargement des produits: {str(e)}", "error")
+        return render_template('admin/products.html', products=[])
+
+@app.route('/admin/sales')
+def admin_sales():
+    """Gestion des ventes (admin)"""
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    
+    try:
+        response = requests.get(f"{SERVICES['sales']}/sales", 
+                              headers={'Authorization': f'Bearer {API_TOKEN}'})
+        sales_data = response.json() if response.status_code == 200 else []
+        return render_template('admin/sales.html', sales=sales_data)
+    except Exception as e:
+        flash(f"Erreur lors du chargement des ventes: {str(e)}", "error")
+        return render_template('admin/sales.html', sales=[])
+
+@app.route('/admin/customers')
+def admin_customers():
+    """Gestion des clients (admin)"""
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    
+    try:
+        response = requests.get(f"{SERVICES['customer']}/api/customers", 
+                              headers={'Authorization': f'Bearer {API_TOKEN}'})
+        customers_data = response.json() if response.status_code == 200 else []
+        return render_template('admin/customers.html', customers=customers_data)
+    except Exception as e:
+        flash(f"Erreur lors du chargement des clients: {str(e)}", "error")
+        return render_template('admin/customers.html', customers=[])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
