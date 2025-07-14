@@ -7,6 +7,7 @@ from functools import wraps
 
 # Import des composants DDD
 from src.infrastructure.database import Base
+from src.infrastructure.database.seed_data import seed_default_products
 from src.presentation.controllers import create_product_controller
 
 app = Flask(__name__)
@@ -23,6 +24,15 @@ API_TOKEN = "Supermarcher22102002"
 
 # Création des tables
 Base.metadata.create_all(bind=engine)
+
+# Initialisation des données par défaut
+try:
+    session = SessionLocal()
+    seed_default_products(session)
+    session.close()
+    print("Données par défaut initialisées avec succès")
+except Exception as e:
+    print(f"Erreur lors de l'initialisation des données: {str(e)}")
 
 # Authentification
 def token_required(f):

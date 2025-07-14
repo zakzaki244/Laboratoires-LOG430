@@ -5,6 +5,7 @@ from functools import wraps
 
 # Import des composants DDD
 from src.infrastructure.database import create_database_engine, create_session_factory
+from src.infrastructure.database.seed_data import seed_default_inventory
 from src.presentation.controllers import create_inventory_controller
 
 app = Flask(__name__)
@@ -40,6 +41,15 @@ inventory_controller = create_inventory_controller(
     STORE_SERVICE_URL,
     API_TOKEN
 )
+
+# Initialisation des données par défaut
+try:
+    session = SessionLocal()
+    seed_default_inventory(session)
+    session.close()
+    print("Données par défaut initialisées avec succès")
+except Exception as e:
+    print(f"Erreur lors de l'initialisation des données: {str(e)}")
 
 # Routes DDD
 @app.route('/reappro-requests', methods=['POST'])
