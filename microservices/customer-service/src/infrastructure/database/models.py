@@ -1,8 +1,19 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, JSON
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, JSON, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
+import enum
 
 Base = declarative_base()
+
+
+class UserRole(enum.Enum):
+    """Enumération des rôles utilisateurs"""
+    ADMIN = "admin"
+    GESTIONNAIRE = "gestionnaire"
+    RESPONSABLE_PRODUIT = "responsable_produit"
+    RESPONSABLE_LOGISTIQUE = "responsable_logistique"
+    EMPLOYE_MAGASIN = "employe_magasin"
+    CLIENT = "client"
 
 
 class CustomerModel(Base):
@@ -15,7 +26,7 @@ class CustomerModel(Base):
     last_name = Column(String(100), nullable=False)
     phone = Column(String(20), nullable=False)
     password_hash = Column(String(255), nullable=False)
-    role = Column(String(50), nullable=False, default='client')  # Nouveau champ pour le rôle
+    role = Column(String(50), nullable=False, default='client')  # Utilisera l'enum côté application
     store_id = Column(Integer, nullable=True)  # ID du magasin pour les employés
     address = Column(JSON, nullable=False)  # {street, city, postal_code, country}
     is_active = Column(Boolean, nullable=False, default=True)

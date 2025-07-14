@@ -7,6 +7,13 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import logging
 
+# Import des décorateurs d'authentification
+from auth_decorators import (
+    role_required, admin_required, gestionnaire_required,
+    responsable_produit_required, responsable_logistique_required,
+    employe_magasin_required, management_required, authenticated_required
+)
+
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here-123456')
 metrics = PrometheusMetrics(app)
@@ -76,21 +83,11 @@ def forward_request(service_name, path, method='GET'):
 
 # ========== NOUVEAU SYSTÈME DE CONNEXION SIMPLIFIÉ ==========
 
-# Définition des utilisateurs de test
-TEST_USERS = {
-    'admin@example.com': {'password': 'admin123', 'role': 'admin', 'name': 'Admin User'},
-    'manager@example.com': {'password': 'manager123', 'role': 'manager', 'name': 'Manager User'},
-    'employee@example.com': {'password': 'employee123', 'role': 'employee', 'name': 'Employee User'},
-    'admin': {'password': 'admin123', 'role': 'admin', 'name': 'Admin User'},
-    'manager': {'password': 'manager123', 'role': 'manager', 'name': 'Manager User'},
-    'employee': {'password': 'employee123', 'role': 'employee', 'name': 'Employee User'},
-}
-
 def authenticate_user(username, password):
     """Authentifier un utilisateur via le customer-service"""
     try:
-        # Essayer d'abord avec l'email direct
-        email = username if '@' in username else f"{username}@example.com"
+        # Utiliser directement l'email/username fourni
+        email = username
         
         logger.info(f"Attempting to authenticate user: {email}")
         
@@ -119,33 +116,15 @@ def authenticate_user(username, password):
             }
         else:
             logger.warning(f"Authentication failed for {email}: {response.status_code}")
-            return {'success': False, 'error': 'Invalid credentials'}
+            return {'success': False, 'error': 'Email ou mot de passe incorrect'}
             
     except requests.exceptions.RequestException as e:
         logger.error(f"Customer service unavailable: {str(e)}")
-        
-        # Fallback vers les utilisateurs de test
-        logger.info("Using fallback authentication")
-        if username in TEST_USERS:
-            test_user = TEST_USERS[username]
-            if test_user['password'] == password:
-                return {
-                    'success': True,
-                    'user': {
-                        'id': 1,
-                        'email': username if '@' in username else f"{username}@example.com",
-                        'first_name': test_user['name'].split()[0],
-                        'last_name': test_user['name'].split()[1],
-                        'role': test_user['role'],
-                        'store_id': 1
-                    }
-                }
-        
-        return {'success': False, 'error': 'Service unavailable'}
+        return {'success': False, 'error': 'Service d\'authentification indisponible'}
     
     except Exception as e:
         logger.error(f"Authentication error: {str(e)}")
-        return {'success': False, 'error': 'Authentication error'}
+        return {'success': False, 'error': 'Erreur d\'authentification'}
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -177,10 +156,12 @@ def login():
             logger.info(f"User {user['email']} logged in successfully with role {user['role']}")
             
             # Redirection selon le rôle
-            if user['role'] in ['admin', 'manager', 'gestionnaire_maison_mere']:
+            if user['role'] in ['admin', 'gestionnaire', 'responsable_produit', 'responsable_logistique']:
                 return redirect(url_for('admin'))
+            elif user['role'] == 'employe_magasin':
+                return redirect(url_for('stores'))  # Redirige vers la gestion des magasins
             else:
-                return redirect(url_for('index'))
+                return redirect(url_for('index'))  # Clients et autres
         else:
             flash(auth_result['error'], 'error')
             logger.warning(f"Failed login attempt for {username}")
@@ -224,15 +205,74 @@ def require_role(required_roles):
         return decorated_function
     return decorator
 
+# ========== DÉCORATEURS SPÉCIFIQUES PAR RÔLE ==========
+
+def require_admin(f):
+    """Décorateur pour les routes nécessitant le rôle admin"""
+    return require_role(['admin'])(f)
+
+def require_gestionnaire(f):
+    """Décorateur pour les routes nécessitant le rôle gestionnaire"""
+    return require_role(['admin', 'gestionnaire'])(f)
+
+def require_responsable_produit(f):
+    """Décorateur pour les routes nécessitant le rôle responsable produit"""
+    return require_role(['admin', 'gestionnaire', 'responsable_produit'])(f)
+
+def require_responsable_logistique(f):
+    """Décorateur pour les routes nécessitant le rôle responsable logistique"""
+    return require_role(['admin', 'gestionnaire', 'responsable_logistique'])(f)
+
+def require_employe_magasin(f):
+    """Décorateur pour les routes nécessitant le rôle employé magasin"""
+    return require_role(['admin', 'gestionnaire', 'employe_magasin'])(f)
+
+def require_client(f):
+    """Décorateur pour les routes nécessitant le rôle client"""
+    return require_role(['admin', 'gestionnaire', 'client'])(f)
+
+def require_management_access(f):
+    """Décorateur pour les routes de gestion (admin, gestionnaire, responsables)"""
+    return require_role(['admin', 'gestionnaire', 'responsable_produit', 'responsable_logistique'])(f)
+
 # ========== ROUTES PRINCIPALES ==========
 
 @app.route('/')
 def index():
     """Page d'accueil"""
-    return render_template('index.html')
+    # Statistiques de base pour la page d'accueil
+    stats = {
+        'total_products': 0,
+        'total_stores': 0,
+        'total_sales': 0,
+        'total_customers': 0
+    }
+    
+    try:
+        # Récupération des statistiques basiques
+        products_response = requests.get(f"{SERVICES['product']}/api/products", 
+                                       headers={'Authorization': f'Bearer {API_TOKEN}'}, 
+                                       timeout=2)
+        if products_response.status_code == 200:
+            products_data = products_response.json()
+            stats['total_products'] = len(products_data.get('products', []))
+    except:
+        pass
+    
+    try:
+        stores_response = requests.get(f"{SERVICES['store']}/api/stores", 
+                                     headers={'Authorization': f'Bearer {API_TOKEN}'}, 
+                                     timeout=2)
+        if stores_response.status_code == 200:
+            stores_data = stores_response.json()
+            stats['total_stores'] = len(stores_data.get('stores', []))
+    except:
+        pass
+    
+    return render_template('index.html', stats=stats)
 
 @app.route('/admin')
-@require_role(['admin', 'manager', 'gestionnaire_maison_mere'])
+@management_required
 def admin():
     """Page d'administration"""
     # Récupération des statistiques en temps réel
@@ -295,7 +335,7 @@ def admin():
     return render_template('admin.html', dashboard_stats=dashboard_stats)
 
 @app.route('/stores', methods=['GET', 'POST'])
-@require_login
+@management_required
 def stores():
     """Liste des magasins"""
     if request.method == 'POST':
@@ -399,7 +439,7 @@ def delete_store(store_id):
     return redirect(url_for('stores'))
 
 @app.route('/products', methods=['GET', 'POST'])
-@require_login
+@responsable_produit_required
 def products():
     """Liste des produits"""
     if request.method == 'POST':
@@ -443,7 +483,7 @@ def products():
         return render_template('products.html', products=[])
 
 @app.route('/sales')
-@require_login
+@management_required
 def sales():
     """Liste des ventes"""
     try:
@@ -458,7 +498,7 @@ def sales():
         return render_template('sales.html', sales=[])
 
 @app.route('/inventory')
-@require_login
+@employe_magasin_required
 def inventory():
     """Inventaire"""
     try:
@@ -517,6 +557,7 @@ def api_health_all():
 @app.route('/api/stores', methods=['GET', 'POST'])
 @app.route('/api/stores/<int:store_id>', methods=['GET', 'PUT', 'DELETE'])
 @token_required
+@management_required  # Admin ou gestionnaire pour gérer les magasins
 @limiter.limit("30 per minute")
 def stores_proxy(store_id=None):
     path = f"stores/{store_id}" if store_id else "stores"
@@ -526,6 +567,7 @@ def stores_proxy(store_id=None):
 @app.route('/api/products', methods=['GET', 'POST'])
 @app.route('/api/products/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
 @token_required
+@responsable_produit_required  # Responsable produit pour la gestion des produits
 @limiter.limit("50 per minute")
 def products_proxy(product_id=None):
     path = f"products/{product_id}" if product_id else "products"
@@ -535,6 +577,7 @@ def products_proxy(product_id=None):
 @app.route('/api/sales', methods=['GET', 'POST'])
 @app.route('/api/sales/<int:sale_id>', methods=['GET', 'DELETE'])
 @token_required
+@management_required  # Admin ou gestionnaire pour consulter les ventes
 @limiter.limit("20 per minute")
 def sales_proxy(sale_id=None):
     path = f"sales/{sale_id}" if sale_id else "sales"
@@ -543,6 +586,7 @@ def sales_proxy(sale_id=None):
 # Routes pour l'inventaire
 @app.route('/api/inventory/stock', methods=['GET'])
 @token_required
+@responsable_logistique_required  # Responsable logistique pour la gestion des stocks
 @limiter.limit("50 per minute")
 def inventory_stock_proxy():
     return forward_request('inventory', 'inventory/stock', 'GET')
@@ -551,6 +595,7 @@ def inventory_stock_proxy():
 @app.route('/api/customers', methods=['GET'])
 @app.route('/api/customers/<int:customer_id>', methods=['GET', 'PUT'])
 @token_required
+@authenticated_required  # Clients peuvent voir/modifier leurs propres infos, admin/gestionnaire peuvent tout voir
 @limiter.limit("30 per minute")
 def customers_proxy(customer_id=None):
     path = f"api/customers/{customer_id}" if customer_id else "api/customers"
@@ -560,6 +605,7 @@ def customers_proxy(customer_id=None):
 @app.route('/api/cart', methods=['GET', 'POST'])
 @app.route('/api/cart/<int:item_id>', methods=['DELETE'])
 @token_required
+@authenticated_required  # Tous les utilisateurs connectés peuvent gérer leur panier
 @limiter.limit("30 per minute")
 def cart_proxy(item_id=None):
     path = f"cart/{item_id}" if item_id else "cart"
@@ -568,6 +614,7 @@ def cart_proxy(item_id=None):
 # Routes pour le checkout
 @app.route('/api/checkout', methods=['POST'])
 @token_required
+@authenticated_required  # Tous les utilisateurs connectés peuvent effectuer un checkout
 @limiter.limit("10 per minute")
 def checkout_proxy():
     return forward_request('checkout', 'checkout', 'POST')

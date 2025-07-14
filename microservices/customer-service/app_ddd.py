@@ -23,8 +23,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 API_TOKEN = "Supermarcher22102002"
 
 # Import des modèles
-from src.infrastructure.database.models import Base, CustomerModel
+from src.infrastructure.database.models import Base, CustomerModel, UserRole
 from src.infrastructure.database.seed_data import seed_default_users
+from src.utils.jwt_utils import generate_jwt_token
 
 # Authentification
 def token_required(f):
@@ -135,8 +136,13 @@ def login():
         if not customer.is_active:
             return jsonify({'error': 'Compte désactivé'}), 401
         
+        # Génération du token JWT
+        access_token = generate_jwt_token(customer.id, customer.email, customer.role)
+        
         return jsonify({
             'message': 'Connexion réussie',
+            'access_token': access_token,
+            'role': customer.role,
             'customer': {
                 'id': customer.id,
                 'email': customer.email,

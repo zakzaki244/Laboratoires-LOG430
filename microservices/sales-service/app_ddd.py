@@ -7,6 +7,9 @@ from functools import wraps
 from src.infrastructure.database import create_database_engine, create_session_factory
 from src.presentation.controllers import create_sales_controller
 
+# Import du système d'authentification JWT
+from src.utils.jwt_auth import management_required, employe_magasin_required, authenticated_required
+
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
@@ -20,7 +23,7 @@ PRODUCT_SERVICE_URL = os.getenv('PRODUCT_SERVICE_URL', 'http://product-service:5
 STORE_SERVICE_URL = os.getenv('STORE_SERVICE_URL', 'http://store-service:5001')
 API_TOKEN = "Supermarcher22102002"
 
-# Authentification
+# Authentification legacy pour compatibilité
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -42,37 +45,37 @@ sales_controller = create_sales_controller(
 
 # Routes DDD
 @app.route('/sales', methods=['POST'])
-@token_required
+@employe_magasin_required  # Employé magasin peut créer une vente
 def create_sale():
     """Créer une nouvelle vente"""
     return sales_controller.create_sale()
 
 @app.route('/sales/<int:sale_id>', methods=['GET'])
-@token_required
+@management_required  # Admin ou gestionnaire pour consulter les ventes
 def get_sale(sale_id):
     """Récupérer une vente par ID"""
     return sales_controller.get_sale(sale_id)
 
 @app.route('/sales', methods=['GET'])
-@token_required
+@management_required  # Admin ou gestionnaire pour consulter toutes les ventes
 def get_all_sales():
     """Récupérer toutes les ventes"""
     return sales_controller.get_all_sales()
 
 @app.route('/stores/<int:store_id>/sales', methods=['GET'])
-@token_required
+@management_required  # Admin ou gestionnaire pour consulter les ventes par magasin
 def get_sales_by_store(store_id):
     """Récupérer les ventes d'un magasin"""
     return sales_controller.get_sales_by_store(store_id)
 
 @app.route('/sales/stats', methods=['GET'])
-@token_required
+@management_required  # Admin ou gestionnaire pour les statistiques
 def get_sales_stats():
     """Récupérer les statistiques de ventes"""
     return sales_controller.get_sales_stats()
 
 @app.route('/sales/report', methods=['GET'])
-@token_required
+@management_required  # Admin ou gestionnaire pour les rapports
 def get_sales_report():
     """Générer un rapport de ventes"""
     return sales_controller.get_sales_report()
