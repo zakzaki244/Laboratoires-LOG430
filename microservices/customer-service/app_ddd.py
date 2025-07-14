@@ -1,99 +1,93 @@
 from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
+from werkzeug.security import generate_password_hash, check_password_hash
+from src.infrastructure.repositories.customer_repository_simple import CustomerRepositorySimple
 import os
-from functools import wraps
-
-# Import des composants DDD
-from src.infrastructure.database import create_database_engine, create_session_factory
-from src.presentation.controllers.customer_controller import create_customer_controller
-from src.application.services.customer_service import CustomerService
-from src.infrastructure.repositories.customer_repository_simple import SqlCustomerRepository
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
-# Configuration de la base de données
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://log430:laboratoire@db:5432/customer_db')
-engine = create_database_engine(DATABASE_URL)
-SessionLocal = create_session_factory(engine)
+# Création du repository simple
+customer_repository = CustomerRepositorySimple()
 
-# Configuration
-API_TOKEN = "Supermarcher22102002"
+@app.route('/api/customers/register', methods=['POST'])
+def register():
+    """Endpoint d'inscription d'un nouveau client"""
+    try:
+        data = request.get_json()
+        
+        # Validation des données requises
+        required_fields = ['email', 'first_name', 'last_name', 'phone', 'password', 'address']
+        if not all(field in data for field in required_fields):
+            return jsonify({'error': 'Tous les champs sont requis'}), 400
+        
+        # Validation de l'adresse
+        address = data['address']
+        if not isinstance(address, dict) or not all(key in address for key in ['street', 'city', 'postal_code', 'country']):
+            return jsonify({'error': 'Format d\'adresse invalide'}), 400
+        
+        # Vérifier si l'email existe déjà
+        existing_customer = customer_repository.get_by_email(data['email'])
+        if existing_customer:
+            return jsonify({'error': 'Email déjà utilisé'}), 400
+        
+        # Hasher le mot de passe
+        password_hash = generate_password_hash(data['password'])
+        
+        # Créer le client
+        customer_data = {
+            'email': data['email'],
+            'first_name': data['first_name'],
+            'last_name': data['last_name'],
+            'phone': data['phone'],
+            'password_hash': password_hash,
+            'address': address,
+            'is_active': True
+        }
+        
+        customer = customer_repository.create(customer_data)
+        return jsonify({
+            'message': 'Client créé avec succès',
+            'customer_id': customer['id']
+        }), 201
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-# Authentification
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth_header = request.headers.get("Authorization", "")
-        if not auth_header.startswith("Bearer "):
-            return jsonify({"error": "Unauthorized"}), 401
-        token = auth_header.split(" ")[1]
-        if token != API_TOKEN:
-            return jsonify({"error": "Unauthorized"}), 401
-        return f(*args, **kwargs)
-    return decorated
-
-# Création des services
-def get_customer_service():
-    """Factory pour créer le service customer avec une session"""
-    session = SessionLocal()
-    customer_repository = SqlCustomerRepository(session)
-    return CustomerService(customer_repository)
-
-# Création du contrôleur
-customer_controller = create_customer_controller(SessionLocal)
-
-# Enregistrement du blueprint
-app.register_blueprint(customer_controller)
-
-# Routes DDD
-@app.route('/customers', methods=['POST'])
-@token_required
-def create_customer():
-    """Créer un nouveau client"""
-    return customer_controller.create_customer()
-
-@app.route('/customers/<int:customer_id>', methods=['GET'])
-@token_required
-def get_customer(customer_id):
-    """Récupérer un client par ID"""
-    return customer_controller.get_customer(customer_id)
-
-@app.route('/customers', methods=['GET'])
-@token_required
-def get_all_customers():
-    """Récupérer tous les clients"""
-    return customer_controller.get_all_customers()
-
-@app.route('/customers/<int:customer_id>', methods=['PUT'])
-@token_required
-def update_customer(customer_id):
-    """Mettre à jour un client"""
-    return customer_controller.update_customer(customer_id)
-
-@app.route('/customers/<int:customer_id>', methods=['DELETE'])
-@token_required
-def delete_customer(customer_id):
-    """Supprimer un client"""
-    return customer_controller.delete_customer(customer_id)
-
-@app.route('/customers/email/<string:email>', methods=['GET'])
-@token_required
-def get_customer_by_email(email):
-    """Récupérer un client par email"""
-    return customer_controller.get_customer_by_email(email)
-
-@app.route('/customers/<int:customer_id>/activate', methods=['POST'])
-@token_required
-def activate_customer(customer_id):
-    """Activer un client"""
-    return customer_controller.activate_customer(customer_id)
-
-@app.route('/customers/<int:customer_id>/deactivate', methods=['POST'])
-@token_required
-def deactivate_customer(customer_id):
-    """Désactiver un client"""
-    return customer_controller.deactivate_customer(customer_id)
+@app.route('/api/customers/login', methods=['POST'])
+def login():
+    """Endpoint de connexion d'un client"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'email' not in data or 'password' not in data:
+            return jsonify({'error': 'Email et mot de passe requis'}), 400
+        
+        # Trouver le client par email
+        customer = customer_repository.get_by_email(data['email'])
+        if not customer:
+            return jsonify({'error': 'Email ou mot de passe incorrect'}), 401
+        
+        # Vérifier le mot de passe
+        if not check_password_hash(customer['password_hash'], data['password']):
+            return jsonify({'error': 'Email ou mot de passe incorrect'}), 401
+        
+        # Vérifier si le compte est actif
+        if not customer.get('is_active', True):
+            return jsonify({'error': 'Compte désactivé'}), 401
+        
+        return jsonify({
+            'message': 'Connexion réussie',
+            'customer': {
+                'id': customer['id'],
+                'email': customer['email'],
+                'first_name': customer['first_name'],
+                'last_name': customer['last_name']
+            }
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/health')
 def health_check():
