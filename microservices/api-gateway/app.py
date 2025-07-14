@@ -156,12 +156,16 @@ def login():
             logger.info(f"User {user['email']} logged in successfully with role {user['role']}")
             
             # Redirection selon le rôle
-            if user['role'] in ['admin', 'gestionnaire', 'responsable_produit', 'responsable_logistique']:
+            if user['role'] in ['admin', 'gestionnaire']:
                 return redirect(url_for('admin'))
+            elif user['role'] == 'responsable_produit':
+                return redirect(url_for('products'))
+            elif user['role'] == 'responsable_logistique':
+                return redirect(url_for('inventory'))
             elif user['role'] == 'employe_magasin':
-                return redirect(url_for('stores'))  # Redirige vers la gestion des magasins
-            else:
-                return redirect(url_for('index'))  # Clients et autres
+                return redirect(url_for('stores'))
+            else:  # client
+                return redirect(url_for('products'))  # Clients voient les produits
         else:
             flash(auth_result['error'], 'error')
             logger.warning(f"Failed login attempt for {username}")
@@ -176,6 +180,13 @@ def logout():
     flash('Déconnexion réussie', 'success')
     logger.info(f"User {username} logged out")
     return redirect(url_for('login'))
+
+@app.route('/clear-messages')
+def clear_messages():
+    """Nettoyer les messages flash"""
+    # Vider la session des messages flash
+    session.pop('_flashes', None)
+    return redirect(request.referrer or url_for('index'))
 
 def require_login(f):
     """Décorateur pour les routes nécessitant une connexion"""
@@ -272,7 +283,7 @@ def index():
     return render_template('index.html', stats=stats)
 
 @app.route('/admin')
-@management_required
+@require_login
 def admin():
     """Page d'administration"""
     # Récupération des statistiques en temps réel
@@ -335,7 +346,7 @@ def admin():
     return render_template('admin.html', dashboard_stats=dashboard_stats)
 
 @app.route('/stores', methods=['GET', 'POST'])
-@management_required
+@require_login
 def stores():
     """Liste des magasins"""
     if request.method == 'POST':
@@ -439,7 +450,7 @@ def delete_store(store_id):
     return redirect(url_for('stores'))
 
 @app.route('/products', methods=['GET', 'POST'])
-@responsable_produit_required
+@require_login
 def products():
     """Liste des produits"""
     if request.method == 'POST':
@@ -483,7 +494,7 @@ def products():
         return render_template('products.html', products=[])
 
 @app.route('/sales')
-@management_required
+@require_login
 def sales():
     """Liste des ventes"""
     try:
@@ -498,7 +509,7 @@ def sales():
         return render_template('sales.html', sales=[])
 
 @app.route('/inventory')
-@employe_magasin_required
+@require_login
 def inventory():
     """Inventaire"""
     try:

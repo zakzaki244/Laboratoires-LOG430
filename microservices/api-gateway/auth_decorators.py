@@ -27,7 +27,7 @@ def role_required(required_roles: list):
                     return jsonify({'error': 'Authentification requise'}), 401
                 return redirect(url_for('login'))
             
-            user_role = session.get('user_role')
+            user_role = session.get('role')
             
             # Vérifier si l'utilisateur a un rôle autorisé
             if user_role not in required_roles:
