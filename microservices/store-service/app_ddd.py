@@ -13,7 +13,7 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
 # Configuration de la base de données
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://log430:laboratoire@localhost:5433/stores_db')
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://log430:laboratoire@db:5433/stores_db')
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
