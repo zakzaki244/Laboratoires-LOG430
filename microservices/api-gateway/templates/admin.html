@@ -1,454 +1,183 @@
-{% extends "base.html" %}
-
-{% block title %}Administration - E-Commerce{% endblock %}
-
-{% block content %}
-<div class="row mb-4">
-    <div class="col-12">
-        <h1 class="display-4 text-center mb-4">
-            <i class="fas fa-cogs"></i> Administration Système
-        </h1>
-        <p class="lead text-center text-muted">
-            Interface réservée aux gestionnaires et responsables
-        </p>
-    </div>
-</div>
-
-<!-- Vérification des permissions -->
-{% if not session.user_role or session.user_role not in ['gestionnaire_maison_mere', 'responsable_produit', 'responsable_logistique'] %}
-    <div class="alert alert-danger" role="alert">
-        <i class="fas fa-ban"></i> Accès refusé. Cette page est réservée aux administrateurs.
-    </div>
-{% else %}
-
-<!-- Onglets pour les différentes sections -->
-<ul class="nav nav-tabs" id="adminTabs" role="tablist">
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
-    <li class="nav-item">
-        <a class="nav-link active" id="stores-tab" data-bs-toggle="tab" href="#stores" role="tab">
-            <i class="fas fa-store"></i> Gestion des Magasins
-        </a>
-    </li>
-    {% endif %}
-    
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
-    <li class="nav-item">
-        <a class="nav-link" id="products-tab" data-bs-toggle="tab" href="#products" role="tab">
-            <i class="fas fa-box"></i> Gestion des Produits
-        </a>
-    </li>
-    {% endif %}
-    
-    {% if session.user_role in ['gestionnaire_maison_mere'] %}
-    <li class="nav-item">
-        <a class="nav-link" id="users-tab" data-bs-toggle="tab" href="#users" role="tab">
-            <i class="fas fa-users"></i> Gestion des Utilisateurs
-        </a>
-    </li>
-    {% endif %}
-    
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_logistique'] %}
-    <li class="nav-item">
-        <a class="nav-link" id="logistics-tab" data-bs-toggle="tab" href="#logistics" role="tab">
-            <i class="fas fa-truck"></i> Logistique
-        </a>
-    </li>
-    {% endif %}
-</ul>
-
-<div class="tab-content" id="adminTabsContent">
-    <!-- Gestion des Magasins -->
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
-    <div class="tab-pane fade show active" id="stores" role="tabpanel">
-        <div class="card mt-3">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5><i class="fas fa-store"></i> Gestion des Magasins</h5>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStoreModal">
-                    <i class="fas fa-plus"></i> Ajouter un Magasin
-                </button>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: #2c3e50 !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+            margin: 0 10px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #3498db !important;
+        }
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .quick-actions {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .action-btn {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            padding: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-store"></i> E-Commerce Admin
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text me-3">
+                    <i class="fas fa-user"></i> 
+                    {{ session.first_name }} {{ session.last_name }} ({{ session.role }})
+                </span>
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storesTable">
-                            <!-- Données chargées via JavaScript -->
-                        </tbody>
-                    </table>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Messages Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <h2><i class="fas fa-tachometer-alt"></i> Tableau de bord</h2>
+            <p class="text-muted">Bienvenue sur l'interface d'administration</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">5</div>
+                    <div>Services actifs</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">12</div>
+                    <div>Produits</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">3</div>
+                    <div>Magasins</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">28</div>
+                    <div>Ventes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="quick-actions">
+                    <h5><i class="fas fa-bolt"></i> Actions rapides</h5>
+                    <a href="/stores" class="btn btn-primary action-btn">
+                        <i class="fas fa-building"></i> Gérer les magasins
+                    </a>
+                    <a href="/products" class="btn btn-success action-btn">
+                        <i class="fas fa-box"></i> Gérer les produits
+                    </a>
+                    <a href="/sales" class="btn btn-info action-btn">
+                        <i class="fas fa-chart-line"></i> Voir les ventes
+                    </a>
+                    <a href="/inventory" class="btn btn-warning action-btn">
+                        <i class="fas fa-warehouse"></i> Inventaire
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="quick-actions">
+                    <h5><i class="fas fa-tools"></i> Système</h5>
+                    <a href="/health-status" class="btn btn-secondary action-btn">
+                        <i class="fas fa-heartbeat"></i> Status des services
+                    </a>
+                    <a href="/api/health/all" class="btn btn-dark action-btn">
+                        <i class="fas fa-code"></i> API Health Check
+                    </a>
+                    <button class="btn btn-outline-primary action-btn" onclick="location.reload()">
+                        <i class="fas fa-sync"></i> Actualiser
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="welcome-card mt-4">
+            <h5><i class="fas fa-info-circle"></i> Informations système</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Version:</strong> 1.0.0</p>
+                    <p><strong>Utilisateur:</strong> {{ session.email }}</p>
+                    <p><strong>Rôle:</strong> {{ session.role }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Session ID:</strong> {{ session.user_id }}</p>
+                    <p><strong>Magasin:</strong> {{ session.store_id or 'Tous' }}</p>
+                    <p><strong>Status:</strong> <span class="badge bg-success">Connecté</span></p>
                 </div>
             </div>
         </div>
     </div>
-    {% endif %}
-    
-    <!-- Gestion des Produits -->
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_produit'] %}
-    <div class="tab-pane fade" id="products" role="tabpanel">
-        <div class="card mt-3">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5><i class="fas fa-box"></i> Gestion des Produits</h5>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                    <i class="fas fa-plus"></i> Ajouter un Produit
-                </button>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Catégorie</th>
-                                <th>Prix</th>
-                                <th>Stock</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productsTable">
-                            <!-- Données chargées via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    
-    <!-- Gestion des Utilisateurs -->
-    {% if session.user_role == 'gestionnaire_maison_mere' %}
-    <div class="tab-pane fade" id="users" role="tabpanel">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5><i class="fas fa-users"></i> Gestion des Utilisateurs</h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Rôle</th>
-                                <th>Magasin</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usersTable">
-                            <!-- Données chargées via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    
-    <!-- Logistique -->
-    {% if session.user_role in ['gestionnaire_maison_mere', 'responsable_logistique'] %}
-    <div class="tab-pane fade" id="logistics" role="tabpanel">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5><i class="fas fa-truck"></i> Gestion Logistique</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6>Demandes de Réapprovisionnement</h6>
-                        <div id="reapproRequests">
-                            <!-- Données chargées via JavaScript -->
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Inventaire Central</h6>
-                        <div id="centralInventory">
-                            <!-- Données chargées via JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
 
-<!-- Modal pour ajouter un magasin -->
-<div class="modal fade" id="addStoreModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ajouter un Magasin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addStoreForm">
-                    <div class="mb-3">
-                        <label for="storeName" class="form-label">Nom du Magasin</label>
-                        <input type="text" class="form-control" id="storeName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="storeAddress" class="form-label">Adresse</label>
-                        <input type="text" class="form-control" id="storeAddress" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="storePhone" class="form-label">Téléphone</label>
-                        <input type="tel" class="form-control" id="storePhone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="storeEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="storeEmail" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary" onclick="addStore()">Ajouter</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal pour ajouter un produit -->
-<div class="modal fade" id="addProductModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ajouter un Produit</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addProductForm">
-                    <div class="mb-3">
-                        <label for="productName" class="form-label">Nom du Produit</label>
-                        <input type="text" class="form-control" id="productName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productCategory" class="form-label">Catégorie</label>
-                        <select class="form-select" id="productCategory" required>
-                            <option value="">Sélectionner une catégorie</option>
-                            <option value="Electronics">Électronique</option>
-                            <option value="Clothing">Vêtements</option>
-                            <option value="Books">Livres</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Home">Maison</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productPrice" class="form-label">Prix</label>
-                        <input type="number" class="form-control" id="productPrice" step="0.01" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary" onclick="addProduct()">Ajouter</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// Fonctions JavaScript pour l'administration
-const API_TOKEN = 'Bearer Supermarcher22102002';
-
-// Charger les données au chargement de la page
-document.addEventListener('DOMContentLoaded', function() {
-    loadStores();
-    loadProducts();
-    loadUsers();
-    loadLogistics();
-});
-
-// Fonctions pour la gestion des magasins
-function loadStores() {
-    fetch('/api/stores', {
-        headers: {
-            'Authorization': API_TOKEN
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const tbody = document.getElementById('storesTable');
-        if (data.stores) {
-            tbody.innerHTML = data.stores.map(store => `
-                <tr>
-                    <td>${store.id}</td>
-                    <td>${store.name}</td>
-                    <td>${store.address}</td>
-                    <td>${store.phone}</td>
-                    <td>${store.email}</td>
-                    <td><span class="badge bg-${store.is_active ? 'success' : 'danger'}">${store.is_active ? 'Actif' : 'Inactif'}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editStore(${store.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteStore(${store.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-    })
-    .catch(error => console.error('Erreur lors du chargement des magasins:', error));
-}
-
-function addStore() {
-    const formData = {
-        name: document.getElementById('storeName').value,
-        address: document.getElementById('storeAddress').value,
-        phone: document.getElementById('storePhone').value,
-        email: document.getElementById('storeEmail').value
-    };
-
-    fetch('/api/stores', {
-        method: 'POST',
-        headers: {
-            'Authorization': API_TOKEN,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert('Erreur: ' + data.error);
-        } else {
-            alert('Magasin ajouté avec succès');
-            loadStores();
-            bootstrap.Modal.getInstance(document.getElementById('addStoreModal')).hide();
-            document.getElementById('addStoreForm').reset();
-        }
-    })
-    .catch(error => {
-        console.error('Erreur:', error);
-        alert('Erreur lors de l\'ajout du magasin');
-    });
-}
-
-// Fonctions pour la gestion des produits
-function loadProducts() {
-    fetch('/api/products', {
-        headers: {
-            'Authorization': API_TOKEN
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const tbody = document.getElementById('productsTable');
-        if (data.products) {
-            tbody.innerHTML = data.products.map(product => `
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>$${product.price}</td>
-                    <td>${product.stock_quantity || 0}</td>
-                    <td><span class="badge bg-${product.is_active ? 'success' : 'danger'}">${product.is_active ? 'Actif' : 'Inactif'}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${product.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-    })
-    .catch(error => console.error('Erreur lors du chargement des produits:', error));
-}
-
-function addProduct() {
-    const formData = {
-        name: document.getElementById('productName').value,
-        category: document.getElementById('productCategory').value,
-        price: parseFloat(document.getElementById('productPrice').value),
-        description: document.getElementById('productDescription').value
-    };
-
-    fetch('/api/products', {
-        method: 'POST',
-        headers: {
-            'Authorization': API_TOKEN,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert('Erreur: ' + data.error);
-        } else {
-            alert('Produit ajouté avec succès');
-            loadProducts();
-            bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
-            document.getElementById('addProductForm').reset();
-        }
-    })
-    .catch(error => {
-        console.error('Erreur:', error);
-        alert('Erreur lors de l\'ajout du produit');
-    });
-}
-
-// Fonctions pour la gestion des utilisateurs
-function loadUsers() {
-    fetch('/api/customers', {
-        headers: {
-            'Authorization': API_TOKEN
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const tbody = document.getElementById('usersTable');
-        if (data.customers) {
-            tbody.innerHTML = data.customers.map(user => `
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.first_name} ${user.last_name}</td>
-                    <td>${user.email}</td>
-                    <td><span class="badge bg-info">${user.role}</span></td>
-                    <td>${user.store_id || 'N/A'}</td>
-                    <td><span class="badge bg-${user.is_active ? 'success' : 'danger'}">${user.is_active ? 'Actif' : 'Inactif'}</span></td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="toggleUserStatus(${user.id})">
-                            <i class="fas fa-toggle-on"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-    })
-    .catch(error => console.error('Erreur lors du chargement des utilisateurs:', error));
-}
-
-function loadLogistics() {
-    // Placeholder pour la logistique
-    console.log('Chargement des données logistiques...');
-}
-
-</script>
-
-{% endif %}
-{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

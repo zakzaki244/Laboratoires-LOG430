@@ -1,75 +1,152 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .login-header h2 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .btn-primary {
+            background: #3498db;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .test-accounts {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .test-accounts h6 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .test-accounts .account {
+            background: white;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2><i class="fas fa-store"></i> E-Commerce</h2>
+            <p class="text-muted">Connexion à la plateforme</p>
+        </div>
 
-{% block title %}Connexion - E-Commerce{% endblock %}
+        <!-- Messages Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow-lg border-0">
-            <div class="card-header bg-primary text-white text-center">
-                <h4><i class="fas fa-sign-in-alt"></i> Connexion</h4>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">
+                    <i class="fas fa-user"></i> Nom d'utilisateur ou email
+                </label>
+                <input type="text" class="form-control" id="username" name="username" required 
+                       placeholder="admin ou admin@example.com">
             </div>
-            <div class="card-body">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">
+                    <i class="fas fa-lock"></i> Mot de passe
+                </label>
+                <input type="password" class="form-control" id="password" name="password" required
+                       placeholder="Entrez votre mot de passe">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Se connecter
+            </button>
+        </form>
 
-                <form method="POST" action="{{ url_for('login') }}">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">
-                            <i class="fas fa-user"></i> Nom d'utilisateur
-                        </label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="password" class="form-label">
-                            <i class="fas fa-lock"></i> Mot de passe
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-sign-in-alt"></i> Se connecter
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="text-center mt-3">
-                    <small class="text-muted">
-                        Pas encore de compte ? <a href="#" class="text-primary">S'inscrire</a>
-                    </small>
-                </div>
+        <div class="test-accounts">
+            <h6><i class="fas fa-info-circle"></i> Comptes de test</h6>
+            <div class="account">
+                <strong>Admin:</strong> admin / admin123
+            </div>
+            <div class="account">
+                <strong>Manager:</strong> manager / manager123
+            </div>
+            <div class="account">
+                <strong>Employee:</strong> employee / employee123
             </div>
         </div>
-        
-        <div class="text-center mt-4">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Comptes de test</h6>
-                    <small class="text-muted">
-                        Admin: admin / admin<br>
-                        Employé: employe / employe<br>
-                        Client: client / client
-                    </small>
-                </div>
-            </div>
+
+        <div class="text-center mt-3">
+            <a href="/" class="btn btn-link">
+                <i class="fas fa-arrow-left"></i> Retour à l'accueil
+            </a>
         </div>
     </div>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Focus sur le champ username
-    document.getElementById('username').focus();
-});
-</script>
-{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Focus automatique sur le champ username
+        document.getElementById('username').focus();
+    </script>
+</body>
+</html>
