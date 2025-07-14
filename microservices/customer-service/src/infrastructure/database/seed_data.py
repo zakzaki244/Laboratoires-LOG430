@@ -4,7 +4,6 @@ Script d'initialisation des utilisateurs par défaut selon les acteurs du systè
 from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash
 from .models import CustomerModel
-from .database import session
 import logging
 
 logger = logging.getLogger(__name__)
