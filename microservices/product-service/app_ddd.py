@@ -37,19 +37,6 @@ try:
 except Exception as e:
     print(f"Erreur lors de l'initialisation des données: {str(e)}")
 
-# Authentification legacy pour compatibilité
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth_header = request.headers.get("Authorization", "")
-        if not auth_header.startswith("Bearer "):
-            return jsonify({"error": "Unauthorized"}), 401
-        token = auth_header.split(" ")[1]
-        if token != API_TOKEN:
-            return jsonify({"error": "Unauthorized"}), 401
-        return f(*args, **kwargs)
-    return decorated
-
 # Création du contrôleur
 product_controller = create_product_controller(SessionLocal, STORE_SERVICE_URL, API_TOKEN)
 

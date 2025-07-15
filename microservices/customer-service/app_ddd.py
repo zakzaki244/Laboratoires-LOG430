@@ -3,7 +3,6 @@ from prometheus_flask_exporter import PrometheusMetrics
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from functools import wraps
 import os
 import logging
 
@@ -27,8 +26,9 @@ from src.infrastructure.database.models import Base, CustomerModel, UserRole
 from src.infrastructure.database.seed_data import seed_default_users
 from src.utils.jwt_utils import generate_jwt_token
 
-# Authentification
-def token_required(f):
+# Authentification simple pour les endpoints internes
+def api_token_required(f):
+    from functools import wraps
     @wraps(f)
     def decorated(*args, **kwargs):
         auth_header = request.headers.get("Authorization", "")
@@ -57,7 +57,7 @@ except Exception as e:
 # ========== ENDPOINTS ==========
 
 @app.route('/api/customers/register', methods=['POST'])
-@token_required
+@api_token_required
 def register():
     """Endpoint d'inscription d'un nouveau client"""
     session = SessionLocal()
@@ -117,7 +117,6 @@ def register():
         session.close()
 
 @app.route('/api/customers/login', methods=['POST'])
-@token_required
 def login():
     """Endpoint de connexion d'un client"""
     session = SessionLocal()
@@ -137,7 +136,12 @@ def login():
             return jsonify({'error': 'Compte désactivé'}), 401
         
         # Génération du token JWT
-        access_token = generate_jwt_token(customer.id, customer.email, customer.role)
+        try:
+            access_token = generate_jwt_token(customer.id, customer.email, customer.role)
+            logger.info(f"Token généré pour {customer.email}: {access_token[:50] if access_token else 'None'}...")
+        except Exception as e:
+            logger.error(f"Erreur lors de la génération du token: {str(e)}")
+            access_token = None
         
         return jsonify({
             'message': 'Connexion réussie',
@@ -160,7 +164,7 @@ def login():
         session.close()
 
 @app.route('/api/customers/<int:customer_id>', methods=['GET'])
-@token_required
+@api_token_required
 def get_customer(customer_id):
     """Récupérer un client par ID"""
     session = SessionLocal()
@@ -193,7 +197,7 @@ def get_customer(customer_id):
         session.close()
 
 @app.route('/api/customers', methods=['GET'])
-@token_required
+@api_token_required
 def get_customers():
     """Récupérer tous les clients"""
     session = SessionLocal()
@@ -222,7 +226,7 @@ def get_customers():
         session.close()
 
 @app.route('/api/customers/role/<role>', methods=['GET'])
-@token_required
+@api_token_required
 def get_customers_by_role(role):
     """Récupérer les clients par rôle"""
     session = SessionLocal()

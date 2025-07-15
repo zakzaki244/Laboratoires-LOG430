@@ -9,7 +9,7 @@ from flask import request, jsonify, current_app
 import os
 
 # Configuration JWT
-JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'your-secret-jwt-key-here-12345')
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'supermarcher_jwt_secret_2024')
 JWT_ALGORITHM = 'HS256'
 JWT_EXPIRATION_DELTA = datetime.timedelta(hours=24)
 

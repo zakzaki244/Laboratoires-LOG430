@@ -19,7 +19,7 @@ class UserRole(Enum):
 
 class JWTValidator:
     def __init__(self, secret_key=None):
-        self.secret_key = secret_key or os.getenv('JWT_SECRET_KEY', 'your-jwt-secret-key-here')
+        self.secret_key = secret_key or os.getenv('JWT_SECRET_KEY', 'supermarcher_jwt_secret_2024')
     
     def decode_token(self, token):
         """Décoder et valider un token JWT"""
