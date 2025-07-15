@@ -117,10 +117,7 @@ class ProductController:
 
 def create_product_controller(session_factory, store_service_url: str, api_token: str) -> ProductController:
     """Factory pour créer le contrôleur des produits"""
-    def get_session():
-        return session_factory()
-    
-    product_repository = ProductRepository(get_session())
+    product_repository = ProductRepository(session_factory)
     store_service_adapter = StoreServiceAdapter(store_service_url, api_token)
     product_service = ProductService(product_repository, store_service_adapter)
     

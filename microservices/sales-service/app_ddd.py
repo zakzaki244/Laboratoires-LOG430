@@ -8,7 +8,11 @@ from src.infrastructure.database import create_database_engine, create_session_f
 from src.presentation.controllers import create_sales_controller
 
 # Import du système d'authentification JWT
-from src.utils.jwt_auth import management_required, employe_magasin_required, authenticated_required
+from microservices.shared.jwt_auth import (
+    management_required,
+    employe_magasin_required,
+    authenticated_required,
+)
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)

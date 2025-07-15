@@ -85,10 +85,7 @@ class StoreController:
 
 def create_store_controller(session_factory) -> StoreController:
     """Factory pour créer le contrôleur des magasins"""
-    def get_session():
-        return session_factory()
-    
-    store_repository = StoreRepository(get_session())
+    store_repository = StoreRepository(session_factory)
     store_service = StoreService(store_repository)
-    
+
     return StoreController(store_service)

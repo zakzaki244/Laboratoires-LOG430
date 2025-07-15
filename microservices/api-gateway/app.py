@@ -105,6 +105,7 @@ def authenticate_user(username, password):
             customer = data.get('customer', {})
             return {
                 'success': True,
+                'token': data.get('token'),
                 'user': {
                     'id': customer.get('id'),
                     'email': customer.get('email'),
@@ -142,6 +143,7 @@ def login():
         
         if auth_result['success']:
             user = auth_result['user']
+            token = auth_result.get('token')
             
             # Créer la session
             session['user_id'] = user['id']
@@ -150,6 +152,7 @@ def login():
             session['last_name'] = user['last_name']
             session['role'] = user['role']
             session['store_id'] = user['store_id']
+            session['jwt_token'] = token
             session['logged_in'] = True
             
             flash(f'Connexion réussie! Bienvenue {user["first_name"]}', 'success')
@@ -571,7 +574,7 @@ def api_health_all():
 @management_required  # Admin ou gestionnaire pour gérer les magasins
 @limiter.limit("30 per minute")
 def stores_proxy(store_id=None):
-    path = f"stores/{store_id}" if store_id else "stores"
+    path = f"api/stores/{store_id}" if store_id else "api/stores"
     return forward_request('store', path, request.method)
 
 # Routes pour les produits
@@ -581,7 +584,7 @@ def stores_proxy(store_id=None):
 @responsable_produit_required  # Responsable produit pour la gestion des produits
 @limiter.limit("50 per minute")
 def products_proxy(product_id=None):
-    path = f"products/{product_id}" if product_id else "products"
+    path = f"api/products/{product_id}" if product_id else "api/products"
     return forward_request('product', path, request.method)
 
 # Routes pour les ventes

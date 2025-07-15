@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.application.services.customer_service import CustomerService
 from src.infrastructure.repositories.customer_repository_simple import SqlCustomerRepository
+from src.utils.jwt_utils import generate_jwt_token
 import logging
 
 logger = logging.getLogger(__name__)
@@ -90,9 +91,13 @@ def create_customer_controller(session_factory):
             # Vérifier si le compte est actif
             if not customer.is_active:
                 return jsonify({'error': 'Compte désactivé'}), 401
-            
+
+            # Générer le token JWT avec le rôle et l'id du magasin le cas échéant
+            token = generate_jwt_token(customer.id, customer.email, customer.role)
+
             return jsonify({
                 'message': 'Connexion réussie',
+                'token': token,
                 'customer': {
                     'id': customer.id,
                     'email': customer.email,
@@ -100,6 +105,8 @@ def create_customer_controller(session_factory):
                     'last_name': customer.last_name,
                     'phone': customer.phone,
                     'address': customer.address,
+                    'role': customer.role,
+                    'store_id': getattr(customer, 'store_id', None),
                     'is_active': customer.is_active
                 }
             }), 200
