@@ -50,31 +50,31 @@ def token_required(f):
 store_controller = create_store_controller(SessionLocal)
 
 # Routes DDD
-@app.route('/stores', methods=['GET'])
+@app.route('/api/stores', methods=['GET'])
 @token_required
 def get_stores():
     """Récupérer tous les magasins"""
     return store_controller.get_stores()
 
-@app.route('/stores/<int:store_id>', methods=['GET'])
+@app.route('/api/stores/<int:store_id>', methods=['GET'])
 @token_required
 def get_store(store_id):
     """Récupérer un magasin spécifique"""
     return store_controller.get_store(store_id)
 
-@app.route('/stores', methods=['POST'])
+@app.route('/api/stores', methods=['POST'])
 @token_required
 def create_store():
     """Créer un nouveau magasin"""
     return store_controller.create_store()
 
-@app.route('/stores/<int:store_id>', methods=['PUT'])
+@app.route('/api/stores/<int:store_id>', methods=['PUT'])
 @token_required
 def update_store(store_id):
     """Mettre à jour un magasin"""
     return store_controller.update_store(store_id)
 
-@app.route('/stores/<int:store_id>', methods=['DELETE'])
+@app.route('/api/stores/<int:store_id>', methods=['DELETE'])
 @token_required
 def delete_store(store_id):
     """Supprimer un magasin"""

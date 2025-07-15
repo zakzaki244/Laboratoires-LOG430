@@ -1,5 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
+from typing import Callable
 from decimal import Decimal
 import requests
 
@@ -11,34 +12,51 @@ from ...domain.value_objects import ProductName, Category, Money, Stock, StoreRe
 class ProductRepository(IProductRepository):
     """Implémentation du repository des produits"""
     
-    def __init__(self, session: Session):
-        self.session = session
+    def __init__(self, session_factory: Callable[[], Session]):
+        self.session_factory = session_factory
     
     def get_by_id(self, product_id: int) -> Optional[Product]:
         """Récupérer un produit par son ID"""
-        model = self.session.query(ProductModel).filter(ProductModel.id == product_id).first()
-        return self._to_entity(model) if model else None
+        session = self.session_factory()
+        try:
+            model = session.query(ProductModel).filter(ProductModel.id == product_id).first()
+            return self._to_entity(model) if model else None
+        finally:
+            session.close()
     
     def get_all(self) -> List[Product]:
         """Récupérer tous les produits"""
-        models = self.session.query(ProductModel).all()
-        return [self._to_entity(model) for model in models]
+        session = self.session_factory()
+        try:
+            models = session.query(ProductModel).all()
+            return [self._to_entity(model) for model in models]
+        finally:
+            session.close()
     
     def search(self, term: str) -> List[Product]:
         """Rechercher des produits par nom ou catégorie"""
-        models = self.session.query(ProductModel).filter(
-            ProductModel.name.ilike(f'%{term}%') | 
-            ProductModel.category.ilike(f'%{term}%')
-        ).all()
-        return [self._to_entity(model) for model in models]
+        session = self.session_factory()
+        try:
+            models = session.query(ProductModel).filter(
+                ProductModel.name.ilike(f'%{term}%') |
+                ProductModel.category.ilike(f'%{term}%')
+            ).all()
+            return [self._to_entity(model) for model in models]
+        finally:
+            session.close()
     
     def get_by_store(self, store_id: int) -> List[Product]:
         """Récupérer les produits d'un magasin"""
-        models = self.session.query(ProductModel).filter(ProductModel.store_id == store_id).all()
-        return [self._to_entity(model) for model in models]
+        session = self.session_factory()
+        try:
+            models = session.query(ProductModel).filter(ProductModel.store_id == store_id).all()
+            return [self._to_entity(model) for model in models]
+        finally:
+            session.close()
     
     def save(self, product: Product) -> Product:
         """Sauvegarder un produit"""
+        session = self.session_factory()
         model = ProductModel(
             name=product.name.value,
             category=product.category.name,
@@ -47,14 +65,17 @@ class ProductRepository(IProductRepository):
             stock=product.stock.quantity,
             store_id=product.store_reference.store_id
         )
-        self.session.add(model)
-        self.session.commit()
-        self.session.refresh(model)
-        return self._to_entity(model)
+        session.add(model)
+        session.commit()
+        session.refresh(model)
+        product_entity = self._to_entity(model)
+        session.close()
+        return product_entity
     
     def update(self, product: Product) -> Product:
         """Mettre à jour un produit"""
-        model = self.session.query(ProductModel).filter(ProductModel.id == product.id).first()
+        session = self.session_factory()
+        model = session.query(ProductModel).filter(ProductModel.id == product.id).first()
         if not model:
             raise ValueError("Produit non trouvé")
         
@@ -65,17 +86,22 @@ class ProductRepository(IProductRepository):
         model.stock = product.stock.quantity
         model.store_id = product.store_reference.store_id
         
-        self.session.commit()
-        return self._to_entity(model)
+        session.commit()
+        updated = self._to_entity(model)
+        session.close()
+        return updated
     
     def delete(self, product_id: int) -> bool:
         """Supprimer un produit"""
-        model = self.session.query(ProductModel).filter(ProductModel.id == product_id).first()
+        session = self.session_factory()
+        model = session.query(ProductModel).filter(ProductModel.id == product_id).first()
         if not model:
+            session.close()
             return False
-        
-        self.session.delete(model)
-        self.session.commit()
+
+        session.delete(model)
+        session.commit()
+        session.close()
         return True
     
     def _to_entity(self, model: ProductModel) -> Product:

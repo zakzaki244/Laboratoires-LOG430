@@ -11,7 +11,11 @@ from src.infrastructure.database.seed_data import seed_default_products
 from src.presentation.controllers import create_product_controller
 
 # Import du système d'authentification JWT
-from src.utils.jwt_auth import responsable_produit_required, management_required, authenticated_required
+from microservices.shared.jwt_auth import (
+    responsable_produit_required,
+    management_required,
+    authenticated_required,
+)
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
@@ -54,43 +58,43 @@ def token_required(f):
 product_controller = create_product_controller(SessionLocal, STORE_SERVICE_URL, API_TOKEN)
 
 # Routes DDD
-@app.route('/products', methods=['GET'])
+@app.route('/api/products', methods=['GET'])
 @authenticated_required  # Tous les utilisateurs connectés peuvent voir les produits
 def get_products():
     """Récupérer tous les produits"""
     return product_controller.get_products()
 
-@app.route('/products/<int:product_id>', methods=['GET'])
+@app.route('/api/products/<int:product_id>', methods=['GET'])
 @authenticated_required  # Tous les utilisateurs connectés peuvent voir un produit
 def get_product(product_id):
     """Récupérer un produit spécifique"""
     return product_controller.get_product(product_id)
 
-@app.route('/products/search', methods=['GET'])
+@app.route('/api/products/search', methods=['GET'])
 @authenticated_required  # Tous les utilisateurs connectés peuvent rechercher
 def search_products():
     """Rechercher des produits par nom ou catégorie"""
     return product_controller.search_products()
 
-@app.route('/products', methods=['POST'])
+@app.route('/api/products', methods=['POST'])
 @responsable_produit_required  # Seul le responsable produit peut créer des produits
 def create_product():
     """Créer un nouveau produit"""
     return product_controller.create_product()
 
-@app.route('/products/<int:product_id>', methods=['PUT'])
+@app.route('/api/products/<int:product_id>', methods=['PUT'])
 @responsable_produit_required  # Seul le responsable produit peut modifier des produits
 def update_product(product_id):
     """Mettre à jour un produit"""
     return product_controller.update_product(product_id)
 
-@app.route('/products/<int:product_id>', methods=['DELETE'])
+@app.route('/api/products/<int:product_id>', methods=['DELETE'])
 @responsable_produit_required  # Seul le responsable produit peut supprimer des produits
 def delete_product(product_id):
     """Supprimer un produit"""
     return product_controller.delete_product(product_id)
 
-@app.route('/products/<int:product_id>/stock', methods=['PUT'])
+@app.route('/api/products/<int:product_id>/stock', methods=['PUT'])
 @management_required  # Admin ou gestionnaire peuvent mettre à jour le stock
 def update_stock(product_id):
     """Mettre à jour le stock d'un produit"""
