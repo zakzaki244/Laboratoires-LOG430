@@ -122,11 +122,11 @@ def init_customer_service():
                 headers={'Content-Type': 'application/json'}
             )
             if response.status_code == 201:
-                print(f"✅ Created customer: {customer['username']}")
+                print(f"✅ Created customer: {customer['name']}")
             else:
-                print(f"⚠️ Failed to create customer {customer['username']}: {response.text}")
+                print(f"⚠️ Failed to create customer {customer['name']}: {response.text}")
         except Exception as e:
-            print(f"❌ Error creating customer {customer['username']}: {e}")
+            print(f"❌ Error creating customer {customer['name']}: {e}")
 
     # Login admin pour obtenir le token
     try:
