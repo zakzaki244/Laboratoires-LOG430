@@ -1,12 +1,12 @@
-FROM python:3.9-slim
+# FROM python:3.9-slim
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# COPY requirements.txt .
+# RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# COPY . .
 
-EXPOSE 5000
+# EXPOSE 5000
 
-CMD ["python", "app.py"] 
+# CMD ["python", "app.py"] 

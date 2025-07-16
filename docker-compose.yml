@@ -93,18 +93,18 @@ services:
     networks:
       - microservices-network
 
-  logistics-db:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: logisticsdb
-      POSTGRES_USER: log430
-      POSTGRES_PASSWORD: laboratoire
-    volumes:
-      - logistics_data:/var/lib/postgresql/data
-    ports:
-      - "5438:5432"
-    networks:
-      - microservices-network
+#  logistics-db:
+#    image: postgres:15
+#    environment:
+#      POSTGRES_DB: logisticsdb
+#      POSTGRES_USER: log430
+#      POSTGRES_PASSWORD: laboratoire
+#    volumes:
+#      - logistics_data:/var/lib/postgresql/data
+#    ports:
+#      - "5438:5432"
+#    networks:
+#      - microservices-network
 
   # Microservices
   customer-service:
@@ -191,18 +191,18 @@ services:
     networks:
       - microservices-network
 
-  logistics-service:
-    build: ./logistics-service
-    environment:
-      DATABASE_URL: postgresql://log430:laboratoire@logistics-db:5432/logisticsdb
-      SECRET_KEY: logistics_secret_key
-      JWT_SECRET_KEY: jwt_secret_key
-    depends_on:
-      - logistics-db
-    ports:
-      - "5007:5000"
-    networks:
-      - microservices-network
+#  logistics-service:
+#    build: ./logistics-service
+#    environment:
+#      DATABASE_URL: postgresql://log430:laboratoire@logistics-db:5432/logisticsdb
+#      SECRET_KEY: logistics_secret_key
+#      JWT_SECRET_KEY: jwt_secret_key
+#    depends_on:
+#      - logistics-db
+#    ports:
+#      - "5007:5000"
+#    networks:
+#      - microservices-network
 
   # API Gateway
   api-gateway:
