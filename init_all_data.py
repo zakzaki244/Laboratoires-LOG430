@@ -127,24 +127,35 @@ def init_customer_service():
                 json=customer,
                 headers={'Content-Type': 'application/json'}
             )
-            if response.status_code == 201:
-                customer_data = response.json()
-                created_customers.append({
-                    'id': customer_data.get('id'),
-                    'username': customer['username'],
-                    'email': customer['email'],
-                    'role': customer['role']
-                })
-                print(f"✅ Created customer: {customer['username']} (ID: {customer_data.get('id')})")
-            elif response.status_code == 400:
+            if response.status_code == 200:
                 try:
-                    error_data = response.json()
-                    if "déjà utilisé" in error_data.get('message', ''):
-                        print(f"⚠️ Customer {customer['username']} already exists, skipping...")
+                    # Parse le JSON pour obtenir le vrai code de statut
+                    response_data = response.json()
+                    if isinstance(response_data, list) and len(response_data) >= 2:
+                        # Format: [{"message": "...", "id": ...}, 201]
+                        actual_status = response_data[1]
+                        data = response_data[0]
                     else:
-                        print(f"❌ Failed to create customer {customer['username']}: {error_data.get('message', response.text)}")
+                        actual_status = response.status_code
+                        data = response_data
+                    
+                    if actual_status == 201:
+                        created_customers.append({
+                            'id': data.get('id'),
+                            'username': customer['username'],
+                            'email': customer['email'],
+                            'role': customer['role']
+                        })
+                        print(f"✅ Created customer: {customer['username']} (ID: {data.get('id')})")
+                    elif actual_status == 400:
+                        if "déjà utilisé" in data.get('message', ''):
+                            print(f"⚠️ Customer {customer['username']} already exists, skipping...")
+                        else:
+                            print(f"❌ Failed to create customer {customer['username']}: {data.get('message', 'Unknown error')}")
+                    else:
+                        print(f"❌ Failed to create customer {customer['username']} (Status {actual_status}): {data.get('message', 'Unknown error')}")
                 except:
-                    print(f"❌ Failed to create customer {customer['username']}: {response.text}")
+                    print(f"❌ Failed to create customer {customer['username']} (Status {response.status_code}): {response.text}")
             else:
                 print(f"❌ Failed to create customer {customer['username']} (Status {response.status_code}): {response.text}")
         except Exception as e:
@@ -215,20 +226,31 @@ def init_store_service(headers):
                 json=store,
                 headers=headers
             )
-            if response.status_code == 201:
-                store_data = response.json()
-                created_stores.append({
-                    'id': store_data.get('id'),
-                    'name': store['name'],
-                    'address': store['address']
-                })
-                print(f"✅ Created store: {store['name']} (ID: {store_data.get('id')})")
-            elif response.status_code == 400:
+            if response.status_code == 200:
                 try:
-                    error_data = response.json()
-                    print(f"⚠️ Store {store['name']} might already exist: {error_data.get('message', response.text)}")
+                    # Parse le JSON pour obtenir le vrai code de statut
+                    response_data = response.json()
+                    if isinstance(response_data, list) and len(response_data) >= 2:
+                        # Format: [{"message": "...", "id": ...}, 201]
+                        actual_status = response_data[1]
+                        data = response_data[0]
+                    else:
+                        actual_status = response.status_code
+                        data = response_data
+                    
+                    if actual_status == 201:
+                        created_stores.append({
+                            'id': data.get('id'),
+                            'name': store['name'],
+                            'address': store['address']
+                        })
+                        print(f"✅ Created store: {store['name']} (ID: {data.get('id')})")
+                    elif actual_status == 400:
+                        print(f"⚠️ Store {store['name']} might already exist: {data.get('message', 'Unknown error')}")
+                    else:
+                        print(f"❌ Failed to create store {store['name']} (Status {actual_status}): {data.get('message', 'Unknown error')}")
                 except:
-                    print(f"⚠️ Store {store['name']} creation issue: {response.text}")
+                    print(f"❌ Failed to create store {store['name']} (Status {response.status_code}): {response.text}")
             else:
                 print(f"❌ Failed to create store {store['name']} (Status {response.status_code}): {response.text}")
         except Exception as e:
@@ -412,22 +434,33 @@ def init_product_service(headers):
                 json=product,
                 headers=headers
             )
-            if response.status_code == 201:
-                product_data = response.json()
-                created_products.append({
-                    'id': product_data.get('id'),
-                    'name': product['name'],
-                    'price': product['price'],
-                    'category': product['category'],
-                    'store_id': product['store_id']
-                })
-                print(f"✅ Created product: {product['name']} (ID: {product_data.get('id')})")
-            elif response.status_code == 400:
+            if response.status_code == 200:
                 try:
-                    error_data = response.json()
-                    print(f"⚠️ Product {product['name']} creation issue: {error_data.get('message', response.text)}")
+                    # Parse le JSON pour obtenir le vrai code de statut
+                    response_data = response.json()
+                    if isinstance(response_data, list) and len(response_data) >= 2:
+                        # Format: [{"message": "...", "id": ...}, 201]
+                        actual_status = response_data[1]
+                        data = response_data[0]
+                    else:
+                        actual_status = response.status_code
+                        data = response_data
+                    
+                    if actual_status == 201:
+                        created_products.append({
+                            'id': data.get('id'),
+                            'name': product['name'],
+                            'price': product['price'],
+                            'category': product['category'],
+                            'store_id': product['store_id']
+                        })
+                        print(f"✅ Created product: {product['name']} (ID: {data.get('id')})")
+                    elif actual_status == 400:
+                        print(f"⚠️ Product {product['name']} creation issue: {data.get('message', 'Unknown error')}")
+                    else:
+                        print(f"❌ Failed to create product {product['name']} (Status {actual_status}): {data.get('message', 'Unknown error')}")
                 except:
-                    print(f"⚠️ Product {product['name']} creation issue: {response.text}")
+                    print(f"❌ Failed to create product {product['name']} (Status {response.status_code}): {response.text}")
             else:
                 print(f"❌ Failed to create product {product['name']} (Status {response.status_code}): {response.text}")
         except Exception as e:
