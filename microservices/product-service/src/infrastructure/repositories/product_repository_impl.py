@@ -41,6 +41,7 @@ class ProductRepository(IProductRepository):
         """Sauvegarder un produit"""
         model = ProductModel(
             name=product.name.value,
+            description=product.description,
             category=product.category.name,
             price=product.price.amount,
             currency=product.price.currency,
@@ -59,6 +60,7 @@ class ProductRepository(IProductRepository):
             raise ValueError("Produit non trouvé")
         
         model.name = product.name.value
+        model.description = product.description
         model.category = product.category.name
         model.price = product.price.amount
         model.currency = product.price.currency
@@ -83,6 +85,7 @@ class ProductRepository(IProductRepository):
         return Product(
             id=model.id,
             name=ProductName(model.name),
+            description=model.description,
             category=Category(model.category),
             price=Money(Decimal(str(model.price)), model.currency),
             stock=Stock(model.stock),

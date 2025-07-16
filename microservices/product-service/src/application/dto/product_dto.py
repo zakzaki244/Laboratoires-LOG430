@@ -27,6 +27,7 @@ class ProductResponse:
     """DTO pour la réponse produit"""
     id: int
     name: str
+    description: Optional[str]
     category: str
     price: float
     currency: str

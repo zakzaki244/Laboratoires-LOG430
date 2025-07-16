@@ -9,6 +9,7 @@ class Product:
     """Entité produit représentant un produit dans le domaine"""
     id: Optional[int]
     name: ProductName
+    description: Optional[str]
     category: Category
     price: Money
     stock: Stock
@@ -43,6 +44,7 @@ class Product:
         return {
             'id': self.id,
             'name': self.name.value,
+            'description': self.description,
             'category': self.category.name,
             'price': float(self.price.amount),
             'currency': self.price.currency,
@@ -56,6 +58,7 @@ class Product:
         return cls(
             id=data.get('id'),
             name=ProductName(data['name']),
+            description=data.get('description'),
             category=Category(data['category']),
             price=Money(Decimal(str(data['price'])), data.get('currency', 'CAD')),
             stock=Stock(data['stock']),

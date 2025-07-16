@@ -10,6 +10,7 @@ class ProductModel(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False, index=True)
+    description = Column(String(500), nullable=True)
     category = Column(String(100), nullable=False, index=True)
     price = Column(DECIMAL(10, 2), nullable=False)
     currency = Column(String(3), nullable=False, default="CAD")
@@ -21,6 +22,7 @@ class ProductModel(Base):
         return {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
             'category': self.category,
             'price': float(self.price),
             'currency': self.currency,

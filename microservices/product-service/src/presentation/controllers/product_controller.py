@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from sqlalchemy.orm import Session
 from functools import wraps
+from dataclasses import asdict
 import os
 
 from ...application.services import ProductService
@@ -17,7 +18,7 @@ class ProductController:
         """Récupérer tous les produits"""
         try:
             products = self.product_service.get_all_products()
-            return jsonify([product.__dict__ for product in products])
+            return jsonify([asdict(product) for product in products])
         except Exception as e:
             return jsonify({"error": str(e)}), 500
     
@@ -27,7 +28,7 @@ class ProductController:
             product = self.product_service.get_product_by_id(product_id)
             if not product:
                 return jsonify({"error": "Produit non trouvé"}), 404
-            return jsonify(product.__dict__)
+            return jsonify(asdict(product))
         except Exception as e:
             return jsonify({"error": str(e)}), 500
     
@@ -36,7 +37,7 @@ class ProductController:
         try:
             term = request.args.get('q', '')
             products = self.product_service.search_products(term)
-            return jsonify([product.__dict__ for product in products])
+            return jsonify([asdict(product) for product in products])
         except Exception as e:
             return jsonify({"error": str(e)}), 500
     

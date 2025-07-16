@@ -97,6 +97,7 @@ class ProductService:
         return ProductResponse(
             id=product.id,
             name=product.name.value,
+            description=product.description,
             category=product.category.name,
             price=float(product.price.amount),
             currency=product.price.currency,
