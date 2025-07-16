@@ -87,7 +87,7 @@ def init_customer_service():
         },
         {
             "username": "jean_dupont",
-            "email": "client1@example.com",
+            "email": "jean.dupont@example.com",
             "password": "client123",
             "role": "client"
         },
@@ -136,8 +136,17 @@ def init_customer_service():
                     'role': customer['role']
                 })
                 print(f"✅ Created customer: {customer['username']} (ID: {customer_data.get('id')})")
+            elif response.status_code == 400:
+                try:
+                    error_data = response.json()
+                    if "déjà utilisé" in error_data.get('message', ''):
+                        print(f"⚠️ Customer {customer['username']} already exists, skipping...")
+                    else:
+                        print(f"❌ Failed to create customer {customer['username']}: {error_data.get('message', response.text)}")
+                except:
+                    print(f"❌ Failed to create customer {customer['username']}: {response.text}")
             else:
-                print(f"⚠️ Failed to create customer {customer['username']}: {response.text}")
+                print(f"❌ Failed to create customer {customer['username']} (Status {response.status_code}): {response.text}")
         except Exception as e:
             print(f"❌ Error creating customer {customer['username']}: {e}")
 
@@ -214,8 +223,14 @@ def init_store_service(headers):
                     'address': store['address']
                 })
                 print(f"✅ Created store: {store['name']} (ID: {store_data.get('id')})")
+            elif response.status_code == 400:
+                try:
+                    error_data = response.json()
+                    print(f"⚠️ Store {store['name']} might already exist: {error_data.get('message', response.text)}")
+                except:
+                    print(f"⚠️ Store {store['name']} creation issue: {response.text}")
             else:
-                print(f"⚠️ Failed to create store {store['name']}: {response.text}")
+                print(f"❌ Failed to create store {store['name']} (Status {response.status_code}): {response.text}")
         except Exception as e:
             print(f"❌ Error creating store {store['name']}: {e}")
     
@@ -407,8 +422,14 @@ def init_product_service(headers):
                     'store_id': product['store_id']
                 })
                 print(f"✅ Created product: {product['name']} (ID: {product_data.get('id')})")
+            elif response.status_code == 400:
+                try:
+                    error_data = response.json()
+                    print(f"⚠️ Product {product['name']} creation issue: {error_data.get('message', response.text)}")
+                except:
+                    print(f"⚠️ Product {product['name']} creation issue: {response.text}")
             else:
-                print(f"⚠️ Failed to create product {product['name']}: {response.text}")
+                print(f"❌ Failed to create product {product['name']} (Status {response.status_code}): {response.text}")
         except Exception as e:
             print(f"❌ Error creating product {product['name']}: {e}")
     
