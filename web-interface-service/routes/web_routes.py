@@ -105,81 +105,81 @@ def dashboard():
 #@login_required
 #@role_required(['client'])
 def client_catalog():
-    return render_template('client/catalog.html', current_user=session['user'])
+    return render_template('client/catalog.html', current_user=session.get('user'))
 
 @bp.route('/client/cart')
 # @login_required
 # @role_required(['client'])
 def client_cart():
-    return render_template('client/cart.html', current_user=session['user'])
+    return render_template('client/cart.html', current_user=session.get('user'))
 
 @bp.route('/client/orders')
 # @login_required
 # @role_required(['client'])
 def client_orders():
-    return render_template('client/orders.html', current_user=session['user'])
+    return render_template('client/orders.html', current_user=session.get('user'))
 
 # Routes Employé
 @bp.route('/employee/sales')
 # @login_required
 # @role_required(['employe_magasin'])
 def employee_sales():
-    return render_template('employee/sales.html', current_user=session['user'])
+    return render_template('employee/sales.html', current_user=session.get('user'))
 
 @bp.route('/employee/stock')
 # @login_required
 # @role_required(['employe_magasin'])
 def employee_stock():
-    return render_template('employee/stock.html', current_user=session['user'])
+    return render_template('employee/stock.html', current_user=session.get('user'))
 
 # Routes Responsable Produit
 @bp.route('/product_manager/products')
 # @login_required
 # @role_required(['responsable_produit'])
 def product_manager_products():
-    return render_template('product_manager/products.html', current_user=session['user'])
+    return render_template('product_manager/products.html', current_user=session.get('user'))
 
 @bp.route('/product_manager/inventory')
 # @login_required
 # @role_required(['responsable_produit'])
 def product_manager_inventory():
-    return render_template('product_manager/inventory.html', current_user=session['user'])
+    return render_template('product_manager/inventory.html', current_user=session.get('user'))
 
 # Routes Logistique
 @bp.route('/logistics/logistics')
 # @login_required
 # @role_required(['responsable_logistique'])
 def logistics_logistics():
-    return render_template('logistics/logistics.html', current_user=session['user'])
+    return render_template('logistics/logistics.html', current_user=session.get('user'))
 
 @bp.route('/logistics/reports')
 # @login_required
 # @role_required(['responsable_logistique'])
 def logistics_reports():
-    return render_template('logistics/reports.html', current_user=session['user'])
+    return render_template('logistics/reports.html', current_user=session.get('user'))
 
 # Routes Gestionnaire
 @bp.route('/manager/dashboard')
 # @login_required
 # @role_required(['gestionnaire'])
 def manager_dashboard():
-    return render_template('manager/dashboard.html', current_user=session['user'])
+    return render_template('manager/dashboard.html', current_user=session.get('user'))
 
 @bp.route('/manager/management')
 # @login_required
 # @role_required(['gestionnaire'])
 def manager_management():
-    return render_template('manager/management.html', current_user=session['user'])
+    return render_template('manager/management.html', current_user=session.get('user'))
 
 # Routes Admin
 @bp.route('/admin/dashboard')
 # @login_required
 # @role_required(['admin'])
 def admin_dashboard():
-    return render_template('admin/admin_dashboard.html', current_user=session['user'])
+    return render_template('admin/admin_dashboard.html', current_user=session.get('user'))
 
 @bp.route('/admin/user_management')
 # @login_required
 # @role_required(['admin'])
 def admin_user_management():
-    return render_template('admin/user_management.html', current_user=session['user'])
+    return render_template('admin/user_management.html', current_user=session.get('user'))
