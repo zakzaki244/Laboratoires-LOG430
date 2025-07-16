@@ -1,3 +1,4 @@
+from flask import jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from domain.user import User
 from utils.jwt_utils import generate_jwt
@@ -52,7 +53,7 @@ class UserService:
                 "email": user.email,
                 "role": user.role
     }
-            return {'token': token, 'user': user_dict}, 200
+            return jsonify({'token': token, 'user': user_dict}), 200
         
 
     def get_user(self, user_id):
