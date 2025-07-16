@@ -20,6 +20,11 @@ SERVICES = {
     # 'logistics': 'http://10.194.32.174:5007'
 }
 
+# Variables globales pour stocker les IDs créés
+created_stores = []
+created_customers = []
+created_products = []
+
 def wait_for_service(url, service_name):
     """Attendre qu'un service soit disponible"""
     max_attempts = 30
@@ -57,62 +62,63 @@ def init_customer_service():
     
     customers = [
         {
-            "name": "Admin Principal",
+            "username": "admin",
             "email": "admin@supermarche.com",
             "password": "admin123",
-            "role": "admin",
-            "phone": "514-555-0001",
-            "address": "123 Rue Admin, Montréal, QC"
+            "role": "admin"
         },
         {
-            "name": "Manager Général",
+            "username": "manager",
             "email": "manager@supermarche.com",
             "password": "manager123",
-            "role": "manager",
-            "phone": "514-555-0002",
-            "address": "456 Rue Manager, Montréal, QC"
+            "role": "manager"
         },
         {
-            "name": "Gestionnaire Produits",
+            "username": "product_manager",
             "email": "product@supermarche.com",
             "password": "product123",
-            "role": "product_manage",
-            "phone": "514-555-0003",
-            "address": "789 Rue Product, Montréal, QC"
+            "role": "product_manager"
         },
         {
-            "name": "Responsable Logistique",
+            "username": "logistics_manager",
             "email": "logistics@supermarche.com",
             "password": "logistics123",
-            "role": "logistics",
-            "phone": "514-555-0004",
-            "address": "321 Rue Logistics, Montréal, QC"
+            "role": "logistics"
         },
         {
-            "username": "Jean Dupont",
+            "username": "jean_dupont",
             "email": "client1@example.com",
             "password": "client123",
-            "role": "client",
-            "phone": "514-555-1001",
-            "address": "100 Rue Client, Montréal, QC"
+            "role": "client"
         },
         {
-            "username": "Marie Martin",
+            "username": "marie_martin",
             "email": "client2@example.com",
             "password": "client123",
-            "role": "client",
-            "phone": "514-555-1002",
-            "address": "200 Rue Client, Montréal, QC"
+            "role": "client"
         },
         {
-            "username": "Pierre Durand",
+            "username": "pierre_durand",
             "email": "client3@example.com",
             "password": "client123",
-            "role": "client",
-            "phone": "514-555-1003",
-            "address": "300 Rue Client, Montréal, QC"
+            "role": "client"
+        },
+        {
+            "username": "claire_bernard",
+            "email": "client4@example.com",
+            "password": "client123",
+            "role": "client"
+        },
+        {
+            "username": "sophie_moreau",
+            "email": "client5@example.com",
+            "password": "client123",
+            "role": "client"
         }
     ]
+    
+    global created_customers
+    created_customers = []
     
     for customer in customers:
         try:
@@ -122,11 +128,18 @@ def init_customer_service():
                 headers={'Content-Type': 'application/json'}
             )
             if response.status_code == 201:
-                print(f"✅ Created customer: {customer['name']}")
+                customer_data = response.json()
+                created_customers.append({
+                    'id': customer_data.get('id'),
+                    'username': customer['username'],
+                    'email': customer['email'],
+                    'role': customer['role']
+                })
+                print(f"✅ Created customer: {customer['username']} (ID: {customer_data.get('id')})")
             else:
-                print(f"⚠️ Failed to create customer {customer['name']}: {response.text}")
+                print(f"⚠️ Failed to create customer {customer['username']}: {response.text}")
         except Exception as e:
-            print(f"❌ Error creating customer {customer['name']}: {e}")
+            print(f"❌ Error creating customer {customer['username']}: {e}")
 
     # Login admin pour obtenir le token
     try:
@@ -147,7 +160,7 @@ def init_customer_service():
     return token
 
 def init_store_service(headers):
-    """Initialiser les magasins et le centre logistique"""
+    """Initialiser les magasins"""
     print("\n🏪 Initializing Store Service...")
     
     stores = [
@@ -155,38 +168,36 @@ def init_store_service(headers):
             "name": "SuperMarché Centre-Ville",
             "address": "1000 Rue Sainte-Catherine, Montréal, QC",
             "phone": "514-555-2001",
-            "email": "centreville@supermarche.com",
-            "type": "retail"
+            "email": "centreville@supermarche.com"
         },
         {
             "name": "SuperMarché Westmount",
             "address": "2000 Avenue Greene, Westmount, QC",
             "phone": "514-555-2002",
-            "email": "westmount@supermarche.com",
-            "type": "retail"
+            "email": "westmount@supermarche.com"
         },
         {
             "name": "SuperMarché Laval",
             "address": "3000 Boulevard des Laurentides, Laval, QC",
             "phone": "514-555-2003",
-            "email": "laval@supermarche.com",
-            "type": "retail"
+            "email": "laval@supermarche.com"
         },
         {
             "name": "SuperMarché Brossard",
             "address": "4000 Boulevard Taschereau, Brossard, QC",
             "phone": "514-555-2004",
-            "email": "brossard@supermarche.com",
-            "type": "retail"
+            "email": "brossard@supermarche.com"
         },
         {
             "name": "Centre Logistique Principal",
             "address": "5000 Boulevard Industriel, Montréal, QC",
             "phone": "514-555-2005",
-            "email": "logistics@supermarche.com",
-            "type": "warehouse"
+            "email": "logistics@supermarche.com"
         }
     ]
+    
+    global created_stores
+    created_stores = []
     
     for store in stores:
         try:
@@ -196,287 +207,188 @@ def init_store_service(headers):
                 headers=headers
             )
             if response.status_code == 201:
-                print(f"✅ Created store: {store['name']} ({store['type']})")
+                store_data = response.json()
+                created_stores.append({
+                    'id': store_data.get('id'),
+                    'name': store['name'],
+                    'address': store['address']
+                })
+                print(f"✅ Created store: {store['name']} (ID: {store_data.get('id')})")
             else:
                 print(f"⚠️ Failed to create store {store['name']}: {response.text}")
         except Exception as e:
             print(f"❌ Error creating store {store['name']}: {e}")
+    
+    return created_stores
 
 def init_product_service(headers):
     """Initialiser les produits par catégories"""
     print("\n📦 Initializing Product Service...")
     
-    # Récupérer les magasins d'abord
-    try:
-        stores_response = requests.get(f"{SERVICES['store']}/stores")
-        stores = stores_response.json() if stores_response.status_code == 200 else []
-    except:
-        stores = []
-    
-    if not stores:
+    # Utiliser les magasins créés précédemment
+    global created_stores
+    if not created_stores:
         print("⚠️ No stores found, creating products without store association")
-        store_ids = [None]
+        store_ids = [1, 2, 3, 4, 5]  # IDs par défaut
     else:
-        store_ids = [store['id'] for store in stores]
+        store_ids = [store['id'] for store in created_stores]
     
     products = [
-        # ===== ALIMENTAIRE =====
         # Fruits et Légumes
         {
             "name": "Pommes Gala (1kg)",
-            "description": "Pommes fraîches et juteuses, parfaites pour la collation",
+            "description": "Pommes fraîches et juteuses",
             "price": 4.99,
             "quantity_stock": 50,
-            "min_stock": 15,
-            "category": "alimentaire_fruits_legumes",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": "2024-02-15"
+            "category": "fruits_legumes",
+            "store_id": store_ids[0] if store_ids else 1
         },
         {
             "name": "Bananes (1kg)",
-            "description": "Bananes biologiques, riches en potassium",
+            "description": "Bananes biologiques",
             "price": 3.49,
             "quantity_stock": 75,
-            "min_stock": 20,
-            "category": "alimentaire_fruits_legumes",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": "2024-02-10"
+            "category": "fruits_legumes",
+            "store_id": store_ids[0] if store_ids else 1
         },
         {
             "name": "Tomates (500g)",
-            "description": "Tomates cerises fraîches du Québec",
+            "description": "Tomates cerises fraîches",
             "price": 5.99,
             "quantity_stock": 30,
-            "min_stock": 10,
-            "category": "alimentaire_fruits_legumes",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": "2024-02-08"
+            "category": "fruits_legumes",
+            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0]
         },
         
         # Produits Laitiers
         {
             "name": "Lait 2% (2L)",
-            "description": "Lait frais du Québec, 2% de matières grasses",
+            "description": "Lait frais du Québec",
             "price": 4.49,
             "quantity_stock": 40,
-            "min_stock": 12,
-            "category": "alimentaire_laitiers",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": "2024-02-12"
+            "category": "laitiers",
+            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0]
         },
         {
             "name": "Fromage Cheddar (500g)",
-            "description": "Fromage cheddar vieilli, riche en saveur",
+            "description": "Fromage cheddar vieilli",
             "price": 8.99,
             "quantity_stock": 20,
-            "min_stock": 6,
-            "category": "alimentaire_laitiers",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": "2024-03-01"
+            "category": "laitiers",
+            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0]
         },
         
-        # Viandes et Poissons
+        # Viandes
         {
             "name": "Poulet Entier (2kg)",
-            "description": "Poulet frais du Québec, élevé sans antibiotiques",
+            "description": "Poulet frais du Québec",
             "price": 15.99,
             "quantity_stock": 15,
-            "min_stock": 5,
-            "category": "alimentaire_viandes",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": "2024-02-07"
+            "category": "viandes",
+            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0]
         },
         {
             "name": "Saumon Atlantique (500g)",
-            "description": "Filet de saumon frais, riche en oméga-3",
+            "description": "Filet de saumon frais",
             "price": 24.99,
             "quantity_stock": 10,
-            "min_stock": 3,
-            "category": "alimentaire_viandes",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": "2024-02-06"
+            "category": "viandes",
+            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0]
         },
         
         # Produits Secs
         {
             "name": "Riz Basmati (2kg)",
-            "description": "Riz basmati parfumé, grain long",
+            "description": "Riz basmati parfumé",
             "price": 7.99,
             "quantity_stock": 60,
-            "min_stock": 15,
-            "category": "alimentaire_secs",
-            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0],
-            "expiry_date": "2025-01-01"
+            "category": "secs",
+            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0]
         },
         {
             "name": "Pâtes Spaghetti (500g)",
-            "description": "Pâtes de blé dur, cuisson al dente",
+            "description": "Pâtes de blé dur",
             "price": 2.49,
             "quantity_stock": 80,
-            "min_stock": 20,
-            "category": "alimentaire_secs",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": "2025-06-01"
+            "category": "secs",
+            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0]
         },
         
-        # ===== ÉLECTROMÉNAGER =====
+        # Électroménager
         {
             "name": "Mixeur KitchenAid",
-            "description": "Mixeur professionnel 5 vitesses, 350W",
+            "description": "Mixeur professionnel 5 vitesses",
             "price": 89.99,
             "quantity_stock": 12,
-            "min_stock": 4,
-            "category": "electromenager_cuisine",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": None
+            "category": "electromenager",
+            "store_id": store_ids[4] if len(store_ids) > 4 else store_ids[0]
         },
         {
             "name": "Grille-pain Delonghi",
-            "description": "Grille-pain 4 fentes, réglage de température",
+            "description": "Grille-pain 4 fentes",
             "price": 45.99,
             "quantity_stock": 18,
-            "min_stock": 6,
-            "category": "electromenager_cuisine",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Cafetière Nespresso",
-            "description": "Machine à café automatique, 19 bars",
-            "price": 199.99,
-            "quantity_stock": 8,
-            "min_stock": 3,
-            "category": "electromenager_cuisine",
-            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Aspirateur Dyson",
-            "description": "Aspirateur sans fil, 60 minutes d'autonomie",
-            "price": 399.99,
-            "quantity_stock": 6,
-            "min_stock": 2,
-            "category": "electromenager_menage",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": None
+            "category": "electromenager",
+            "store_id": store_ids[4] if len(store_ids) > 4 else store_ids[0]
         },
         
-        # ===== VÊTEMENTS =====
+        # Vêtements
         {
             "name": "T-shirt Cotton (M)",
-            "description": "T-shirt 100% coton bio, taille M",
+            "description": "T-shirt 100% coton bio",
             "price": 24.99,
             "quantity_stock": 35,
-            "min_stock": 10,
-            "category": "vetements_hauts",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": None
+            "category": "vetements",
+            "store_id": store_ids[0] if store_ids else 1
         },
         {
             "name": "Jean Levi's (32/32)",
-            "description": "Jean classique, coupe slim, taille 32/32",
+            "description": "Jean classique",
             "price": 79.99,
             "quantity_stock": 20,
-            "min_stock": 6,
-            "category": "vetements_bas",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Pull Hiver (L)",
-            "description": "Pull en laine mérinos, taille L",
-            "price": 89.99,
-            "quantity_stock": 15,
-            "min_stock": 5,
-            "category": "vetements_hauts",
-            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Chaussures Nike Air",
-            "description": "Sneakers confortables, taille 42",
-            "price": 129.99,
-            "quantity_stock": 12,
-            "min_stock": 4,
-            "category": "vetements_chaussures",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": None
+            "category": "vetements",
+            "store_id": store_ids[0] if store_ids else 1
         },
         
-        # ===== LIVRES =====
+        # Livres
         {
             "name": "Harry Potter Tome 1",
-            "description": "Harry Potter à l'école des sorciers, édition collector",
+            "description": "Harry Potter à l'école des sorciers",
             "price": 29.99,
             "quantity_stock": 25,
-            "min_stock": 8,
-            "category": "livres_roman",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": None
+            "category": "livres",
+            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0]
         },
         {
             "name": "Cuisine du Québec",
-            "description": "Livre de recettes traditionnelles québécoises",
+            "description": "Livre de recettes traditionnelles",
             "price": 34.99,
             "quantity_stock": 18,
-            "min_stock": 6,
-            "category": "livres_cuisine",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Guide Montréal 2024",
-            "description": "Guide touristique complet de Montréal",
-            "price": 19.99,
-            "quantity_stock": 30,
-            "min_stock": 10,
-            "category": "livres_guide",
-            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0],
-            "expiry_date": None
+            "category": "livres",
+            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0]
         },
         
-        # ===== MAISON =====
+        # Maison
         {
             "name": "Casserole Le Creuset",
-            "description": "Casserole en fonte émaillée, 5L, rouge",
+            "description": "Casserole en fonte émaillée",
             "price": 249.99,
             "quantity_stock": 8,
-            "min_stock": 3,
-            "category": "maison_cuisine",
-            "store_id": store_ids[0] if store_ids else None,
-            "expiry_date": None
+            "category": "maison",
+            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0]
         },
         {
             "name": "Serviettes de Bain (6)",
-            "description": "Serviettes 100% coton, 400g/m², 6 pièces",
+            "description": "Serviettes 100% coton",
             "price": 49.99,
             "quantity_stock": 22,
-            "min_stock": 7,
-            "category": "maison_salle_bain",
-            "store_id": store_ids[1] if len(store_ids) > 1 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Lampadaire Design",
-            "description": "Lampadaire moderne, hauteur 180cm, LED intégrée",
-            "price": 179.99,
-            "quantity_stock": 10,
-            "min_stock": 4,
-            "category": "maison_eclairage",
-            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0],
-            "expiry_date": None
-        },
-        {
-            "name": "Coussin Décoratif (40x40)",
-            "description": "Coussin en velours, 40x40cm, couleur bleu",
-            "price": 34.99,
-            "quantity_stock": 28,
-            "min_stock": 9,
-            "category": "maison_deco",
-            "store_id": store_ids[3] if len(store_ids) > 3 else store_ids[0],
-            "expiry_date": None
+            "category": "maison",
+            "store_id": store_ids[2] if len(store_ids) > 2 else store_ids[0]
         }
     ]
+    
+    global created_products
+    created_products = []
     
     for product in products:
         try:
@@ -486,66 +398,73 @@ def init_product_service(headers):
                 headers=headers
             )
             if response.status_code == 201:
-                print(f"✅ Created product: {product['name']} ({product['category']})")
+                product_data = response.json()
+                created_products.append({
+                    'id': product_data.get('id'),
+                    'name': product['name'],
+                    'price': product['price'],
+                    'category': product['category'],
+                    'store_id': product['store_id']
+                })
+                print(f"✅ Created product: {product['name']} (ID: {product_data.get('id')})")
             else:
                 print(f"⚠️ Failed to create product {product['name']}: {response.text}")
         except Exception as e:
             print(f"❌ Error creating product {product['name']}: {e}")
+    
+    return created_products
 
 def init_sales_service(headers):
     """Initialiser quelques ventes de test"""
     print("\n💰 Initializing Sales Service...")
     
-    # Récupérer les clients et produits
-    try:
-        customers_response = requests.get(f"{SERVICES['customer']}/customers")
-        products_response = requests.get(f"{SERVICES['product']}/products")
-        
-        customers = customers_response.json() if customers_response.status_code == 200 else []
-        products = products_response.json() if products_response.status_code == 200 else []
-        
-        if not customers or not products:
-            print("⚠️ No customers or products found, skipping sales initialization")
-            return
-            
-        # Créer quelques ventes de test
-        sales = [
-            {
-                "customer_id": customers[4]['id'],  # Premier client
-                "store_id": 1,
-                "items": [
-                    {"product_id": products[0]['id'], "quantity": 2, "unit_price": products[0]['price']},
-                    {"product_id": products[4]['id'], "quantity": 1, "unit_price": products[4]['price']}
-                ],
-                "total_amount": (products[0]['price'] * 2) + products[4]['price']
-            },
-            {
-                "customer_id": customers[5]['id'],  # Deuxième client
-                "store_id": 2,
-                "items": [
-                    {"product_id": products[7]['id'], "quantity": 1, "unit_price": products[7]['price']},
-                    {"product_id": products[10]['id'], "quantity": 3, "unit_price": products[10]['price']}
-                ],
-                "total_amount": products[7]['price'] + (products[10]['price'] * 3)
-            }
-        ]
-        
-        for sale in sales:
-            try:
-                response = requests.post(
-                    f"{SERVICES['sales']}/sales",
-                    json=sale,
-                    headers=headers
-                )
-                if response.status_code == 201:
-                    print(f"✅ Created sale for customer {sale['customer_id']}")
-                else:
-                    print(f"⚠️ Failed to create sale: {response.text}")
-            except Exception as e:
-                print(f"❌ Error creating sale: {e}")
-                
-    except Exception as e:
-        print(f"❌ Error initializing sales: {e}")
+    # Utiliser les données créées précédemment
+    global created_customers, created_products
+    
+    if not created_customers or not created_products:
+        print("⚠️ No customers or products found, skipping sales initialization")
+        return
+    
+    # Prendre les clients (pas les admins)
+    client_customers = [c for c in created_customers if c['role'] == 'client']
+    
+    if len(client_customers) < 2 or len(created_products) < 5:
+        print("⚠️ Not enough customers or products for sales, skipping")
+        return
+    
+    # Créer quelques ventes de test
+    sales = [
+        {
+            "client_id": client_customers[0]['id'],
+            "total": 13.98,  # 2 pommes + 1 lait
+            "items": [
+                {"product_id": created_products[0]['id'], "quantity": 2, "unit_price": created_products[0]['price']},
+                {"product_id": created_products[3]['id'], "quantity": 1, "unit_price": created_products[3]['price']}
+            ]
+        },
+        {
+            "client_id": client_customers[1]['id'],
+            "total": 32.97,  # 1 saumon + 1 casserole (si disponible)
+            "items": [
+                {"product_id": created_products[6]['id'], "quantity": 1, "unit_price": created_products[6]['price']},
+                {"product_id": created_products[7]['id'], "quantity": 1, "unit_price": created_products[7]['price']}
+            ]
+        }
+    ]
+    
+    for sale in sales:
+        try:
+            response = requests.post(
+                f"{SERVICES['sales']}/sales",
+                json=sale,
+                headers=headers
+            )
+            if response.status_code == 201:
+                print(f"✅ Created sale for client {sale['client_id']}: ${sale['total']}")
+            else:
+                print(f"⚠️ Failed to create sale: {response.text}")
+        except Exception as e:
+            print(f"❌ Error creating sale: {e}")
 
 def init_logistics_service(headers):
     """Initialiser les données logistiques"""
@@ -620,25 +539,16 @@ def main():
     
     print("\n🎉 Data initialization completed!")
     print("\n📋 Summary of created data:")
-    print("- 7 users (admin, manager, product_manage, logistics, 3 clients)")
-    print("- 5 stores (4 supermarchés + 1 centre logistique)")
-    print("- 25 products répartis en 5 catégories principales:")
-    print("  • Alimentaire (8 produits): fruits/légumes, laitiers, viandes, secs")
-    print("  • Électroménager (4 produits): cuisine, ménage")
-    print("  • Vêtements (4 produits): hauts, bas, chaussures")
-    print("  • Livres (3 produits): roman, cuisine, guide")
-    print("  • Maison (6 produits): cuisine, salle de bain, éclairage, déco")
-    print("- 2 sample sales")
-    # print("- 3 demandes de réapprovisionnement")
+    print(f"- {len(created_customers)} users (admin, manager, product_manager, logistics, clients)")
+    print(f"- {len(created_stores)} stores")
+    print(f"- {len(created_products)} products in various categories")
+    print("- Sample sales transactions")
     print("\n🔑 Default login credentials:")
     print("- Admin: admin@supermarche.com / admin123")
     print("- Manager: manager@supermarche.com / manager123")
     print("- Product Manager: product@supermarche.com / product123")
     print("- Logistics: logistics@supermarche.com / logistics123")
     print("- Client: client1@example.com / client123")
-    print("\n🏪 Store Types:")
-    print("- 4 SuperMarchés (type: retail)")
-    print("- 1 Centre Logistique (type: warehouse)")
 
 if __name__ == "__main__":
     main() 
