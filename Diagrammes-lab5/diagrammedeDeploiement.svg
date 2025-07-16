@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="929px" preserveAspectRatio="none" style="width:5796px;height:929px;background:#FFFFFF;" version="1.1" viewBox="0 0 5796 929" width="5796px" zoomAndPan="magnify"><defs/><g><!--MD5=[3731d6be4f6a72c1aa7dd6ea151f31d1]
+cluster Docker Host--><g id="cluster_Docker Host"><polygon fill="#FFFFE0" points="21,212,31,202,5704,202,5704,902.5,5694,912.5,21,912.5,21,212" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="5694" x2="5704" y1="212" y2="202"/><line style="stroke:#000000;stroke-width:1.0;" x1="21" x2="5694" y1="212" y2="212"/><line style="stroke:#000000;stroke-width:1.0;" x1="5694" x2="5694" y1="212" y2="912.5"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="152" x="2782.5" y="235.4209">Docker Host</text></g><!--MD5=[7b10fe01528f41e6ab2faeb94134fc0f]
+cluster Load Balancer Container--><g id="cluster_Load Balancer Container"><polygon fill="#FFFFE0" points="5152,275,5162,265,5542,265,5542,384,5532,394,5152,394,5152,275" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="5532" x2="5542" y1="275" y2="265"/><line style="stroke:#000000;stroke-width:1.0;" x1="5152" x2="5532" y1="275" y2="275"/><line style="stroke:#000000;stroke-width:1.0;" x1="5532" x2="5532" y1="275" y2="394"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="309" x="5188.5" y="298.4209">Load Balancer Container</text></g><!--MD5=[2fe9cb2ba31650891df6d883ae8c5050]
+cluster API Gateway Container--><g id="cluster_API Gateway Container"><polygon fill="#FFFFE0" points="4308,471,4318,461,4896,461,4896,596,4886,606,4308,606,4308,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="4886" x2="4896" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="4308" x2="4886" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="4886" x2="4886" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="288" x="4454" y="494.4209">API Gateway Container</text></g><!--MD5=[9028d7d26ed0c403085ed88b61eb1331]
+cluster Web Interface Container--><g id="cluster_Web Interface Container"><polygon fill="#FFFFE0" points="4992,471,5002,461,5397,461,5397,596,5387,606,4992,606,4992,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="5387" x2="5397" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="4992" x2="5387" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="5387" x2="5387" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="308" x="5036.5" y="494.4209">Web Interface Container</text></g><!--MD5=[b9d10a529b16b795351a9ce83cb83189]
+cluster Customer Service Container--><g id="cluster_Customer Service Container"><polygon fill="#FFFFE0" points="2659,471,2669,461,3245,461,3245,596,3235,606,2659,606,2659,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3235" x2="3245" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="2659" x2="3235" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="3235" x2="3235" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="351" x="2772.5" y="494.4209">Customer Service Container</text></g><!--MD5=[9d9014b50fbe39fae91bc15f7d424245]
+cluster Product Service Container--><g id="cluster_Product Service Container"><polygon fill="#FFFFE0" points="964,471,974,461,1696,461,1696,596,1686,606,964,606,964,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1686" x2="1696" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="964" x2="1686" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="1686" x2="1686" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="329" x="1161.5" y="494.4209">Product Service Container</text></g><!--MD5=[d3f67b8d61e1a3da1df1596f188df08f]
+cluster Sales Service Container--><g id="cluster_Sales Service Container"><polygon fill="#FFFFE0" points="3465,471,3475,461,4209,461,4209,596,4199,606,3465,606,3465,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="4199" x2="4209" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="3465" x2="4199" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="4199" x2="4199" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="298" x="3684" y="494.4209">Sales Service Container</text></g><!--MD5=[523be5190bf49ec8400bb174ccab3379]
+cluster Store Service Container--><g id="cluster_Store Service Container"><polygon fill="#FFFFE0" points="1905,471,1915,461,2465,461,2465,596,2455,606,1905,606,1905,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2455" x2="2465" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="1905" x2="2455" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="2455" x2="2455" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="299" x="2031.5" y="494.4209">Store Service Container</text></g><!--MD5=[9aa5da80b7e466634c81f551060fe080]
+cluster Cart Service Container--><g id="cluster_Cart Service Container"><polygon fill="#FFFFE0" points="37,471,47,461,855,461,855,596,845,606,37,606,37,471" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="845" x2="855" y1="471" y2="461"/><line style="stroke:#000000;stroke-width:1.0;" x1="37" x2="845" y1="471" y2="471"/><line style="stroke:#000000;stroke-width:1.0;" x1="845" x2="845" y1="471" y2="606"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="284" x="300" y="494.4209">Cart Service Container</text></g><!--MD5=[149a08073a331b8903d50cbe30b70a94]
+cluster Checkout Service Container--><g id="cluster_Checkout Service Container"><polygon fill="#FFFFE0" points="1602,275,1612,265,2341,265,2341,384,2331,394,1602,394,1602,275" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2331" x2="2341" y1="275" y2="265"/><line style="stroke:#000000;stroke-width:1.0;" x1="1602" x2="2331" y1="275" y2="275"/><line style="stroke:#000000;stroke-width:1.0;" x1="2331" x2="2331" y1="275" y2="394"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="348" x="1793.5" y="298.4209">Checkout Service Container</text></g><!--MD5=[4bea3dffc7979298eba4a7b79e60c2b2]
+cluster Database Cluster--><g id="cluster_Database Cluster"><polygon fill="#FFFFE0" points="1202,663.5,1212,653.5,2261,653.5,2261,770.5,2251,780.5,1202,780.5,1202,663.5" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2251" x2="2261" y1="663.5" y2="653.5"/><line style="stroke:#000000;stroke-width:1.0;" x1="1202" x2="2251" y1="663.5" y2="663.5"/><line style="stroke:#000000;stroke-width:1.0;" x1="2251" x2="2251" y1="663.5" y2="780.5"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="216" x="1619.5" y="686.9209">Database Cluster</text></g><!--MD5=[743d52ba02819b14c5428371b7eceb64]
+cluster Cache Layer--><g id="cluster_Cache Layer"><polygon fill="#FFFFE0" points="626,663.5,636,653.5,854,653.5,854,770.5,844,780.5,626,780.5,626,663.5" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="844" x2="854" y1="663.5" y2="653.5"/><line style="stroke:#000000;stroke-width:1.0;" x1="626" x2="844" y1="663.5" y2="663.5"/><line style="stroke:#000000;stroke-width:1.0;" x1="844" x2="844" y1="663.5" y2="780.5"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="152" x="660" y="686.9209">Cache Layer</text></g><!--MD5=[ab9679832e8c4588dd209b76195857d7]
+cluster Monitoring Stack--><g id="cluster_Monitoring Stack"><polygon fill="#FFFFE0" points="2846,663,2856,653,3147,653,3147,878.5,3137,888.5,2846,888.5,2846,663" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3137" x2="3147" y1="663" y2="653"/><line style="stroke:#000000;stroke-width:1.0;" x1="2846" x2="3137" y1="663" y2="663"/><line style="stroke:#000000;stroke-width:1.0;" x1="3137" x2="3137" y1="663" y2="888.5"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="216" x="2884.5" y="686.4209">Monitoring Stack</text></g><!--MD5=[10ec2812747557e49eaeb5696d242de2]
+cluster External Network--><g id="cluster_External Network"><polygon fill="#FFFFE0" points="5358,21,5368,11,5754,11,5754,143,5744,153,5358,153,5358,21" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="5744" x2="5754" y1="21" y2="11"/><line style="stroke:#000000;stroke-width:1.0;" x1="5358" x2="5744" y1="21" y2="21"/><line style="stroke:#000000;stroke-width:1.0;" x1="5744" x2="5744" y1="21" y2="153"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="218" x="5443" y="44.4209">External Network</text></g><!--MD5=[8824c66cba45be527cf3dd56bcd70cd2]
+entity nginx--><g id="elem_nginx"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="83" x="5168.5" y="332"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="5231.5" y="337"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5229.5" y="339"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5229.5" y="343"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="43" x="5183.5" y="364.9951">NGINX</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="18" x="5433" y="243.6982">80</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="5436" y="259"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="27" x="5510.5" y="243.6982">443</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="5518" y="259"/><!--MD5=[fa3417cdfd338ea0875b38053cd95413]
+entity gateway_app--><g id="elem_gateway_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="4463" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="4549" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4547" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4547" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="4478" y="576.9951">Flask App</text></g><!--MD5=[f2dbfbbf0f6f8055fca4a80d17740d3e]
+entity gateway_gunicorn--><g id="elem_gateway_gunicorn"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="103" x="4324.5" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="4407.5" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4405.5" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4405.5" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="63" x="4339.5" y="576.9951">Gunicorn</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="4860" y="439.6982">5000</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="4872" y="455"/><!--MD5=[d40ecb68fd03c4f349b7481a726a4cee]
+entity web_app--><g id="elem_web_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="5147" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="5233" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5231" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5231" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="5162" y="576.9951">Flask App</text></g><!--MD5=[c51da6ee68a97240e95e5a7991e6c666]
+entity web_gunicorn--><g id="elem_web_gunicorn"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="103" x="5008.5" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="5091.5" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5089.5" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="5089.5" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="63" x="5023.5" y="576.9951">Gunicorn</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="5361" y="439.6982">5001</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="5373" y="455"/><!--MD5=[404f01d63f96d00ea7b93303a11d5eab]
+entity customer_app--><g id="elem_customer_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="2872" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2958" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2956" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2956" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="2887" y="576.9951">Flask App</text></g><!--MD5=[d52acbb57026f0497c05c9eff83c8a17]
+entity customer_orm--><g id="elem_customer_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="2675" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2817" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2815" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2815" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="2690" y="576.9951">SQLAlchemy ORM</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3209" y="439.6982">5001</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3221" y="455"/><!--MD5=[9c30adbe442d4578b7de7e3cf32cee2e]
+entity product_app--><g id="elem_product_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="1334" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1420" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1418" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1418" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="1349" y="576.9951">Flask App</text></g><!--MD5=[24fba4982f7f3b02a5e5269bd9936ccb]
+entity product_orm--><g id="elem_product_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="1137" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1279" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1277" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1277" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1152" y="576.9951">SQLAlchemy ORM</text></g><!--MD5=[9562e32fed990bead91b984e627290db]
+entity product_redis--><g id="elem_product_redis"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="122" x="980" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1082" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1080" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1080" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="82" x="995" y="576.9951">Redis Client</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="1660" y="439.6982">5002</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="1672" y="455"/><!--MD5=[5b82e602ee2a6938517d7381333984f4]
+entity sales_app--><g id="elem_sales_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="3678" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="3764" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3762" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3762" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="3693" y="576.9951">Flask App</text></g><!--MD5=[fe638a2220673e31121e5e5d18f2fe51]
+entity sales_orm--><g id="elem_sales_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="3481" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="3623" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3621" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3621" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="3496" y="576.9951">SQLAlchemy ORM</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3724" y="439.6982">5003</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3736" y="455"/><!--MD5=[199c697344733cd50badfc56190bba6e]
+entity store_app--><g id="elem_store_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="2118" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2204" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2202" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2202" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="2133" y="576.9951">Flask App</text></g><!--MD5=[bc981c614a00287f3846f9eaff703303]
+entity store_orm--><g id="elem_store_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="1921" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2063" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2061" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2061" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1936" y="576.9951">SQLAlchemy ORM</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2429" y="439.6982">5004</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2441" y="455"/><!--MD5=[a88fd06ea405e8dafc2cfb0194b3c03f]
+entity cart_app--><g id="elem_cart_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="407" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="493" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="491" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="491" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="422" y="576.9951">Flask App</text></g><!--MD5=[24e7d41473ffb0f6bdf54b0bc6ea7e7b]
+entity cart_orm--><g id="elem_cart_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="210" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="352" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="350" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="350" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="225" y="576.9951">SQLAlchemy ORM</text></g><!--MD5=[19085697df2bef3322e42f092ea10314]
+entity cart_redis--><g id="elem_cart_redis"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="122" x="53" y="544"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="155" y="549"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="153" y="551"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="153" y="555"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="82" x="68" y="576.9951">Redis Client</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="819" y="439.6982">5005</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="831" y="455"/><!--MD5=[1d262499edb604e3ad41e54b32f8a634]
+entity checkout_app--><g id="elem_checkout_app"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="1970" y="332"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2056" y="337"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2054" y="339"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2054" y="343"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="1985" y="364.9951">Flask App</text></g><!--MD5=[a36fa203cf019ddd0ef1682761ce7dd1]
+entity checkout_orm--><g id="elem_checkout_orm"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="1773" y="332"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1915" y="337"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1913" y="339"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1913" y="343"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1788" y="364.9951">SQLAlchemy ORM</text></g><!--MD5=[9b64298cddb5fe349f8af9823f44a4b6]
+entity checkout_http--><g id="elem_checkout_http"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="120" x="1618" y="332"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1718" y="337"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1716" y="339"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1716" y="343"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="80" x="1633" y="364.9951">HTTP Client</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2305" y="243.6982">5006</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2317" y="259"/><!--MD5=[5a3f2a73ed6d331241bacd7eb084a338]
+entity customer_db--><g id="elem_customer_db"><path d="M1926,712.5 C1926,702.5 1997,702.5 1997,702.5 C1997,702.5 2068,702.5 2068,712.5 L2068,754.0938 C2068,764.0938 1997,764.0938 1997,764.0938 C1997,764.0938 1926,764.0938 1926,754.0938 L1926,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1926,712.5 C1926,722.5 1997,722.5 1997,722.5 C1997,722.5 2068,722.5 2068,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="89" x="1936" y="739.4951">customer-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1936" y="755.792">PostgreSQL:5432</text></g><!--MD5=[0331cedaeb86ac53f5f996d3dba17419]
+entity product_db--><g id="elem_product_db"><path d="M1572,712.5 C1572,702.5 1643,702.5 1643,702.5 C1643,702.5 1714,702.5 1714,712.5 L1714,754.0938 C1714,764.0938 1643,764.0938 1643,764.0938 C1643,764.0938 1572,764.0938 1572,754.0938 L1572,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1572,712.5 C1572,722.5 1643,722.5 1643,722.5 C1643,722.5 1714,722.5 1714,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="77" x="1582" y="739.4951">product-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1582" y="755.792">PostgreSQL:5433</text></g><!--MD5=[5ca4f65f8173326ef7cc85e27191585e]
+entity sales_db--><g id="elem_sales_db"><path d="M2103,712.5 C2103,702.5 2174,702.5 2174,702.5 C2174,702.5 2245,702.5 2245,712.5 L2245,754.0938 C2245,764.0938 2174,764.0938 2174,764.0938 C2174,764.0938 2103,764.0938 2103,754.0938 L2103,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M2103,712.5 C2103,722.5 2174,722.5 2174,722.5 C2174,722.5 2245,722.5 2245,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="59" x="2113" y="739.4951">sales-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="2113" y="755.792">PostgreSQL:5434</text></g><!--MD5=[aba337b8d90500a4c8b05560e0442262]
+entity store_db--><g id="elem_store_db"><path d="M1749,712.5 C1749,702.5 1820,702.5 1820,702.5 C1820,702.5 1891,702.5 1891,712.5 L1891,754.0938 C1891,764.0938 1820,764.0938 1820,764.0938 C1820,764.0938 1749,764.0938 1749,754.0938 L1749,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1749,712.5 C1749,722.5 1820,722.5 1820,722.5 C1820,722.5 1891,722.5 1891,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="59" x="1759" y="739.4951">store-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1759" y="755.792">PostgreSQL:5435</text></g><!--MD5=[494c33bcdf6b47a390a69b58a9b56e7d]
+entity cart_db--><g id="elem_cart_db"><path d="M1218,712.5 C1218,702.5 1289,702.5 1289,702.5 C1289,702.5 1360,702.5 1360,712.5 L1360,754.0938 C1360,764.0938 1289,764.0938 1289,764.0938 C1289,764.0938 1218,764.0938 1218,754.0938 L1218,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1218,712.5 C1218,722.5 1289,722.5 1289,722.5 C1289,722.5 1360,722.5 1360,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="49" x="1228" y="739.4951">cart-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1228" y="755.792">PostgreSQL:5436</text></g><!--MD5=[2034f27cfd5a28f164d4c0c02109779d]
+entity checkout_db--><g id="elem_checkout_db"><path d="M1395,712.5 C1395,702.5 1466,702.5 1466,702.5 C1466,702.5 1537,702.5 1537,712.5 L1537,754.0938 C1537,764.0938 1466,764.0938 1466,764.0938 C1466,764.0938 1395,764.0938 1395,754.0938 L1395,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1395,712.5 C1395,722.5 1466,722.5 1466,722.5 C1466,722.5 1537,722.5 1537,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="88" x="1405" y="739.4951">checkout-db</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1405" y="755.792">PostgreSQL:5437</text></g><!--MD5=[de5dc476b5cd49b5a92d294ad2af7d70]
+entity redis--><g id="elem_redis"><path d="M696,712.5 C696,702.5 740,702.5 740,702.5 C740,702.5 784,702.5 784,712.5 L784,754.0938 C784,764.0938 740,764.0938 740,764.0938 C740,764.0938 696,764.0938 696,754.0938 L696,712.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M696,712.5 C696,722.5 740,722.5 740,722.5 C740,722.5 784,722.5 784,712.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="39" x="706" y="739.4951">Redis</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="68" x="706" y="755.792">Port 6379</text></g><!--MD5=[76c72a0d0666ffe20c687699125b4b7c]
+entity prometheus--><g id="elem_prometheus"><rect fill="#FFFFFF" height="62.5938" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="125" x="2862.5" y="702"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2967.5" y="707"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2965.5" y="709"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2965.5" y="713"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="85" x="2877.5" y="734.9951">Prometheus</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="68" x="2877.5" y="751.292">Port 9090</text></g><!--MD5=[97029dda41c7f1332efacff3a5502fd8]
+entity grafana--><g id="elem_grafana"><rect fill="#FFFFFF" height="62.5938" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="108" x="3023" y="702"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="3111" y="707"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3109" y="709"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3109" y="713"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="53" x="3038" y="734.9951">Grafana</text><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="68" x="3038" y="751.292">Port 3000</text></g><!--MD5=[a8f17040b7904dabaccdb89a7e1f4bbe]
+entity prom_db--><g id="elem_prom_db"><path d="M2937,837.5 C2937,827.5 3002,827.5 3002,827.5 C3002,827.5 3067,827.5 3067,837.5 L3067,862.7969 C3067,872.7969 3002,872.7969 3002,872.7969 C3002,872.7969 2937,872.7969 2937,862.7969 L2937,837.5 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M2937,837.5 C2937,847.5 3002,847.5 3002,847.5 C3002,847.5 3067,847.5 3067,837.5 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="110" x="2947" y="864.4951">Prometheus DB</text></g><!--MD5=[23555a4f9c8a267cdfd801ad53ceaf15]
+entity browser--><g id="elem_browser"><ellipse cx="5541" cy="69" fill="#FFFFFF" rx="8" ry="8" style="stroke:#000000;stroke-width:1.0;"/><path d="M5541,77 L5541,104 M5528,85 L5554,85 M5541,104 L5528,119 M5541,104 L5554,119 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="92" x="5495" y="133.9951">Web Browser</text></g><!--MD5=[79a439086b036a57b90a01d7b2f8bbd1]
+entity admin--><g id="elem_admin"><ellipse cx="5417" cy="69" fill="#FFFFFF" rx="8" ry="8" style="stroke:#000000;stroke-width:1.0;"/><path d="M5417,77 L5417,104 M5404,85 L5430,85 M5417,104 L5404,119 M5417,104 L5430,119 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="86" x="5374" y="133.9951">Admin Client</text></g><!--MD5=[31037e2c34a34fbac2ffb112118974a4]
+entity mon_client--><g id="elem_mon_client"><ellipse cx="5680" cy="69" fill="#FFFFFF" rx="8" ry="8" style="stroke:#000000;stroke-width:1.0;"/><path d="M5680,77 L5680,104 M5667,85 L5693,85 M5680,104 L5667,119 M5680,104 L5693,119 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="116" x="5622" y="133.9951">Monitoring Client</text></g><!--MD5=[beb9fee01dca3c719d5d676ad4b13ad5]
+link browser to port80--><g id="link_browser_port80"><path d="M5516.08,137.12 C5509.43,147.39 5502.34,158.56 5496,169 C5477.44,199.57 5456.93,236.63 5447.41,254.04 " fill="none" id="browser-to-port80" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="5444.82,258.79,5452.6494,252.8151,5447.2203,254.4038,5445.6315,248.9746,5444.82,258.79" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="32" x="5497" y="182.0669">HTTP</text></g><!--MD5=[c7aff73218b8187b12965ddcb67ac85d]
+link browser to port443--><g id="link_browser_port443"><path d="M5540.87,137.05 C5540.51,152.28 5539.7,170.01 5538,186 C5535.4,210.4 5529.63,238.65 5526.37,253.55 " fill="none" id="browser-to-port443" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="5525.21,258.74,5531.0671,250.822,5526.2947,253.8591,5523.2576,249.0866,5525.21,258.74" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="41" x="5540" y="182.0669">HTTPS</text></g><!--MD5=[388f2a4da7061195eb6fd1da20d6094b]
+link admin to port80--><g id="link_admin_port80"><path d="M5373.97,132.62 C5359.41,148.02 5348.69,167.09 5357,186 C5372.45,221.16 5412.45,247.41 5431.55,258.37 " fill="none" id="admin-to-port80" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="5435.92,260.82,5430.0148,252.9378,5431.5553,258.3809,5426.1122,259.9214,5435.92,260.82" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="101" x="5358" y="182.0669">Admin Interface</text></g><!--MD5=[d29d0fe9e7d6b9443b67143144940653]
+link mon_client to grafana--><g id="link_mon_client_grafana"><path d="M5696.5,137.26 C5709.34,170.09 5725,219.29 5725,264 C5725,264 5725,264 5725,568 C5725,591.57 5709.49,596.31 5688,606 C5448.25,714.09 3502.07,730.15 3136.18,732.22 " fill="none" id="mon_client-to-grafana" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3131.17,732.25,3140.1927,736.1985,3136.1699,732.2214,3140.147,728.1986,3131.17,732.25" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="62" x="5726" y="421.0669">Port 3000</text></g><!--MD5=[81cbaaf9838f89dbe9a7b3ca57f9e741]
+link nginx to gateway_port--><g id="link_nginx_gateway_port"><path d="M5168.29,369.07 C5091.8,393.03 4932.92,442.8 4889.29,456.46 " fill="none" id="nginx-to-gateway_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="4884.34,458.01,4894.1253,459.1268,4889.1099,456.5105,4891.7261,451.495,4884.34,458.01" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[6593333c8369cefb0435025d2f0f7be9]
+link nginx to web_port--><g id="link_nginx_web_port"><path d="M5243.89,378.09 C5252.08,383.35 5260.83,388.92 5269,394 C5305.27,416.55 5348.92,442.35 5368.54,453.88 " fill="none" id="nginx-to-web_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="5373,456.49,5367.2579,448.4882,5368.6863,453.9618,5363.2127,455.3901,5373,456.49" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[eac2df45abe024ee5db9e87086eaa96d]
+link customer_app to customer_db--><g id="link_customer_app_customer_db"><path d="M2891.83,590.19 C2880.61,596.53 2867.7,602.63 2855,606 C2785.5,624.45 2279.46,611.97 2208,620 C2153,626.18 2134.85,618.98 2086,645 C2061.64,657.98 2039.49,679.7 2023.38,698.25 " fill="none" id="customer_app-to-customer_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2019.83,702.4,2028.7149,698.1506,2023.0757,698.5967,2022.6296,692.9574,2019.83,702.4" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[62c29fd0e9d80758b5c05b9373395a4b]
+link product_app to product_db--><g id="link_product_app_product_db"><path d="M1426.42,590.08 C1436.59,595.51 1447.61,601.15 1458,606 C1500.1,625.66 1516.2,619.44 1555,645 C1577.25,659.65 1598.53,680.56 1614.6,698.27 " fill="none" id="product_app-to-product_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1618.15,702.23,1615.1025,692.8645,1614.8052,698.5135,1609.1561,698.2162,1618.15,702.23" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[2a79a803f392c4b3a12a157166cb609e]
+link sales_app to sales_db--><g id="link_sales_app_sales_db"><path d="M3698.21,590.07 C3686.91,596.49 3673.85,602.67 3661,606 C3623.27,615.78 2292.75,602.36 2258,620 C2225.95,636.27 2202.95,671.13 2189.21,697.76 " fill="none" id="sales_app-to-sales_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2186.92,702.29,2194.5546,696.068,2189.1789,697.8294,2187.4175,692.4537,2186.92,702.29" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[94f3474a577c9a1b30e222687f7e0c35]
+link store_app to store_db--><g id="link_store_app_store_db"><path d="M2135.26,590.04 C2124.55,595.92 2112.57,601.79 2101,606 C2019.17,635.77 1985.89,604.12 1909,645 C1884.63,657.96 1862.48,679.68 1846.37,698.24 " fill="none" id="store_app-to-store_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1842.82,702.39,1851.7141,698.1599,1846.074,698.5937,1845.6401,692.9535,1842.82,702.39" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[6cd69bcea99d121f73516c53034b9480]
+link cart_app to cart_db--><g id="link_cart_app_cart_db"><path d="M495.4,590.06 C506.45,596.08 518.91,602.03 531,606 C645.76,643.74 680.75,625.69 800,645 C946.37,668.7 1116.69,700.03 1212.77,718.05 " fill="none" id="cart_app-to-cart_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1217.86,719.01,1209.7592,713.4085,1212.9469,718.0817,1208.2738,721.2694,1217.86,719.01" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[bbe68d2fb2b1cbd40b9979ae228d9c0c]
+link checkout_app to checkout_db--><g id="link_checkout_app_checkout_db"><path d="M1989.42,378.18 C1978.28,384.43 1965.52,390.49 1953,394 C1892.37,411 1732.88,404.73 1670,408 C1590.66,412.13 1010.63,389.31 956,447 C941.69,462.12 957.52,599.47 964,606 C1029.11,671.58 1294.33,605.79 1378,645 C1403.21,656.81 1425.39,679 1441.18,698.07 " fill="none" id="checkout_app-to-checkout_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1444.65,702.34,1442.0831,692.8315,1441.4987,698.4581,1435.8721,697.8737,1444.65,702.34" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[5f66d915080ff2e45baa483a2b25ceb1]
+link product_redis to redis--><g id="link_product_redis_redis"><path d="M1000.72,590.01 C945.84,620.01 847.68,673.65 788.72,705.87 " fill="none" id="product_redis-to-redis" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="784.2,708.35,794.0174,707.5631,788.5922,705.9608,790.1946,700.5356,784.2,708.35" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[0a28af56f600f5d6f39d99c125c1ea4e]
+link cart_redis to redis--><g id="link_cart_redis_redis"><path d="M155.5,590.08 C167.38,595.82 180.51,601.61 193,606 C371.43,668.68 593.61,709.01 690.72,724.87 " fill="none" id="cart_redis-to-redis" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="695.82,725.7,687.5772,720.3097,690.8846,724.8989,686.2954,728.2063,695.82,725.7" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[8a6a43ae4e2ef159a7577167ad2718ee]
+link customer_app to prometheus--><g id="link_customer_app_prometheus"><path d="M2925,590.19 C2925,617.49 2925,664.21 2925,696.64 " fill="none" id="customer_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2925,701.72,2929,692.72,2925,696.72,2921,692.72,2925,701.72" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="2926" y="633.0669">Metrics</text></g><!--MD5=[0a927c5e2966c19f5a786951b6aa3468]
+link product_app to prometheus--><g id="link_product_app_prometheus"><path d="M1420.31,590.03 C1431.77,596.45 1445.01,602.63 1458,606 C1554.71,631.05 2258.57,602.94 2357,620 C2380.13,624.01 2384.29,631.08 2407,637 C2566.25,678.52 2757.58,708.86 2857.2,723.22 " fill="none" id="product_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2862.16,723.93,2853.8246,718.6839,2857.2114,723.2149,2852.6804,726.6017,2862.16,723.93" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="2408" y="633.0669">Metrics</text></g><!--MD5=[76d6bb6330dc15efad0dd206603d7b89]
+link sales_app to prometheus--><g id="link_sales_app_prometheus"><path d="M3697.4,590.1 C3686.26,596.36 3673.5,602.43 3661,606 C3520.8,646.07 3137.82,582.67 3006,645 C2981.99,656.35 2961.7,678.3 2947.44,697.38 " fill="none" id="sales_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2944.3,701.65,2952.8501,696.7618,2947.2587,697.6193,2946.4011,692.0279,2944.3,701.65" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3525" y="633.0669">Metrics</text></g><!--MD5=[defac37e5ac017e0fe84360d9a8acc98]
+link store_app to prometheus--><g id="link_store_app_prometheus"><path d="M2205.13,590.07 C2216.43,596.32 2229.36,602.4 2242,606 C2336.66,632.95 2365.7,605.19 2463,620 C2605.17,641.64 2767.79,685.92 2857.19,712.01 " fill="none" id="store_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2862.18,713.47,2854.66,707.11,2857.38,712.07,2852.42,714.79,2862.18,713.47" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="2553" y="633.0669">Metrics</text></g><!--MD5=[bb39f1799ba67e19536b3e1e2709b00d]
+link cart_app to prometheus--><g id="link_cart_app_prometheus"><path d="M493.68,590.18 C505.07,596.52 518.15,602.62 531,606 C623.98,630.43 2165.15,637.63 2261,645 C2479.76,661.83 2736.78,701.39 2856.81,721.03 " fill="none" id="cart_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2862.07,721.89,2853.8399,716.4803,2857.1365,721.0773,2852.5395,724.3739,2862.07,721.89" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="1776" y="633.0669">Metrics</text></g><!--MD5=[ff627a64742a5623676d73752b968300]
+link checkout_app to prometheus--><g id="link_checkout_app_prometheus"><path d="M2056.69,378.16 C2068.07,384.5 2081.16,390.61 2094,394 C2208.07,424.12 4134.62,362.54 4217,447 C4224.71,454.91 4259.91,555.51 4209,606 C4159.32,655.27 3649.94,634.79 3580,637 C3564.06,637.5 3020.57,638.51 3006,645 C2981.56,655.88 2961.16,678.07 2946.94,697.38 " fill="none" id="checkout_app-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2943.82,701.71,2952.3391,696.7679,2946.7532,697.6608,2945.8604,692.0748,2943.82,701.71" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="4236" y="510.0669">Metrics</text></g><!--MD5=[665b4c2fd0612e73590d68287c6cb6ff]
+link prometheus to prom_db--><g id="link_prometheus_prom_db"><path d="M2945.63,765.18 C2957.79,783.26 2973,805.88 2984.55,823.06 " fill="none" id="prometheus-to-prom_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2987.41,827.3,2985.7074,817.5994,2984.62,823.1508,2979.0687,822.0634,2987.41,827.3" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[0ddf5cf948f7872522f263313ba9f43e]
+link grafana to prom_db--><g id="link_grafana_prom_db"><path d="M3056.9,765.18 C3045.06,783.26 3030.25,805.88 3018.99,823.06 " fill="none" id="grafana-to-prom_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3016.21,827.3,3024.4885,821.9646,3018.9505,823.1179,3017.7972,817.5799,3016.21,827.3" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[1a8e82c1981420f4f7a29cc525db950f]
+link checkout_http to cart_port--><g id="link_checkout_http_cart_port"><path d="M1617.81,355.36 C1458.87,354.4 1031.23,356.8 901,408 C877.3,417.32 855.63,438.8 844.62,451.03 " fill="none" id="checkout_http-to-cart_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="841.3,454.8,850.2446,450.6776,844.5996,451.0433,844.2339,445.3983,841.3,454.8" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="32" x="902" y="421.0669">HTTP</text></g><!--MD5=[2a09410b9ccfab3b7697f3070388014e]
+link checkout_http to sales_port--><g id="link_checkout_http_sales_port"><path d="M1715.26,378.11 C1727.78,384.45 1742.11,390.57 1756,394 C1940.44,439.56 3275.16,439.6 3465,447 C3568.2,451.02 3692.95,457.43 3730.67,459.4 " fill="none" id="checkout_http-to-sales_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3735.96,459.68,3727.1901,455.198,3730.9674,459.409,3726.7564,463.1863,3735.96,459.68" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="32" x="2171" y="421.0669">HTTP</text></g><!--MD5=[9c1ba20994b899d3e2d366eda3b4cd6d]
+link checkout_http to product_port--><g id="link_checkout_http_product_port"><path d="M1678,378.06 C1678,399.93 1678,432.54 1678,449.26 " fill="none" id="checkout_http-to-product_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1678,454.65,1682,445.65,1678,449.65,1674,445.65,1678,454.65" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="32" x="1679" y="421.0669">HTTP</text></g><!--MD5=[35fecb2e73a0700d3f208705d54a1098]
+@startuml
+!theme plain
+skinparam backgroundColor white
+skinparam node {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+node "Docker Host" {
+    
+    node "Load Balancer Container" {
+        component "NGINX" as nginx
+        port "80" as port80
+        port "443" as port443
+    }
+    
+    node "API Gateway Container" {
+        component "Flask App" as gateway_app
+        component "Gunicorn" as gateway_gunicorn
+        port "5000" as gateway_port
+    }
+    
+    node "Web Interface Container" {
+        component "Flask App" as web_app
+        component "Gunicorn" as web_gunicorn
+        port "5001" as web_port
+    }
+    
+    node "Customer Service Container" {
+        component "Flask App" as customer_app
+        component "SQLAlchemy ORM" as customer_orm
+        port "5001" as customer_port
+    }
+    
+    node "Product Service Container" {
+        component "Flask App" as product_app
+        component "SQLAlchemy ORM" as product_orm
+        component "Redis Client" as product_redis
+        port "5002" as product_port
+    }
+    
+    node "Sales Service Container" {
+        component "Flask App" as sales_app
+        component "SQLAlchemy ORM" as sales_orm
+        port "5003" as sales_port
+    }
+    
+    node "Store Service Container" {
+        component "Flask App" as store_app
+        component "SQLAlchemy ORM" as store_orm
+        port "5004" as store_port
+    }
+    
+    node "Cart Service Container" {
+        component "Flask App" as cart_app
+        component "SQLAlchemy ORM" as cart_orm
+        component "Redis Client" as cart_redis
+        port "5005" as cart_port
+    }
+    
+    node "Checkout Service Container" {
+        component "Flask App" as checkout_app
+        component "SQLAlchemy ORM" as checkout_orm
+        component "HTTP Client" as checkout_http
+        port "5006" as checkout_port
+    }
+    
+    node "Database Cluster" {
+        database "customer-db\nPostgreSQL:5432" as customer_db
+        database "product-db\nPostgreSQL:5433" as product_db
+        database "sales-db\nPostgreSQL:5434" as sales_db
+        database "store-db\nPostgreSQL:5435" as store_db
+        database "cart-db\nPostgreSQL:5436" as cart_db
+        database "checkout-db\nPostgreSQL:5437" as checkout_db
+    }
+    
+    node "Cache Layer" {
+        database "Redis\nPort 6379" as redis
+    }
+    
+    node "Monitoring Stack" {
+        component "Prometheus\nPort 9090" as prometheus
+        component "Grafana\nPort 3000" as grafana
+        database "Prometheus DB" as prom_db
+    }
+}
+
+node "External Network" {
+    actor "Web Browser" as browser
+    actor "Admin Client" as admin
+    actor "Monitoring Client" as mon_client
+}
+
+' Connexions externes
+browser - -> port80 : "HTTP"
+browser - -> port443 : "HTTPS"
+admin - -> port80 : "Admin Interface"
+mon_client - -> grafana : "Port 3000"
+
+' Load balancer vers services
+nginx - -> gateway_port
+nginx - -> web_port
+
+' Services vers bases de données
+customer_app - -> customer_db
+product_app - -> product_db
+sales_app - -> sales_db
+store_app - -> store_db
+cart_app - -> cart_db
+checkout_app - -> checkout_db
+
+' Cache connections
+product_redis - -> redis
+cart_redis - -> redis
+
+' Monitoring connections
+customer_app - -> prometheus : "Metrics"
+product_app - -> prometheus : "Metrics"
+sales_app - -> prometheus : "Metrics"
+store_app - -> prometheus : "Metrics"
+cart_app - -> prometheus : "Metrics"
+checkout_app - -> prometheus : "Metrics"
+
+prometheus - -> prom_db
+grafana - -> prom_db
+
+' Inter-service communication
+checkout_http - -> cart_port : "HTTP"
+checkout_http - -> sales_port : "HTTP"
+checkout_http - -> product_port : "HTTP"
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+skinparam backgroundColor white
+skinparam node {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+node "Docker Host" {
+    
+    node "Load Balancer Container" {
+        component "NGINX" as nginx
+        port "80" as port80
+        port "443" as port443
+    }
+    
+    node "API Gateway Container" {
+        component "Flask App" as gateway_app
+        component "Gunicorn" as gateway_gunicorn
+        port "5000" as gateway_port
+    }
+    
+    node "Web Interface Container" {
+        component "Flask App" as web_app
+        component "Gunicorn" as web_gunicorn
+        port "5001" as web_port
+    }
+    
+    node "Customer Service Container" {
+        component "Flask App" as customer_app
+        component "SQLAlchemy ORM" as customer_orm
+        port "5001" as customer_port
+    }
+    
+    node "Product Service Container" {
+        component "Flask App" as product_app
+        component "SQLAlchemy ORM" as product_orm
+        component "Redis Client" as product_redis
+        port "5002" as product_port
+    }
+    
+    node "Sales Service Container" {
+        component "Flask App" as sales_app
+        component "SQLAlchemy ORM" as sales_orm
+        port "5003" as sales_port
+    }
+    
+    node "Store Service Container" {
+        component "Flask App" as store_app
+        component "SQLAlchemy ORM" as store_orm
+        port "5004" as store_port
+    }
+    
+    node "Cart Service Container" {
+        component "Flask App" as cart_app
+        component "SQLAlchemy ORM" as cart_orm
+        component "Redis Client" as cart_redis
+        port "5005" as cart_port
+    }
+    
+    node "Checkout Service Container" {
+        component "Flask App" as checkout_app
+        component "SQLAlchemy ORM" as checkout_orm
+        component "HTTP Client" as checkout_http
+        port "5006" as checkout_port
+    }
+    
+    node "Database Cluster" {
+        database "customer-db\nPostgreSQL:5432" as customer_db
+        database "product-db\nPostgreSQL:5433" as product_db
+        database "sales-db\nPostgreSQL:5434" as sales_db
+        database "store-db\nPostgreSQL:5435" as store_db
+        database "cart-db\nPostgreSQL:5436" as cart_db
+        database "checkout-db\nPostgreSQL:5437" as checkout_db
+    }
+    
+    node "Cache Layer" {
+        database "Redis\nPort 6379" as redis
+    }
+    
+    node "Monitoring Stack" {
+        component "Prometheus\nPort 9090" as prometheus
+        component "Grafana\nPort 3000" as grafana
+        database "Prometheus DB" as prom_db
+    }
+}
+
+node "External Network" {
+    actor "Web Browser" as browser
+    actor "Admin Client" as admin
+    actor "Monitoring Client" as mon_client
+}
+
+browser - -> port80 : "HTTP"
+browser - -> port443 : "HTTPS"
+admin - -> port80 : "Admin Interface"
+mon_client - -> grafana : "Port 3000"
+
+nginx - -> gateway_port
+nginx - -> web_port
+
+customer_app - -> customer_db
+product_app - -> product_db
+sales_app - -> sales_db
+store_app - -> store_db
+cart_app - -> cart_db
+checkout_app - -> checkout_db
+
+product_redis - -> redis
+cart_redis - -> redis
+
+customer_app - -> prometheus : "Metrics"
+product_app - -> prometheus : "Metrics"
+sales_app - -> prometheus : "Metrics"
+store_app - -> prometheus : "Metrics"
+cart_app - -> prometheus : "Metrics"
+checkout_app - -> prometheus : "Metrics"
+
+prometheus - -> prom_db
+grafana - -> prom_db
+
+checkout_http - -> cart_port : "HTTP"
+checkout_http - -> sales_port : "HTTP"
+checkout_http - -> product_port : "HTTP"
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

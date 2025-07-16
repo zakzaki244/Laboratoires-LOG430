@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="818px" preserveAspectRatio="none" style="width:1050px;height:818px;background:#FFFFFF;" version="1.1" viewBox="0 0 1050 818" width="1050px" zoomAndPan="magnify"><defs/><g><!--MD5=[b7c6ebc790623d1160f70b12cd378484]
+cluster Product Service--><g id="cluster_Product Service"><path d="M13.5,12.6885 L212.5,12.6885 A3.75,3.75 0 0 1 215,15.1885 L222,44.2979 L791.5,44.2979 A2.5,2.5 0 0 1 794,46.7979 L794,654.1885 A2.5,2.5 0 0 1 791.5,656.6885 L13.5,656.6885 A2.5,2.5 0 0 1 11,654.1885 L11,15.1885 A2.5,2.5 0 0 1 13.5,12.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="11" x2="222" y1="44.2979" y2="44.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="198" x="15" y="35.1094">Product Service</text></g><!--MD5=[cae1a4e3a5204552ccef04ac791fc36e]
+cluster Interface Layer--><g id="cluster_Interface Layer"><path d="M177.5,64.6885 L369.5,64.6885 A3.75,3.75 0 0 1 372,67.1885 L379,96.2979 L551.5,96.2979 A2.5,2.5 0 0 1 554,98.7979 L554,177.1885 A2.5,2.5 0 0 1 551.5,179.6885 L177.5,179.6885 A2.5,2.5 0 0 1 175,177.1885 L175,67.1885 A2.5,2.5 0 0 1 177.5,64.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="175" x2="379" y1="96.2979" y2="96.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="191" x="179" y="87.1094">Interface Layer</text></g><!--MD5=[de6cf97a447c0cb999a0ecd0089df131]
+cluster Application Layer--><g id="cluster_Application Layer"><path d="M46.5,228.6885 L267.5,228.6885 A3.75,3.75 0 0 1 270,231.1885 L277,260.2979 L426.5,260.2979 A2.5,2.5 0 0 1 429,262.7979 L429,341.1885 A2.5,2.5 0 0 1 426.5,343.6885 L46.5,343.6885 A2.5,2.5 0 0 1 44,341.1885 L44,231.1885 A2.5,2.5 0 0 1 46.5,228.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="44" x2="277" y1="260.2979" y2="260.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="220" x="48" y="251.1094">Application Layer</text></g><!--MD5=[cc167570a590d8dbd4742108b55f98b1]
+cluster Domain Layer--><g id="cluster_Domain Layer"><path d="M37.5,392.6885 L210.5,392.6885 A3.75,3.75 0 0 1 213,395.1885 L220,424.2979 L362.5,424.2979 A2.5,2.5 0 0 1 365,426.7979 L365,505.1885 A2.5,2.5 0 0 1 362.5,507.6885 L37.5,507.6885 A2.5,2.5 0 0 1 35,505.1885 L35,395.1885 A2.5,2.5 0 0 1 37.5,392.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="35" x2="220" y1="424.2979" y2="424.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="172" x="39" y="415.1094">Domain Layer</text></g><!--MD5=[fc9d01843663843f76fa1b021ee06788]
+cluster Infrastructure Layer--><g id="cluster_Infrastructure Layer"><path d="M391.5,392.6885 L646.5,392.6885 A3.75,3.75 0 0 1 649,395.1885 L656,424.2979 L767.5,424.2979 A2.5,2.5 0 0 1 770,426.7979 L770,630.1885 A2.5,2.5 0 0 1 767.5,632.6885 L391.5,632.6885 A2.5,2.5 0 0 1 389,630.1885 L389,395.1885 A2.5,2.5 0 0 1 391.5,392.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="389" x2="656" y1="424.2979" y2="424.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="254" x="393" y="415.1094">Infrastructure Layer</text></g><!--MD5=[eee7ea02acade4b557a72e9c041526e0]
+cluster Utils Layer--><g id="cluster_Utils Layer"><path d="M455.5,228.6885 L591.5,228.6885 A3.75,3.75 0 0 1 594,231.1885 L601,260.2979 L767.5,260.2979 A2.5,2.5 0 0 1 770,262.7979 L770,341.1885 A2.5,2.5 0 0 1 767.5,343.6885 L455.5,343.6885 A2.5,2.5 0 0 1 453,341.1885 L453,231.1885 A2.5,2.5 0 0 1 455.5,228.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="453" x2="601" y1="260.2979" y2="260.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="135" x="457" y="251.1094">Utils Layer</text></g><!--MD5=[7f8134b78695bef3e790eae6add485b3]
+cluster External Dependencies--><g id="cluster_External Dependencies"><path d="M641.5,705.6885 L931.5,705.6885 A3.75,3.75 0 0 1 934,708.1885 L941,737.2979 L1040.5,737.2979 A2.5,2.5 0 0 1 1043,739.7979 L1043,809.1885 A2.5,2.5 0 0 1 1040.5,811.6885 L641.5,811.6885 A2.5,2.5 0 0 1 639,809.1885 L639,708.1885 A2.5,2.5 0 0 1 641.5,705.6885 " fill="#FFFFE0" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="639" x2="941" y1="737.2979" y2="737.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="289" x="643" y="728.1094">External Dependencies</text></g><!--MD5=[800abf3622c134f85427057589664eb8]
+entity routes--><g id="elem_routes"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="166" x="191" y="113.1885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="337" y="118.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="335" y="120.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="335" y="124.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="126" x="206" y="146.1836">product_routes.py</text></g><g id="elem_GMN100"><path d="M392.5,108.6885 L392.5,132.1885 L357.19,136.1885 L392.5,140.1885 L392.5,164.0869 A0,0 0 0 0 392.5,164.0869 L537.5,164.0869 A0,0 0 0 0 537.5,164.0869 L537.5,118.6885 L527.5,108.6885 L392.5,108.6885 A0,0 0 0 0 392.5,108.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M527.5,108.6885 L527.5,118.6885 L537.5,118.6885 L527.5,108.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="104" x="398.5" y="125.7554">"Endpoints REST</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="124" x="398.5" y="140.8882">Validation requêtes</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="119" x="398.5" y="156.021">Sérialisation JSON"</text></g><!--MD5=[38bfa9dc6018363cafe15f923a4b8db9]
+entity service--><g id="elem_service"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="170" x="60" y="277.1885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="210" y="282.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="208" y="284.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="208" y="288.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="130" x="75" y="310.1836">product_service.py</text></g><g id="elem_GMN105"><path d="M265,272.6885 L265,296.1885 L230.25,300.1885 L265,304.1885 L265,328.0869 A0,0 0 0 0 265,328.0869 L413,328.0869 A0,0 0 0 0 413,328.0869 L413,282.6885 L403,272.6885 L265,272.6885 A0,0 0 0 0 265,272.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M403,272.6885 L403,282.6885 L413,282.6885 L403,272.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="127" x="271" y="289.7554">"Logique applicative</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="87" x="271" y="304.8882">Orchestration</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="114" x="271" y="320.021">Validation métier"</text></g><!--MD5=[8890788e37b11dd3053f547e2b5ce265]
+entity domain--><g id="elem_domain"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="114" x="51" y="441.1885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="145" y="446.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="143" y="448.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="143" y="452.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="74" x="66" y="474.1836">product.py</text></g><g id="elem_GMN110"><path d="M200.5,436.6885 L200.5,460.1885 L165.08,464.1885 L200.5,468.1885 L200.5,492.0869 A0,0 0 0 0 200.5,492.0869 L349.5,492.0869 A0,0 0 0 0 349.5,492.0869 L349.5,446.6885 L339.5,436.6885 L200.5,436.6885 A0,0 0 0 0 200.5,436.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M339.5,436.6885 L339.5,446.6885 L349.5,446.6885 L339.5,436.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="95" x="206.5" y="453.7554">"Entités métier</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="102" x="206.5" y="468.8882">Règles business</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="128" x="206.5" y="484.021">Validation domaine"</text></g><!--MD5=[24b005fcbd1feaad7f7dedc55a678d14]
+entity repository--><g id="elem_repository"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="190" x="405" y="441.1885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="575" y="446.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="573" y="448.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="573" y="452.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="150" x="420" y="474.1836">product_repository.py</text></g><!--MD5=[7468467f3b6b392f1d176d828c753b77]
+entity db--><g id="elem_db"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="78" x="501" y="570.6885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="559" y="575.6885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="557" y="577.6885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="557" y="581.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="38" x="516" y="603.6836">db.py</text></g><g id="elem_GMN116"><path d="M630.5,436.6885 L630.5,460.1885 L595.25,464.1885 L630.5,468.1885 L630.5,492.0869 A0,0 0 0 0 630.5,492.0869 L753.5,492.0869 A0,0 0 0 0 753.5,492.0869 L753.5,446.6885 L743.5,436.6885 L630.5,436.6885 A0,0 0 0 0 630.5,436.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M743.5,436.6885 L743.5,446.6885 L753.5,446.6885 L743.5,436.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="102" x="636.5" y="453.7554">"Accès données</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="90" x="636.5" y="468.8882">Requêtes SQL</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="92" x="636.5" y="484.021">Mapping ORM"</text></g><!--MD5=[594c10f30ae7643b27def2dbf595e59d]
+entity jwt--><g id="elem_jwt"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="114" x="469" y="277.1885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="563" y="282.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="561" y="284.1885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="561" y="288.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="74" x="484" y="310.1836">jwt_utils.py</text></g><g id="elem_GMN121"><path d="M618,272.6885 L618,296.1885 L583.19,300.1885 L618,304.1885 L618,328.0869 A0,0 0 0 0 618,328.0869 L754,328.0869 A0,0 0 0 0 754,328.0869 L754,282.6885 L744,272.6885 L618,272.6885 A0,0 0 0 0 618,272.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M744,272.6885 L744,282.6885 L754,282.6885 L744,272.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="105" x="624" y="289.7554">"Authentification</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="77" x="624" y="304.8882">Autorisation</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="115" x="624" y="320.021">Validation tokens"</text></g><!--MD5=[0e1fecc31e3549f2a1667c6349b56d9e]
+entity postgres--><g id="elem_postgres"><path d="M655.5,760.1885 C655.5,750.1885 706,750.1885 706,750.1885 C706,750.1885 756.5,750.1885 756.5,760.1885 L756.5,785.4854 C756.5,795.4854 706,795.4854 706,795.4854 C706,795.4854 655.5,795.4854 655.5,785.4854 L655.5,760.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M655.5,760.1885 C655.5,770.1885 706,770.1885 706,770.1885 C706,770.1885 756.5,770.1885 756.5,760.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="81" x="665.5" y="787.1836">PostgreSQL</text></g><!--MD5=[de5dc476b5cd49b5a92d294ad2af7d70]
+entity redis--><g id="elem_redis"><path d="M791.5,760.1885 C791.5,750.1885 821,750.1885 821,750.1885 C821,750.1885 850.5,750.1885 850.5,760.1885 L850.5,785.4854 C850.5,795.4854 821,795.4854 821,795.4854 C821,795.4854 791.5,795.4854 791.5,785.4854 L791.5,760.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M791.5,760.1885 C791.5,770.1885 821,770.1885 821,770.1885 C821,770.1885 850.5,770.1885 850.5,760.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="39" x="801.5" y="787.1836">Redis</text></g><!--MD5=[ce1c0195088fc6ead5c2a3aeac01380f]
+entity external--><g id="elem_external"><rect fill="#FFFFFF" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="141" x="885.5" y="749.6885"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1006.5" y="754.6885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1004.5" y="756.6885"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1004.5" y="760.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="101" x="900.5" y="782.6836">Other Services</text></g><!--MD5=[ffb4b32755d89b0d80b44e5863bad44a]
+link routes to service--><g id="link_routes_service"><path d="M256.33,159.3785 C232.76,188.9785 191.07,241.3285 165.94,272.8885 " fill="none" id="routes-to-service" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="162.66,277.0085,171.4017,272.4716,165.78,273.1013,165.1503,267.4796,162.66,277.0085" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="94" x="226" y="208.7554">Business Logic</text></g><!--MD5=[ac0eb164107392e77d3d99ee321a72f2]
+link service to domain--><g id="link_service_domain"><path d="M139.93,323.3785 C133.23,352.7385 121.41,404.4785 114.18,436.1185 " fill="none" id="service-to-domain" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="113.07,441.0085,118.9761,433.127,114.1849,436.1344,111.1775,431.3431,113.07,441.0085" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="124" x="132" y="372.7554">Domain Operations</text></g><!--MD5=[108071491d6574585b4e8a44c7f12a19]
+link service to repository--><g id="link_service_repository"><path d="M185.41,323.3685 C203.84,332.9185 226.15,343.6885 247,351.6885 C297.85,371.1885 314.84,363.4985 365,384.6885 C399.71,399.3485 436.51,421.2285 462.91,438.1585 " fill="none" id="service-to-repository" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="467.39,441.0485,461.9824,432.8169,463.1841,438.3447,457.6564,439.5464,467.39,441.0485" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="80" x="345" y="372.7554">Data Access</text></g><!--MD5=[7efcd451f36b82b4150f9156cb6bfffb]
+link repository to db--><g id="link_repository_db"><path d="M506.97,487.3985 C513.78,509.1085 524.17,542.2185 531.47,565.4985 " fill="none" id="repository-to-db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="532.98,570.3085,534.0968,560.5231,531.4805,565.5386,526.465,562.9223,532.98,570.3085" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="87" x="525" y="536.7554">ORM Mapping</text></g><!--MD5=[c313195b80cfcf73017e47e1ec44e210]
+link routes to jwt--><g id="link_routes_jwt"><path d="M320.4,159.3285 C351.89,175.0385 394.01,197.3985 429,220.6885 C453.14,236.7585 478.56,257.4885 497.32,273.6085 " fill="none" id="routes-to-jwt" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="501.46,277.1885,497.2657,268.2774,497.6768,273.9193,492.035,274.3304,501.46,277.1885" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="93" x="414" y="208.7554">Authentication</text></g><!--MD5=[2cfaa40dfec19782f519d3b5d1f9863d]
+link db to postgres--><g id="link_db_postgres"><path d="M560.69,616.7485 C591.63,649.7385 649.8,711.7685 682.38,746.4985 " fill="none" id="db-to-postgres" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="685.83,750.1785,682.6121,740.8702,682.4179,746.5237,676.7644,746.3295,685.83,750.1785" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="138" x="628" y="685.7554">Database Connection</text></g><!--MD5=[25869abb0e92b6c89de654f0925b2350]
+link service to redis--><g id="link_service_redis"><path d="M180.39,323.2885 C199.39,333.9485 223.65,345.6985 247,351.6885 C303.4,366.1685 727.68,344.6985 770,384.6885 C822.06,433.8685 822.92,665.6385 821.64,744.9785 " fill="none" id="service-to-redis" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="821.55,749.9785,825.7037,741.0484,821.6357,744.9792,817.7049,740.9112,821.55,749.9785" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="114" x="815" y="536.7554">Cache Operations</text></g><!--MD5=[e0d024a814a2d740cc97b5b80169c271]
+link service to external--><g id="link_service_external"><path d="M179.87,323.2585 C198.92,334.0585 223.39,345.9385 247,351.6885 C295.05,363.3885 642.84,354.3385 692,359.6885 C747.89,365.7785 767.34,356.5285 816,384.6885 C887.14,425.8685 906.26,447.8685 938,523.6885 C969.3,598.4585 964.37,696.9585 959.52,744.1585 " fill="none" id="service-to-external" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="958.96,749.3785,963.8891,740.8518,959.4886,744.4065,955.934,740.006,958.96,749.3785" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="66" x="945" y="536.7554">HTTP Calls</text></g><!--MD5=[3d9759775f962b28c083beda0f77c007]
+@startuml
+!theme plain
+skinparam backgroundColor white
+skinparam package {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+package "Product Service" {
+    package "Interface Layer" {
+        [product_routes.py] as routes
+        note right of routes : "Endpoints REST\nValidation requêtes\nSérialisation JSON"
+    }
+    
+    package "Application Layer" {
+        [product_service.py] as service
+        note right of service : "Logique applicative\nOrchestration\nValidation métier"
+    }
+    
+    package "Domain Layer" {
+        [product.py] as domain
+        note right of domain : "Entités métier\nRègles business\nValidation domaine"
+    }
+    
+    package "Infrastructure Layer" {
+        [product_repository.py] as repository
+        [db.py] as db
+        note right of repository : "Accès données\nRequêtes SQL\nMapping ORM"
+    }
+    
+    package "Utils Layer" {
+        [jwt_utils.py] as jwt
+        note right of jwt : "Authentification\nAutorisation\nValidation tokens"
+    }
+}
+
+package "External Dependencies" {
+    database "PostgreSQL" as postgres
+    database "Redis" as redis
+    [Other Services] as external
+}
+
+' Relations internes
+routes - -> service : "Business Logic"
+service - -> domain : "Domain Operations"
+service - -> repository : "Data Access"
+repository - -> db : "ORM Mapping"
+routes - -> jwt : "Authentication"
+
+' Relations externes
+db - -> postgres : "Database Connection"
+service - -> redis : "Cache Operations"
+service - -> external : "HTTP Calls"
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+skinparam backgroundColor white
+skinparam package {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+package "Product Service" {
+    package "Interface Layer" {
+        [product_routes.py] as routes
+        note right of routes : "Endpoints REST\nValidation requêtes\nSérialisation JSON"
+    }
+    
+    package "Application Layer" {
+        [product_service.py] as service
+        note right of service : "Logique applicative\nOrchestration\nValidation métier"
+    }
+    
+    package "Domain Layer" {
+        [product.py] as domain
+        note right of domain : "Entités métier\nRègles business\nValidation domaine"
+    }
+    
+    package "Infrastructure Layer" {
+        [product_repository.py] as repository
+        [db.py] as db
+        note right of repository : "Accès données\nRequêtes SQL\nMapping ORM"
+    }
+    
+    package "Utils Layer" {
+        [jwt_utils.py] as jwt
+        note right of jwt : "Authentification\nAutorisation\nValidation tokens"
+    }
+}
+
+package "External Dependencies" {
+    database "PostgreSQL" as postgres
+    database "Redis" as redis
+    [Other Services] as external
+}
+
+routes - -> service : "Business Logic"
+service - -> domain : "Domain Operations"
+service - -> repository : "Data Access"
+repository - -> db : "ORM Mapping"
+routes - -> jwt : "Authentication"
+
+db - -> postgres : "Database Connection"
+service - -> redis : "Cache Operations"
+service - -> external : "HTTP Calls"
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

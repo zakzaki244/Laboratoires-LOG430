@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1526px" preserveAspectRatio="none" style="width:2021px;height:1526px;background:#FFFFFF;" version="1.1" viewBox="0 0 2021 1526" width="2021px" zoomAndPan="magnify"><defs/><g><!--MD5=[600d0db911510088eac6d54f1681a819]
+cluster Client Layer--><g id="cluster_Client Layer"><path d="M1385.5,12.6885 L1537.5,12.6885 A3.75,3.75 0 0 1 1540,15.1885 L1547,44.2979 L1547.5,44.2979 A2.5,2.5 0 0 1 1550,46.7979 L1550,147.1885 A2.5,2.5 0 0 1 1547.5,149.6885 L1385.5,149.6885 A2.5,2.5 0 0 1 1383,147.1885 L1383,15.1885 A2.5,2.5 0 0 1 1385.5,12.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1383" x2="1547" y1="44.2979" y2="44.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="151" x="1387" y="35.1094">Client Layer</text></g><!--MD5=[546cfd1f3b022eb8a2542dba983522c5]
+cluster Edge Layer--><g id="cluster_Edge Layer"><path d="M1360.5,198.6885 L1500.5,198.6885 A3.75,3.75 0 0 1 1503,201.1885 L1510,230.2979 L1770.5,230.2979 A2.5,2.5 0 0 1 1773,232.7979 L1773,311.1885 A2.5,2.5 0 0 1 1770.5,313.6885 L1360.5,313.6885 A2.5,2.5 0 0 1 1358,311.1885 L1358,201.1885 A2.5,2.5 0 0 1 1360.5,198.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1358" x2="1510" y1="230.2979" y2="230.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="139" x="1362" y="221.1094">Edge Layer</text></g><!--MD5=[b9151c33ad59e834548d6f8bf1201840]
+cluster Gateway Layer--><g id="cluster_Gateway Layer"><path d="M1319.5,362.6885 L1505.5,362.6885 A3.75,3.75 0 0 1 1508,365.1885 L1515,394.2979 L1631.5,394.2979 A2.5,2.5 0 0 1 1634,396.7979 L1634,598.1885 A2.5,2.5 0 0 1 1631.5,600.6885 L1319.5,600.6885 A2.5,2.5 0 0 1 1317,598.1885 L1317,365.1885 A2.5,2.5 0 0 1 1319.5,362.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1317" x2="1515" y1="394.2979" y2="394.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="185" x="1321" y="385.1094">Gateway Layer</text></g><!--MD5=[4b06f9047bc2c3661e0ad0bf333f4fda]
+cluster Business Services Layer--><g id="cluster_Business Services Layer"><path d="M895.5,649.6885 L1197.5,649.6885 A3.75,3.75 0 0 1 1200,652.1885 L1207,681.2979 L1664.5,681.2979 A2.5,2.5 0 0 1 1667,683.7979 L1667,1137.1885 A2.5,2.5 0 0 1 1664.5,1139.6885 L895.5,1139.6885 A2.5,2.5 0 0 1 893,1137.1885 L893,652.1885 A2.5,2.5 0 0 1 895.5,649.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="893" x2="1207" y1="681.2979" y2="681.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="301" x="897" y="672.1094">Business Services Layer</text></g><!--MD5=[c79e06e7b6ac45e8dd86d2698bc8e3e9]
+cluster Core Services--><g id="cluster_Core Services"><path d="M1101.5,1009.6885 L1272.5,1009.6885 A3.75,3.75 0 0 1 1275,1012.1885 L1282,1041.2979 L1640.5,1041.2979 A2.5,2.5 0 0 1 1643,1043.7979 L1643,1113.1885 A2.5,2.5 0 0 1 1640.5,1115.6885 L1101.5,1115.6885 A2.5,2.5 0 0 1 1099,1113.1885 L1099,1012.1885 A2.5,2.5 0 0 1 1101.5,1009.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1099" x2="1282" y1="1041.2979" y2="1041.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="170" x="1103" y="1032.1094">Core Services</text></g><!--MD5=[038620cb2770817319c3b4221efc7c74]
+cluster Transaction Services--><g id="cluster_Transaction Services"><path d="M1173.5,701.6885 L1435.5,701.6885 A3.75,3.75 0 0 1 1438,704.1885 L1445,733.2979 L1489.5,733.2979 A2.5,2.5 0 0 1 1492,735.7979 L1492,958.1885 A2.5,2.5 0 0 1 1489.5,960.6885 L1173.5,960.6885 A2.5,2.5 0 0 1 1171,958.1885 L1171,704.1885 A2.5,2.5 0 0 1 1173.5,701.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1171" x2="1445" y1="733.2979" y2="733.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="261" x="1175" y="724.1094">Transaction Services</text></g><!--MD5=[48ebf749f4c74f3993eaba05b68b415b]
+cluster Support Services--><g id="cluster_Support Services"><path d="M919.5,854.6885 L1134.5,854.6885 A3.75,3.75 0 0 1 1137,857.1885 L1144,886.2979 L1144.5,886.2979 A2.5,2.5 0 0 1 1147,888.7979 L1147,958.1885 A2.5,2.5 0 0 1 1144.5,960.6885 L919.5,960.6885 A2.5,2.5 0 0 1 917,958.1885 L917,857.1885 A2.5,2.5 0 0 1 919.5,854.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="917" x2="1144" y1="886.2979" y2="886.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="214" x="921" y="877.1094">Support Services</text></g><!--MD5=[023fe2768d341cd525e8503fdfbee177]
+cluster Data Layer--><g id="cluster_Data Layer"><path d="M638.5,1189.1885 L775.5,1189.1885 A3.75,3.75 0 0 1 778,1191.6885 L785,1220.7979 L1784.5,1220.7979 A2.5,2.5 0 0 1 1787,1223.2979 L1787,1367.6885 A2.5,2.5 0 0 1 1784.5,1370.1885 L638.5,1370.1885 A2.5,2.5 0 0 1 636,1367.6885 L636,1191.6885 A2.5,2.5 0 0 1 638.5,1189.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="636" x2="785" y1="1220.7979" y2="1220.7979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="136" x="640" y="1211.6094">Data Layer</text></g><!--MD5=[00c6b0b359edc20bf57ae3e5e841ab11]
+cluster Databases--><g id="cluster_Databases"><path d="M854.5,1241.1885 L986.5,1241.1885 A3.75,3.75 0 0 1 989,1243.6885 L996,1272.7979 L1760.5,1272.7979 A2.5,2.5 0 0 1 1763,1275.2979 L1763,1343.6885 A2.5,2.5 0 0 1 1760.5,1346.1885 L854.5,1346.1885 A2.5,2.5 0 0 1 852,1343.6885 L852,1243.6885 A2.5,2.5 0 0 1 854.5,1241.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="852" x2="996" y1="1272.7979" y2="1272.7979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="131" x="856" y="1263.6094">Databases</text></g><!--MD5=[743d52ba02819b14c5428371b7eceb64]
+cluster Cache Layer--><g id="cluster_Cache Layer"><path d="M662.5,1241.1885 L815.5,1241.1885 A3.75,3.75 0 0 1 818,1243.6885 L825,1272.7979 L825.5,1272.7979 A2.5,2.5 0 0 1 828,1275.2979 L828,1343.6885 A2.5,2.5 0 0 1 825.5,1346.1885 L662.5,1346.1885 A2.5,2.5 0 0 1 660,1343.6885 L660,1243.6885 A2.5,2.5 0 0 1 662.5,1241.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="660" x2="825" y1="1272.7979" y2="1272.7979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="152" x="664" y="1263.6094">Cache Layer</text></g><!--MD5=[fc9d01843663843f76fa1b021ee06788]
+cluster Infrastructure Layer--><g id="cluster_Infrastructure Layer"><path d="M13.5,1188.6885 L268.5,1188.6885 A3.75,3.75 0 0 1 271,1191.1885 L278,1220.2979 L609.5,1220.2979 A2.5,2.5 0 0 1 612,1222.7979 L612,1516.6885 A2.5,2.5 0 0 1 609.5,1519.1885 L13.5,1519.1885 A2.5,2.5 0 0 1 11,1516.6885 L11,1191.1885 A2.5,2.5 0 0 1 13.5,1188.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="11" x2="278" y1="1220.2979" y2="1220.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="254" x="15" y="1211.1094">Infrastructure Layer</text></g><!--MD5=[18ed52586dbf4de23a412671acd0c734]
+cluster Monitoring--><g id="cluster_Monitoring"><path d="M432.5,1240.6885 L571.5,1240.6885 A3.75,3.75 0 0 1 574,1243.1885 L581,1272.2979 L585.5,1272.2979 A2.5,2.5 0 0 1 588,1274.7979 L588,1492.6885 A2.5,2.5 0 0 1 585.5,1495.1885 L432.5,1495.1885 A2.5,2.5 0 0 1 430,1492.6885 L430,1243.1885 A2.5,2.5 0 0 1 432.5,1240.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="430" x2="581" y1="1272.2979" y2="1272.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="138" x="434" y="1263.1094">Monitoring</text></g><!--MD5=[9dc100f5d7895066ddc7dae447c386e0]
+cluster Container Platform--><g id="cluster_Container Platform"><path d="M37.5,1240.6885 L278.5,1240.6885 A3.75,3.75 0 0 1 281,1243.1885 L288,1272.2979 L403.5,1272.2979 A2.5,2.5 0 0 1 406,1274.7979 L406,1344.1885 A2.5,2.5 0 0 1 403.5,1346.6885 L37.5,1346.6885 A2.5,2.5 0 0 1 35,1344.1885 L35,1243.1885 A2.5,2.5 0 0 1 37.5,1240.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="35" x2="288" y1="1272.2979" y2="1272.2979"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="240" x="39" y="1263.1094">Container Platform</text></g><!--MD5=[23555a4f9c8a267cdfd801ad53ceaf15]
+entity browser--><g id="elem_browser"><ellipse cx="1466" cy="65.6885" fill="#FFFFFF" rx="8" ry="8" style="stroke:#000000;stroke-width:1.0;"/><path d="M1466,73.6885 L1466,100.6885 M1453,81.6885 L1479,81.6885 M1466,100.6885 L1453,115.6885 M1466,100.6885 L1479,115.6885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="92" x="1420" y="130.6836">Web Browser</text></g><!--MD5=[8824c66cba45be527cf3dd56bcd70cd2]
+entity nginx--><g id="elem_nginx"><polygon fill="#FFFFFF" points="1374,257.1885,1384,247.1885,1558,247.1885,1558,283.4854,1548,293.4854,1374,293.4854,1374,257.1885" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1548" x2="1558" y1="257.1885" y2="247.1885"/><line style="stroke:#000000;stroke-width:1.0;" x1="1374" x2="1548" y1="257.1885" y2="257.1885"/><line style="stroke:#000000;stroke-width:1.0;" x1="1548" x2="1548" y1="257.1885" y2="293.4854"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="144" x="1389" y="280.1836">NGINX Load Balancer</text></g><g id="elem_GMN340"><path d="M1593.5,242.6885 L1593.5,266.1885 L1558.25,270.1885 L1593.5,274.1885 L1593.5,298.0869 A0,0 0 0 0 1593.5,298.0869 L1756.5,298.0869 A0,0 0 0 0 1756.5,298.0869 L1756.5,252.6885 L1746.5,242.6885 L1593.5,242.6885 A0,0 0 0 0 1593.5,242.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1746.5,242.6885 L1746.5,252.6885 L1756.5,252.6885 L1746.5,242.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="142" x="1599.5" y="259.7554">"Répartition de charge</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="107" x="1599.5" y="274.8882">Terminaison SSL</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="89" x="1599.5" y="290.021">Compression"</text></g><!--MD5=[7b30460008fc71f9986330c33ee2d290]
+entity gateway--><g id="elem_gateway"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="124" x="1333" y="534.1885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1437" y="539.1885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1435" y="541.1885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1435" y="545.1885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="84" x="1348" y="567.1836">API Gateway</text></g><!--MD5=[6b17819c7ccd6cb9e27937648b83135f]
+entity web_service--><g id="elem_web_service"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="189" x="1333.5" y="406.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1502.5" y="411.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1500.5" y="413.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1500.5" y="417.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="149" x="1348.5" y="439.6836">Web Interface Service</text></g><g id="elem_GMN346"><path d="M1492,529.6885 L1492,553.1885 L1457.19,557.1885 L1492,561.1885 L1492,585.0869 A0,0 0 0 0 1492,585.0869 L1618,585.0869 A0,0 0 0 0 1618,585.0869 L1618,539.6885 L1608,529.6885 L1492,529.6885 A0,0 0 0 0 1492,529.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1608,529.6885 L1608,539.6885 L1618,539.6885 L1608,529.6885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="105" x="1498" y="546.7554">"Authentification</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="53" x="1498" y="561.8882">Routage</text><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="84" x="1498" y="577.021">Rate limiting"</text></g><!--MD5=[92848cbaf65985a669855153c5362c37]
+entity customer--><g id="elem_customer"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="1465" y="1053.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1607" y="1058.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1605" y="1060.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1605" y="1064.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1480" y="1086.6836">Customer Service</text></g><!--MD5=[9756b8801fed1c1392d2799ca7194348]
+entity product--><g id="elem_product"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="148" x="1115" y="1053.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1243" y="1058.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1241" y="1060.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1241" y="1064.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="108" x="1130" y="1086.6836">Product Service</text></g><!--MD5=[0686720d71d32ea68f81164171d509ce]
+entity store--><g id="elem_store"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="131" x="1298.5" y="1053.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1409.5" y="1058.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1407.5" y="1060.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1407.5" y="1064.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="91" x="1313.5" y="1086.6836">Store Service</text></g><!--MD5=[00da80c41248ee93820341a0949cad05]
+entity cart--><g id="elem_cart"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="122" x="1187" y="898.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1289" y="903.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1287" y="905.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1287" y="909.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="82" x="1202" y="931.6836">Cart Service</text></g><!--MD5=[baad76b5d4dae6ce76ccc0474d000b79]
+entity sales--><g id="elem_sales"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="131" x="1344.5" y="898.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1455.5" y="903.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1453.5" y="905.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1453.5" y="909.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="91" x="1359.5" y="931.6836">Sales Service</text></g><!--MD5=[726268969146d721968a8ff1cfceb44d]
+entity checkout--><g id="elem_checkout"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="161" x="1314.5" y="745.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1455.5" y="750.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1453.5" y="752.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1453.5" y="756.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="121" x="1329.5" y="778.6836">Checkout Service</text></g><!--MD5=[c151314a05b654c1c0393291b1b07725]
+entity logistics--><g id="elem_logistics"><rect fill="#ADD8E6" height="46.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="154" x="933" y="898.6885"/><rect fill="#ADD8E6" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1067" y="903.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1065" y="905.6885"/><rect fill="#ADD8E6" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1065" y="909.6885"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="114" x="948" y="931.6836">Logistics Service</text></g><!--MD5=[5a3f2a73ed6d331241bacd7eb084a338]
+entity customer_db--><g id="elem_customer_db"><path d="M1486.5,1295.1885 C1486.5,1285.1885 1543,1285.1885 1543,1285.1885 C1543,1285.1885 1599.5,1285.1885 1599.5,1295.1885 L1599.5,1320.4854 C1599.5,1330.4854 1543,1330.4854 1543,1330.4854 C1543,1330.4854 1486.5,1330.4854 1486.5,1320.4854 L1486.5,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1486.5,1295.1885 C1486.5,1305.1885 1543,1305.1885 1543,1305.1885 C1543,1305.1885 1599.5,1305.1885 1599.5,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="93" x="1496.5" y="1322.1836">Customer DB</text></g><!--MD5=[0331cedaeb86ac53f5f996d3dba17419]
+entity product_db--><g id="elem_product_db"><path d="M1234.5,1295.1885 C1234.5,1285.1885 1284,1285.1885 1284,1285.1885 C1284,1285.1885 1333.5,1285.1885 1333.5,1295.1885 L1333.5,1320.4854 C1333.5,1330.4854 1284,1330.4854 1284,1330.4854 C1284,1330.4854 1234.5,1330.4854 1234.5,1320.4854 L1234.5,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1234.5,1295.1885 C1234.5,1305.1885 1284,1305.1885 1284,1305.1885 C1284,1305.1885 1333.5,1305.1885 1333.5,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="79" x="1244.5" y="1322.1836">Product DB</text></g><!--MD5=[aba337b8d90500a4c8b05560e0442262]
+entity store_db--><g id="elem_store_db"><path d="M1369,1295.1885 C1369,1285.1885 1410,1285.1885 1410,1285.1885 C1410,1285.1885 1451,1285.1885 1451,1295.1885 L1451,1320.4854 C1451,1330.4854 1410,1330.4854 1410,1330.4854 C1410,1330.4854 1369,1330.4854 1369,1320.4854 L1369,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1369,1295.1885 C1369,1305.1885 1410,1305.1885 1410,1305.1885 C1410,1305.1885 1451,1305.1885 1451,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="62" x="1379" y="1322.1836">Store DB</text></g><!--MD5=[494c33bcdf6b47a390a69b58a9b56e7d]
+entity cart_db--><g id="elem_cart_db"><path d="M1008.5,1295.1885 C1008.5,1285.1885 1045,1285.1885 1045,1285.1885 C1045,1285.1885 1081.5,1285.1885 1081.5,1295.1885 L1081.5,1320.4854 C1081.5,1330.4854 1045,1330.4854 1045,1330.4854 C1045,1330.4854 1008.5,1330.4854 1008.5,1320.4854 L1008.5,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1008.5,1295.1885 C1008.5,1305.1885 1045,1305.1885 1045,1305.1885 C1045,1305.1885 1081.5,1305.1885 1081.5,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="53" x="1018.5" y="1322.1836">Cart DB</text></g><!--MD5=[5ca4f65f8173326ef7cc85e27191585e]
+entity sales_db--><g id="elem_sales_db"><path d="M1117,1295.1885 C1117,1285.1885 1158,1285.1885 1158,1285.1885 C1158,1285.1885 1199,1285.1885 1199,1295.1885 L1199,1320.4854 C1199,1330.4854 1158,1330.4854 1158,1330.4854 C1158,1330.4854 1117,1330.4854 1117,1320.4854 L1117,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1117,1295.1885 C1117,1305.1885 1158,1305.1885 1158,1305.1885 C1158,1305.1885 1199,1305.1885 1199,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="62" x="1127" y="1322.1836">Sales DB</text></g><!--MD5=[2034f27cfd5a28f164d4c0c02109779d]
+entity checkout_db--><g id="elem_checkout_db"><path d="M1635,1295.1885 C1635,1285.1885 1691,1285.1885 1691,1285.1885 C1691,1285.1885 1747,1285.1885 1747,1295.1885 L1747,1320.4854 C1747,1330.4854 1691,1330.4854 1691,1330.4854 C1691,1330.4854 1635,1330.4854 1635,1320.4854 L1635,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1635,1295.1885 C1635,1305.1885 1691,1305.1885 1691,1305.1885 C1691,1305.1885 1747,1305.1885 1747,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="92" x="1645" y="1322.1836">Checkout DB</text></g><!--MD5=[9cc0fc4afa085fdec2af994b1f521ced]
+entity logistics_db--><g id="elem_logistics_db"><path d="M868.5,1295.1885 C868.5,1285.1885 921,1285.1885 921,1285.1885 C921,1285.1885 973.5,1285.1885 973.5,1295.1885 L973.5,1320.4854 C973.5,1330.4854 921,1330.4854 921,1330.4854 C921,1330.4854 868.5,1330.4854 868.5,1320.4854 L868.5,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M868.5,1295.1885 C868.5,1305.1885 921,1305.1885 921,1305.1885 C921,1305.1885 973.5,1305.1885 973.5,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="85" x="878.5" y="1322.1836">Logistics DB</text></g><!--MD5=[de5dc476b5cd49b5a92d294ad2af7d70]
+entity redis--><g id="elem_redis"><path d="M690.5,1295.1885 C690.5,1285.1885 744,1285.1885 744,1285.1885 C744,1285.1885 797.5,1285.1885 797.5,1295.1885 L797.5,1320.4854 C797.5,1330.4854 744,1330.4854 744,1330.4854 C744,1330.4854 690.5,1330.4854 690.5,1320.4854 L690.5,1295.1885 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M690.5,1295.1885 C690.5,1305.1885 744,1305.1885 744,1305.1885 C744,1305.1885 797.5,1305.1885 797.5,1295.1885 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="87" x="700.5" y="1322.1836">Redis Cache</text></g><!--MD5=[76c72a0d0666ffe20c687699125b4b7c]
+entity prometheus--><g id="elem_prometheus"><polygon fill="#FFFFFF" points="446.5,1294.6885,456.5,1284.6885,571.5,1284.6885,571.5,1320.9854,561.5,1330.9854,446.5,1330.9854,446.5,1294.6885" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="561.5" x2="571.5" y1="1294.6885" y2="1284.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="446.5" x2="561.5" y1="1294.6885" y2="1294.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="561.5" x2="561.5" y1="1294.6885" y2="1330.9854"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="85" x="461.5" y="1317.6836">Prometheus</text></g><!--MD5=[97029dda41c7f1332efacff3a5502fd8]
+entity grafana--><g id="elem_grafana"><polygon fill="#FFFFFF" points="445.5,1443.1885,455.5,1433.1885,538.5,1433.1885,538.5,1469.4854,528.5,1479.4854,445.5,1479.4854,445.5,1443.1885" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="528.5" x2="538.5" y1="1443.1885" y2="1433.1885"/><line style="stroke:#000000;stroke-width:1.0;" x1="445.5" x2="528.5" y1="1443.1885" y2="1443.1885"/><line style="stroke:#000000;stroke-width:1.0;" x1="528.5" x2="528.5" y1="1443.1885" y2="1479.4854"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="53" x="460.5" y="1466.1836">Grafana</text></g><!--MD5=[7c0f197cad09c4d86c8b8989e1030b9e]
+entity docker--><g id="elem_docker"><polygon fill="#FFFFFF" points="248,1294.6885,258,1284.6885,390,1284.6885,390,1320.9854,380,1330.9854,248,1330.9854,248,1294.6885" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="380" x2="390" y1="1294.6885" y2="1284.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="248" x2="380" y1="1294.6885" y2="1294.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="380" x2="380" y1="1294.6885" y2="1330.9854"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="102" x="263" y="1317.6836">Docker Engine</text></g><!--MD5=[a04bd9e8bf81ed53066e55dacdd1c4f1]
+entity compose--><g id="elem_compose"><polygon fill="#FFFFFF" points="51.5,1294.6885,61.5,1284.6885,212.5,1284.6885,212.5,1320.9854,202.5,1330.9854,51.5,1330.9854,51.5,1294.6885" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="202.5" x2="212.5" y1="1294.6885" y2="1284.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="51.5" x2="202.5" y1="1294.6885" y2="1294.6885"/><line style="stroke:#000000;stroke-width:1.0;" x1="202.5" x2="202.5" y1="1294.6885" y2="1330.9854"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="121" x="66.5" y="1317.6836">Docker Compose</text></g><!--MD5=[d12043ced598a83f377a964b5c037ab8]
+link browser to nginx--><g id="link_browser_nginx"><path d="M1466,133.7285 C1466,166.2885 1466,212.6385 1466,241.7985 " fill="none" id="browser-to-nginx" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1466,247.0385,1470,238.0385,1466,242.0385,1462,238.0385,1466,247.0385" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="41" x="1467" y="178.7554">HTTPS</text></g><!--MD5=[92e0ac0a3888fe7c5265a793060addc9]
+link nginx to gateway--><g id="link_nginx_gateway"><path d="M1516.3,293.3885 C1530.79,302.4385 1544.87,314.4285 1553,329.6885 C1567.03,356.0385 1609.91,326.4885 1540,452.6885 C1520.36,488.1485 1482.83,514.4185 1450.87,531.6285 " fill="none" id="nginx-to-gateway" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1446.2,534.0985,1456.0266,533.4373,1450.6224,531.7656,1452.2941,526.3614,1446.2,534.0985" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="97" x="1579" y="434.2554">Load Balancing</text></g><!--MD5=[92f0e5ac1995990513026362467d7383]
+link nginx to web_service--><g id="link_nginx_web_service"><path d="M1460.64,293.4185 C1453.79,321.7985 1441.95,370.8685 1434.57,401.4585 " fill="none" id="nginx-to-web_service" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1433.34,406.5685,1439.3386,398.7571,1434.5123,401.7078,1431.5616,396.8815,1433.34,406.5685" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="92" x="1452" y="342.7554">Static Content</text></g><!--MD5=[edd352c554c2154f6b11a9e956b94b15]
+link gateway to customer--><g id="link_gateway_customer"><path d="M1422.04,580.4485 C1436.75,591.1485 1455.82,602.8985 1475,608.6885 C1510.96,619.5485 1777.73,603.7685 1813,616.6885 C1829.62,622.7785 1834.47,626.7685 1844,641.6885 C1928.27,773.5885 1963.3,906.9785 1833,993.6885 C1772.58,1033.8985 1692.36,1054.6585 1632.1,1065.2085 " fill="none" id="gateway-to-customer" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1627.06,1066.0785,1636.6123,1068.4773,1631.9861,1065.2218,1635.2415,1060.5956,1627.06,1066.0785" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="93" x="1920" y="834.7554">Authentication</text></g><!--MD5=[3f9cfe0636fe25786a0d93a5fc30b5f5]
+link gateway to product--><g id="link_gateway_product"><path d="M1425.32,580.3885 C1509.99,644.9885 1735.73,836.5885 1626,968.6885 C1587.29,1015.2885 1552.21,986.9685 1492,993.6885 C1468.68,996.2885 1302.98,993.4785 1281,1001.6885 C1254.22,1011.6985 1229.32,1032.7585 1212.19,1049.8585 " fill="none" id="gateway-to-product" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1208.44,1053.6685,1217.6108,1050.0773,1211.954,1050.1116,1211.9198,1044.4548,1208.44,1053.6685" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="49" x="1646" y="834.7554">Catalog</text></g><!--MD5=[90a3cad3ad9bd2d80d2951f599d27abc]
+link gateway to store--><g id="link_gateway_store"><path d="M1422.05,580.4285 C1436.76,591.1285 1455.83,602.8685 1475,608.6885 C1491.27,613.6285 1768.39,605.2785 1781,616.6885 C1843.21,672.9685 1860.8,934.8385 1801,993.6885 C1787.02,1007.4485 1466.27,994.5485 1448,1001.6885 C1422.76,1011.5485 1400.09,1032.6285 1384.68,1049.7685 " fill="none" id="gateway-to-store" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1381.31,1053.5885,1390.2712,1049.5022,1384.6247,1049.8451,1384.2818,1044.1987,1381.31,1053.5885" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="42" x="1838" y="834.7554">Stores</text></g><!--MD5=[b1e9fba70dd8a07319e440cf8b0c5301]
+link gateway to cart--><g id="link_gateway_cart"><path d="M1332.88,568.0885 C1259.13,581.2485 1142.83,606.9685 1117,641.6885 C1077.21,695.1785 1091.25,730.1985 1117,791.6885 C1135.58,836.0685 1177.7,872.9085 1209.19,895.6985 " fill="none" id="gateway-to-cart" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1213.37,898.6885,1208.3939,890.1891,1209.3091,895.7715,1203.7267,896.6866,1213.37,898.6885" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="60" x="1118" y="773.2554">Shopping</text></g><!--MD5=[6fee738c3d40a55977f2050ddb567643]
+link gateway to sales--><g id="link_gateway_sales"><path d="M1332.83,569.0685 C1291.43,579.8885 1240.02,601.0285 1214,641.6885 C1178.06,697.8385 1179.32,734.7485 1214,791.6885 C1237.68,830.5685 1263.3,820.4285 1305,838.6885 C1314.53,842.8585 1318.07,841.3485 1327,846.6885 C1348.85,859.7385 1370.2,878.9685 1385.78,894.5585 " fill="none" id="gateway-to-sales" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1389.61,898.4385,1386.1117,889.2318,1386.0888,894.8887,1380.432,894.8658,1389.61,898.4385" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="81" x="1215" y="773.2554">Transactions</text></g><!--MD5=[6c2406fbbd569d94da779a15dea5e71c]
+link gateway to checkout--><g id="link_gateway_checkout"><path d="M1395,580.2085 C1395,618.7985 1395,698.4985 1395,740.4685 " fill="none" id="gateway-to-checkout" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1395,745.6485,1399,736.6485,1395,740.6485,1391,736.6485,1395,745.6485" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="43" x="1396" y="629.7554">Orders</text></g><!--MD5=[187d8891104b9358186c6685c915a09e]
+link gateway to logistics--><g id="link_gateway_logistics"><path d="M1332.81,562.0185 C1232.08,569.6785 1040.3,590.7185 999,641.6885 C939.31,715.3585 977.25,839.3285 998.48,893.7285 " fill="none" id="gateway-to-logistics" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1000.36,898.4585,1000.7575,888.6176,998.5154,893.8112,993.3218,891.569,1000.36,898.4585" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="83" x="1000" y="773.2554">Supply Chain</text></g><!--MD5=[4c02b444d62bf8832f598faefb334b5f]
+link web_service to gateway--><g id="link_web_service_gateway"><path d="M1422.18,452.8385 C1416.6,474.0285 1408.18,506.0585 1402.19,528.8385 " fill="none" id="web_service-to-gateway" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1400.88,533.8385,1407.0399,526.1537,1402.1532,529.0033,1399.3036,524.1166,1400.88,533.8385" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="59" x="1414" y="495.7554">API Proxy</text></g><!--MD5=[3b38e62097267d55afe31becb2959f0a]
+link checkout to cart--><g id="link_checkout_cart"><path d="M1363.41,791.8285 C1351.79,800.5785 1338.83,811.0685 1328,821.6885 C1304.78,844.4585 1281.81,873.7685 1266.49,894.5785 " fill="none" id="checkout-to-cart" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1263.52,898.6185,1272.0701,893.7302,1266.4787,894.5878,1265.6211,888.9963,1263.52,898.6185" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="62" x="1329" y="834.7554">Cart Data</text></g><!--MD5=[0c65b6e15921df26ac0aa009188b1f81]
+link checkout to sales--><g id="link_checkout_sales"><path d="M1397.21,791.9685 C1399.88,818.8485 1404.37,864.0285 1407.26,893.0885 " fill="none" id="checkout-to-sales" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1407.78,898.3185,1410.8593,888.9634,1407.2797,893.3436,1402.8994,889.7639,1407.78,898.3185" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="75" x="1402" y="834.7554">Create Sale</text></g><!--MD5=[6b590fb1c592725856c7e97d9e9d8ad1]
+link checkout to product--><g id="link_checkout_product"><path d="M1449.36,791.6985 C1462.95,799.4285 1476.38,809.3485 1486,821.6885 C1516.69,861.0385 1524.65,925.7985 1493,968.6885 C1470.63,999.0085 1449.07,986.9385 1412,993.6885 C1383.31,998.9185 1308.2,991.1685 1281,1001.6885 C1254.52,1011.9385 1229.76,1032.7585 1212.61,1049.7185 " fill="none" id="checkout-to-product" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1208.85,1053.4885,1218.0352,1049.9344,1212.3784,1049.9458,1212.367,1044.289,1208.85,1053.4885" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="103" x="1514" y="926.2554">Stock Validation</text></g><!--MD5=[54074756fc47bca6635c7d060e04c922]
+link logistics to store--><g id="link_logistics_store"><path d="M1073.44,944.6985 C1102.75,953.8685 1138.26,963.5485 1171,968.6885 C1184.23,970.7685 1402.69,967.0585 1412,976.6885 C1432.09,997.4485 1411.68,1028.2385 1391.62,1049.9585 " fill="none" id="logistics-to-store" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1388.15,1053.6285,1397.2311,1049.8161,1391.5768,1049.9875,1391.4055,1044.3332,1388.15,1053.6285" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="62" x="1421" y="989.7554">Store Info</text></g><!--MD5=[1470442f746b0cc42ba58f962d7ec282]
+link logistics to product--><g id="link_logistics_product"><path d="M1036.03,944.9385 C1068.73,972.8885 1124.73,1020.7585 1159.14,1050.1685 " fill="none" id="logistics-to-product" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1163.23,1053.6585,1158.9834,1044.7722,1159.4277,1050.4116,1153.7883,1050.8559,1163.23,1053.6585" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="125" x="1089" y="989.7554">Stock Management</text></g><!--MD5=[91ee73d54a5811d0468e48dea619e0ba]
+link sales to product--><g id="link_sales_product"><path d="M1371.08,944.7685 C1345.04,959.9585 1310.31,981.0485 1281,1001.6885 C1259.5,1016.8285 1236.44,1035.3785 1218.79,1050.1185 " fill="none" id="sales-to-product" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1214.88,1053.3985,1224.3557,1050.7132,1218.7223,1050.199,1219.2365,1044.5655,1214.88,1053.3985" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="87" x="1316" y="989.7554">Update Stock</text></g><!--MD5=[5c239ea6404c6078d11028b750ce3e6a]
+link customer to customer_db--><g id="link_customer_customer_db"><path d="M1545.71,1100.0585 C1545.15,1142.4385 1543.95,1234.2185 1543.35,1279.8285 " fill="none" id="customer-to-customer_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1543.29,1284.8985,1547.4182,1275.9565,1543.3614,1279.899,1539.419,1275.8423,1543.29,1284.8985" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[f3a7a5bae0d59c1c299aaeac4e1278c5]
+link product to product_db--><g id="link_product_product_db"><path d="M1211.77,1099.9285 C1225.44,1114.5485 1242.05,1134.7785 1252,1155.6885 C1271.37,1196.4085 1279.1,1248.8285 1282.13,1279.9885 " fill="none" id="product-to-product_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1282.61,1285.1685,1285.745,1275.8319,1282.1393,1280.1907,1277.7805,1276.585,1282.61,1285.1685" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[c4377a1c31734275911457c7b89aeb05]
+link store to store_db--><g id="link_store_store_db"><path d="M1371.46,1100.0085 C1376.42,1115.4885 1382.77,1136.6685 1387,1155.6885 C1396.58,1198.7585 1403.42,1249.6185 1407.04,1279.9585 " fill="none" id="store-to-store_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1407.64,1285.0085,1410.5595,1275.6023,1407.055,1280.0428,1402.6144,1276.5383,1407.64,1285.0085" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[eabc5d34187c72c0b5d6469d95571a2a]
+link cart to cart_db--><g id="link_cart_cart_db"><path d="M1187.31,944.7485 C1161.6,953.3585 1131.14,962.5985 1103,968.6885 C1021.37,986.3485 975.24,940.8685 918,1001.6885 C865.44,1057.5285 843.08,1116.2585 895,1172.6885 C909.5,1188.4385 973.63,1168.1685 991,1180.6885 C1023.3,1203.9685 1036.45,1250.6485 1041.68,1280.1885 " fill="none" id="cart-to-cart_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1042.51,1285.1385,1044.9625,1275.5999,1041.6811,1280.2077,1037.0733,1276.9262,1042.51,1285.1385" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[d488262ebd2c44f059c72ee60aae8501]
+link sales to sales_db--><g id="link_sales_sales_db"><path d="M1378.43,944.8285 C1363.54,954.0185 1345.1,963.6885 1327,968.6885 C1313.98,972.2885 1093.39,966.9785 1084,976.6885 C1069.66,991.5085 978.86,972.8785 1099,1147.6885 C1103.5,1154.2385 1109.93,1149.5685 1115,1155.6885 C1144.89,1191.7385 1154.03,1247.4085 1156.81,1280.1285 " fill="none" id="sales-to-sales_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1157.2,1285.1785,1160.4939,1275.8968,1156.8143,1280.1934,1152.5177,1276.5138,1157.2,1285.1785" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[f774194b3332381189189662bc161904]
+link checkout to checkout_db--><g id="link_checkout_checkout_db"><path d="M1474.55,791.7385 C1537.25,809.8385 1615.78,834.4285 1626,846.6885 C1734.28,976.6285 1708.77,1202.3785 1696.01,1279.7585 " fill="none" id="checkout-to-checkout_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1695.12,1285.0685,1700.5567,1276.8562,1695.9489,1280.1377,1692.6675,1275.5299,1695.12,1285.0685" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[6ac7398693a4cf1c65d862ad8d84d44e]
+link logistics to logistics_db--><g id="link_logistics_logistics_db"><path d="M932.81,930.9385 C811.24,944.7085 586.52,973.6485 563,1001.6885 C521.3,1051.4085 520.22,1098.8985 563,1147.6885 C599.94,1189.8285 763.73,1153.9885 813,1180.6885 C855.56,1203.7585 888.77,1250.8185 906.58,1280.4385 " fill="none" id="logistics-to-logistics_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="909.3,1285.0385,908.1619,1275.2556,906.7549,1280.7347,901.2758,1279.3277,909.3,1285.0385" style="stroke:#000000;stroke-width:1.0;"/></g><!--MD5=[b51d8c21d604c68fedb30476087472e2]
+link product to redis--><g id="link_product_redis"><path d="M1151.62,1099.7585 C1110.94,1122.5385 1043.23,1156.9085 980,1172.6885 C952.35,1179.5885 877.51,1167.9785 852,1180.6885 C808.43,1202.3985 775.33,1250.3385 757.85,1280.4285 " fill="none" id="product-to-redis" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="755.19,1285.0985,763.1179,1279.2548,757.663,1280.7529,756.1649,1275.298,755.19,1285.0985" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="93" x="1028" y="1168.7554">Product Cache</text></g><!--MD5=[6f074eed376d9c7ad6dabad0e60452b1]
+link cart to redis--><g id="link_cart_redis"><path d="M1190.67,944.7185 C1164.36,953.8285 1132.52,963.4585 1103,968.6885 C1027.82,982.0085 812.19,945.0385 761,1001.6885 C690.25,1079.9885 719.22,1220.8485 735.63,1279.6985 " fill="none" id="cart-to-redis" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="737.08,1284.7985,738.4805,1275.0497,735.7196,1279.9871,730.7822,1277.2263,737.08,1284.7985" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="94" x="762" y="1081.2554">Session Cache</text></g><!--MD5=[ab08a6a1bda29e1f2089c71902249ffd]
+link customer to prometheus--><g id="link_customer_prometheus"><path d="M1521.43,1099.8485 C1502.45,1115.7085 1474.83,1136.2085 1447,1147.6885 C1385.34,1173.1385 1365.44,1166.6885 1299,1172.6885 C1264.47,1175.8085 707.79,1169.4185 675,1180.6885 C616.47,1200.7985 562.05,1250.2885 532.37,1280.9185 " fill="none" id="customer-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="528.88,1284.5585,537.999,1280.8376,532.3433,1280.9521,532.2288,1275.2964,528.88,1284.5585" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="1424" y="1168.7554">Metrics</text></g><!--MD5=[2f0d14d1d6bda43803d9d26eb2bb8ca9]
+link product to prometheus--><g id="link_product_prometheus"><path d="M1145.31,1099.7585 C1111.25,1115.8885 1062.29,1136.7885 1017,1147.6885 C976.67,1157.3985 964.9,1148.7085 924,1155.6885 C894.14,1160.7785 887.96,1168.2285 858,1172.6885 C817.74,1178.6885 713.29,1166.8685 675,1180.6885 C616.95,1201.6485 562.57,1250.6085 532.73,1280.9585 " fill="none" id="product-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="529.21,1284.5685,538.359,1280.922,532.7025,1280.9904,532.6341,1275.334,529.21,1284.5685" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="925" y="1168.7554">Metrics</text></g><!--MD5=[3e91c60c61ebfd89e18e0542d01a85e5]
+link store to prometheus--><g id="link_store_prometheus"><path d="M1344.07,1099.9585 C1328.51,1115.8785 1305.48,1136.3985 1281,1147.6885 C1265.56,1154.8185 1146.94,1171.1485 1130,1172.6885 C1104.82,1174.9785 698.89,1172.4185 675,1180.6885 C616.52,1200.9385 562.08,1250.3785 532.39,1280.9585 " fill="none" id="store-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="528.89,1284.5985,538.0166,1280.8964,532.3607,1280.9993,532.2578,1275.3433,528.89,1284.5985" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="1245" y="1168.7554">Metrics</text></g><!--MD5=[39ddd85039d7488949c29a0f6e0c72fe]
+link cart to prometheus--><g id="link_cart_prometheus"><path d="M1191.41,944.7485 C1164.98,953.9885 1132.83,963.7085 1103,968.6885 C1028.45,981.1285 837.94,966.9085 763,976.6885 C715.86,982.8385 696.12,971.9885 659,1001.6885 C567.09,1075.2285 527.34,1219.3485 514.27,1279.4085 " fill="none" id="cart-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="513.15,1284.6085,518.9406,1276.6417,514.1937,1279.7186,511.1169,1274.9718,513.15,1284.6085" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="660" y="1081.2554">Metrics</text></g><!--MD5=[ec7879d9f41cfc556c2e8e260452240c]
+link sales to prometheus--><g id="link_sales_prometheus"><path d="M1378.44,944.8785 C1363.56,954.0685 1345.12,963.7385 1327,968.6885 C1265.46,985.5185 1102.34,963.1185 1040,976.6885 C1012.17,982.7485 1003.67,984.4485 981,1001.6885 C915.03,1051.8485 936.27,1105.3885 865,1147.6885 C791.3,1191.4385 753.58,1146.4785 675,1180.6885 C619.05,1205.0485 564.78,1251.9885 534.25,1281.1985 " fill="none" id="sales-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="530.65,1284.6685,539.9121,1281.3197,534.2564,1281.2052,534.3709,1275.5495,530.65,1284.6685" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="982" y="1081.2554">Metrics</text></g><!--MD5=[8033b2c2493e9b27766865cb7fa7f61d]
+link checkout to prometheus--><g id="link_checkout_prometheus"><path d="M1314.13,789.8585 C1311.05,790.4985 1308,791.1085 1305,791.6885 C912.98,867.1985 669.5,660.3185 426,976.6885 C353.69,1070.6385 445.76,1220.0885 488.92,1280.2785 " fill="none" id="checkout-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="491.94,1284.4585,489.9158,1274.8199,489.0136,1280.4043,483.4291,1279.5021,491.94,1284.4585" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="427" y="989.7554">Metrics</text></g><!--MD5=[852a1db081174efd3d0ead47285ebaed]
+link logistics to prometheus--><g id="link_logistics_prometheus"><path d="M932.8,932.1885 C856.98,941.5185 738.04,956.1285 635,968.6885 C605.67,972.2685 598.01,971.0985 569,976.6885 C526.55,984.8685 501.35,967.4185 475,1001.6885 C410.72,1085.2985 466.17,1221.9485 494.63,1279.6385 " fill="none" id="logistics-to-prometheus" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="496.96,1284.3085,496.5254,1274.4692,494.7297,1279.8335,489.3654,1278.0378,496.96,1284.3085" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="476" y="1081.2554">Metrics</text></g><!--MD5=[c99996f3d76a1e2c6e62b222f69894a7]
+link prometheus to grafana--><g id="link_prometheus_grafana"><path d="M506.42,1330.9385 C503.41,1356.8585 498.44,1399.6985 495.19,1427.6885 " fill="none" id="prometheus-to-grafana" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="494.61,1432.7285,499.6356,1424.2583,495.195,1427.7628,491.6905,1423.3223,494.61,1432.7285" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="80" x="500" y="1399.2554">Visualization</text></g><!--MD5=[08b399272c5be3fa397bbca691c2b304]
+@startuml
+!theme plain
+skinparam backgroundColor white
+skinparam component {
+    BackgroundColor lightblue
+    BorderColor black
+}
+
+' ==== Client Layer ====
+package "Client Layer" {
+    actor "Web Browser" as browser
+}
+
+' ==== Edge Layer ====
+package "Edge Layer" {
+    node "NGINX Load Balancer" as nginx
+    note right of nginx : "Répartition de charge\nTerminaison SSL\nCompression"
+}
+
+' ==== Gateway Layer ====
+package "Gateway Layer" {
+    [API Gateway] as gateway
+    [Web Interface Service] as web_service
+    note right of gateway : "Authentification\nRoutage\nRate limiting"
+}
+
+' ==== Business Services Layer ====
+package "Business Services Layer" {
+    package "Core Services" {
+        [Customer Service] as customer
+        [Product Service] as product
+        [Store Service] as store
+    }
+    package "Transaction Services" {
+        [Cart Service] as cart
+        [Sales Service] as sales
+        [Checkout Service] as checkout
+    }
+    package "Support Services" {
+        [Logistics Service] as logistics
+    }
+}
+
+' ==== Data Layer ====
+package "Data Layer" {
+    package "Databases" {
+        database "Customer DB" as customer_db
+        database "Product DB" as product_db
+        database "Store DB" as store_db
+        database "Cart DB" as cart_db
+        database "Sales DB" as sales_db
+        database "Checkout DB" as checkout_db
+        database "Logistics DB" as logistics_db
+    }
+    package "Cache Layer" {
+        database "Redis Cache" as redis
+    }
+}
+
+' ==== Infrastructure Layer ====
+package "Infrastructure Layer" {
+    package "Monitoring" {
+        node "Prometheus" as prometheus
+        node "Grafana" as grafana
+    }
+    package "Container Platform" {
+        node "Docker Engine" as docker
+        node "Docker Compose" as compose
+    }
+}
+
+' ===================== Connexions =====================
+
+' Connexions Client Layer
+browser - -> nginx : "HTTPS"
+
+' Connexions Edge Layer
+nginx - -> gateway : "Load Balancing"
+nginx - -> web_service : "Static Content"
+
+' Connexions Gateway Layer
+gateway - -> customer : "Authentication"
+gateway - -> product : "Catalog"
+gateway - -> store : "Stores"
+gateway - -> cart : "Shopping"
+gateway - -> sales : "Transactions"
+gateway - -> checkout : "Orders"
+gateway - -> logistics : "Supply Chain"
+web_service - -> gateway : "API Proxy"
+
+' Connexions inter-services
+checkout - -> cart : "Cart Data"
+checkout - -> sales : "Create Sale"
+checkout - -> product : "Stock Validation"
+logistics - -> store : "Store Info"
+logistics - -> product : "Stock Management"
+sales - -> product : "Update Stock"
+
+' Connexions Data Layer
+customer - -> customer_db
+product - -> product_db
+store - -> store_db
+cart - -> cart_db
+sales - -> sales_db
+checkout - -> checkout_db
+logistics - -> logistics_db
+
+' Connexions Cache
+product - -> redis : "Product Cache"
+cart - -> redis : "Session Cache"
+
+' Connexions Monitoring
+customer - -> prometheus : "Metrics"
+product - -> prometheus : "Metrics"
+store - -> prometheus : "Metrics"
+cart - -> prometheus : "Metrics"
+sales - -> prometheus : "Metrics"
+checkout - -> prometheus : "Metrics"
+logistics - -> prometheus : "Metrics"
+prometheus - -> grafana : "Visualization"
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+skinparam backgroundColor white
+skinparam component {
+    BackgroundColor lightblue
+    BorderColor black
+}
+
+package "Client Layer" {
+    actor "Web Browser" as browser
+}
+
+package "Edge Layer" {
+    node "NGINX Load Balancer" as nginx
+    note right of nginx : "Répartition de charge\nTerminaison SSL\nCompression"
+}
+
+package "Gateway Layer" {
+    [API Gateway] as gateway
+    [Web Interface Service] as web_service
+    note right of gateway : "Authentification\nRoutage\nRate limiting"
+}
+
+package "Business Services Layer" {
+    package "Core Services" {
+        [Customer Service] as customer
+        [Product Service] as product
+        [Store Service] as store
+    }
+    package "Transaction Services" {
+        [Cart Service] as cart
+        [Sales Service] as sales
+        [Checkout Service] as checkout
+    }
+    package "Support Services" {
+        [Logistics Service] as logistics
+    }
+}
+
+package "Data Layer" {
+    package "Databases" {
+        database "Customer DB" as customer_db
+        database "Product DB" as product_db
+        database "Store DB" as store_db
+        database "Cart DB" as cart_db
+        database "Sales DB" as sales_db
+        database "Checkout DB" as checkout_db
+        database "Logistics DB" as logistics_db
+    }
+    package "Cache Layer" {
+        database "Redis Cache" as redis
+    }
+}
+
+package "Infrastructure Layer" {
+    package "Monitoring" {
+        node "Prometheus" as prometheus
+        node "Grafana" as grafana
+    }
+    package "Container Platform" {
+        node "Docker Engine" as docker
+        node "Docker Compose" as compose
+    }
+}
+
+
+browser - -> nginx : "HTTPS"
+
+nginx - -> gateway : "Load Balancing"
+nginx - -> web_service : "Static Content"
+
+gateway - -> customer : "Authentication"
+gateway - -> product : "Catalog"
+gateway - -> store : "Stores"
+gateway - -> cart : "Shopping"
+gateway - -> sales : "Transactions"
+gateway - -> checkout : "Orders"
+gateway - -> logistics : "Supply Chain"
+web_service - -> gateway : "API Proxy"
+
+checkout - -> cart : "Cart Data"
+checkout - -> sales : "Create Sale"
+checkout - -> product : "Stock Validation"
+logistics - -> store : "Store Info"
+logistics - -> product : "Stock Management"
+sales - -> product : "Update Stock"
+
+customer - -> customer_db
+product - -> product_db
+store - -> store_db
+cart - -> cart_db
+sales - -> sales_db
+checkout - -> checkout_db
+logistics - -> logistics_db
+
+product - -> redis : "Product Cache"
+cart - -> redis : "Session Cache"
+
+customer - -> prometheus : "Metrics"
+product - -> prometheus : "Metrics"
+store - -> prometheus : "Metrics"
+cart - -> prometheus : "Metrics"
+sales - -> prometheus : "Metrics"
+checkout - -> prometheus : "Metrics"
+logistics - -> prometheus : "Metrics"
+prometheus - -> grafana : "Visualization"
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

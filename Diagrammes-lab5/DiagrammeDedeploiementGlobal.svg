@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1562px" preserveAspectRatio="none" style="width:4462px;height:1562px;background:#FFFFFF;" version="1.1" viewBox="0 0 4462 1562" width="4462px" zoomAndPan="magnify"><defs/><g><!--MD5=[c7f153041ecfdcf2b00bc2f1570d9aca]
+cluster Production Server (10.194.32.174)--><g id="cluster_Production Server (10.194.32.174)"><polygon fill="#FFFFE0" points="21,215.0552,31,205.0552,4445,205.0552,4445,1535.5552,4435,1545.5552,21,1545.5552,21,215.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="4435" x2="4445" y1="215.0552" y2="205.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="21" x2="4435" y1="215.0552" y2="215.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="4435" x2="4435" y1="215.0552" y2="1545.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="429" x="2014.5" y="238.4761">Production Server (10.194.32.174)</text></g><!--MD5=[d0533b634dd78840258a23a1e80dae35]
+cluster Frontend Tier--><g id="cluster_Frontend Tier"><polygon fill="#FFFFE0" points="45,272.0552,55,262.0552,745,262.0552,745,898.5552,735,908.5552,45,908.5552,45,272.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="735" x2="745" y1="272.0552" y2="262.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="45" x2="735" y1="272.0552" y2="272.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="735" x2="735" y1="272.0552" y2="908.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="172" x="305" y="295.4761">Frontend Tier</text></g><!--MD5=[4c651f763c28091aa679ffb04cf9ebf5]
+cluster nginx--><g id="cluster_nginx"><rect fill="#FFFFFF" height="130" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="490" x="76" y="333.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="546" y="338.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="544" y="340.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="544" y="344.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="265" x="188.5" y="366.4761">NGINX Load Balancer</text></g><!--MD5=[eaaef0f7ca7d03c7cad4170c3308ec67]
+cluster web_container--><g id="cluster_web_container"><rect fill="#FFFFFF" height="309.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="438" x="291" y="583.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="709" y="588.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="707" y="590.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="707" y="594.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="308" x="356" y="616.4761">Web Interface Container</text></g><!--MD5=[79c70d234d40eb6af76610a91aee41a1]
+cluster API Gateway Tier--><g id="cluster_API Gateway Tier"><polygon fill="#FFFFE0" points="1846,522.0552,1856,512.0552,2627,512.0552,2627,727.0552,2617,737.0552,1846,737.0552,1846,522.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2617" x2="2627" y1="522.0552" y2="512.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="1846" x2="2617" y1="522.0552" y2="522.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2617" x2="2617" y1="522.0552" y2="737.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="214" x="2125.5" y="545.4761">API Gateway Tier</text></g><!--MD5=[7a6ee1d4c79628fa58c3f7e97a0ccdba]
+cluster gateway_container--><g id="cluster_gateway_container"><rect fill="#FFFFFF" height="130" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="733" x="1870" y="583.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2583" y="588.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2581" y="590.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2581" y="594.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="288" x="2092.5" y="616.4761">API Gateway Container</text></g><!--MD5=[1915b1bbec34ba76ebe0b0062770fa07]
+cluster Backend Services Tier--><g id="cluster_Backend Services Tier"><polygon fill="#FFFFE0" points="769,796.0552,779,786.0552,4421,786.0552,4421,1032.5552,4411,1042.5552,769,1042.5552,769,796.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="4411" x2="4421" y1="796.0552" y2="786.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="769" x2="4411" y1="796.0552" y2="796.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="4411" x2="4411" y1="796.0552" y2="1042.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="277" x="2452.5" y="819.4761">Backend Services Tier</text></g><!--MD5=[028bbf5d8e4b91c37b4e54dc8fbd9243]
+cluster customer_container--><g id="cluster_customer_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="361" x="3789" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="4130" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4128" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4128" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="351" x="3794" y="890.4761">Customer Service Container</text></g><!--MD5=[a37733f7f44ec5839a1d862fbdd935d9]
+cluster product_container--><g id="cluster_product_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="562" x="793" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1335" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1333" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1333" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="329" x="909.5" y="890.4761">Product Service Container</text></g><!--MD5=[e8a47944896c4bf3569e659e7252e631]
+cluster sales_container--><g id="cluster_sales_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="565" x="1421" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="1966" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1964" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="1964" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="298" x="1554.5" y="890.4761">Sales Service Container</text></g><!--MD5=[ccd3fc2d4a7a9c16b52a4120e6ab0a78]
+cluster store_container--><g id="cluster_store_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="397" x="2048" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2425" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2423" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2423" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="299" x="2097" y="890.4761">Store Service Container</text></g><!--MD5=[ae9a73ee988fbd6069f2f37f445563c5]
+cluster cart_container--><g id="cluster_cart_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="294" x="2633" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2907" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2905" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2905" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="284" x="2638" y="890.4761">Cart Service Container</text></g><!--MD5=[a4206e113f854635a8fb804476b73473]
+cluster checkout_container--><g id="cluster_checkout_container"><rect fill="#FFFFFF" height="161.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="358" x="3168" y="857.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="3506" y="862.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3504" y="864.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3504" y="868.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="348" x="3173" y="890.4761">Checkout Service Container</text></g><!--MD5=[d68c212780fd818dd6c11a0fc5d42ff5]
+cluster Data Tier--><g id="cluster_Data Tier"><polygon fill="#FFFFE0" points="853,1101.5552,863,1091.5552,3002,1091.5552,3002,1361.5552,2992,1371.5552,853,1371.5552,853,1101.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2992" x2="3002" y1="1101.5552" y2="1091.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="853" x2="2992" y1="1101.5552" y2="1101.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2992" x2="2992" y1="1101.5552" y2="1371.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="116" x="1865.5" y="1124.9761">Data Tier</text></g><!--MD5=[4f44acc114345ab01f90b7ee2733d04b]
+cluster db_cluster--><g id="cluster_db_cluster"><rect fill="#FFFFFF" height="105" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="1397" x="877" y="1148.5552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2254" y="1153.5552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2252" y="1155.5552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2252" y="1159.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="370" x="1390.5" y="1181.9761">PostgreSQL Database Cluster</text></g><!--MD5=[5a9e5dc8ccb6947252f67200e79cd789]
+cluster redis_container--><g id="cluster_redis_container"><rect fill="#FFFFFF" height="140.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="548" x="2290" y="1215.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="2818" y="1220.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2816" y="1222.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="2816" y="1226.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="283" x="2422.5" y="1248.4761">Redis Cache Container</text></g><!--MD5=[a9e614892c359a3b0f493c8e324d7b69]
+cluster Monitoring Tier--><g id="cluster_Monitoring Tier"><polygon fill="#FFFFE0" points="3026,1154.0552,3036,1144.0552,4358,1144.0552,4358,1511.5552,4348,1521.5552,3026,1521.5552,3026,1154.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="4348" x2="4358" y1="1154.0552" y2="1144.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3026" x2="4348" y1="1154.0552" y2="1154.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="4348" x2="4348" y1="1154.0552" y2="1521.5552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="195" x="3590.5" y="1177.4761">Monitoring Tier</text></g><!--MD5=[e0cdab847e43b1e53b3e2d59167833bb]
+cluster prometheus_container--><g id="cluster_prometheus_container"><rect fill="#FFFFFF" height="148.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="676" x="3658" y="1215.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="4314" y="1220.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4312" y="1222.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="4312" y="1226.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="282" x="3855" y="1248.4761">Prometheus Container</text></g><!--MD5=[dfc2f45848563572b6cd1ff2006fafcc]
+cluster grafana_container--><g id="cluster_grafana_container"><rect fill="#FFFFFF" height="177.5" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="588" x="3050" y="1320.0552"/><rect fill="#FFFFFF" height="10" style="stroke:#000000;stroke-width:1.0;" width="15" x="3618" y="1325.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3616" y="1327.0552"/><rect fill="#FFFFFF" height="2" style="stroke:#000000;stroke-width:1.0;" width="4" x="3616" y="1331.0552"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="231" x="3228.5" y="1353.4761">Grafana Container</text></g><!--MD5=[7c57b8e8f43eb82d130701795aaff59a]
+cluster External Access--><g id="cluster_External Access"><path d="M459.4635,29.5374 C462.038,21.1278 467.1499,19.9573 473.5112,25.8067 C478.5783,18.2053 483.4575,17.7032 488.9622,25.3636 C493.0258,18.4526 499.3855,16.6957 504.4458,24.3005 C507.6095,15.5838 512.4503,14.5254 519.0687,20.9679 C523.8387,14.1453 529.566,14.5427 534.5382,20.7274 C537.9894,12.1215 544.9597,11 550.2016,19.0427 C555.2476,13.209 561.364,13.4797 565.3779,20.2823 C571.1864,13.9113 576.4295,14.8941 579.6158,22.8823 C585.1937,15.5949 590.6406,15.3981 595.6433,23.482 C601.3428,18.3338 606.3398,17.5413 609.7018,25.9127 C614.526,19.7822 620.3409,19.107 625.0388,26.0606 C635.5521,16.8526 644.534,21.157 647,34.0552 C647.8111,34.4481 647.8764,35.0432 647.188,35.6167 C653.1925,38.8601 652.5131,44.3123 647.4394,47.7845 C654.1274,52.6594 654.444,58.0653 647.9099,63.3402 C654.4589,65.7358 655.6878,71.2203 649.9695,75.6658 C656.2598,79.4736 657.2277,86.0441 649.9814,89.8631 C654.3405,94.301 653.8547,98.4935 648.1906,101.3716 C656.4682,105.7897 657.2261,110.8912 649.5012,116.6795 C654.8071,120.1112 654.6924,125.7532 648.278,127.9081 C654.1365,138.5409 652.338,144.899 640,148.0552 C640.6958,146.93 641.8274,146.8681 642.4843,148.0963 C637.4118,156.509 632.0038,157.2157 625.1244,150.1188 C621.1563,156.3712 615.5332,155.8116 611.5787,150.1034 C607.1074,158.9101 601.5176,159.1237 595.1165,152.1117 C590.6343,158.4275 584.8761,158.0199 580.7595,151.6965 C575.295,159.2598 569.7001,160.4401 564.0653,151.8726 C560.7513,158.0006 556.1039,160.7326 550.612,154.1839 C544.1687,161.5454 538.0255,160.5716 534.1943,151.5641 C529.6005,159.6965 522.2653,159.8672 518.1298,151.1276 C513.2215,157.8306 509.1727,156.9737 505.0932,150.3187 C501.0706,157.4636 495.0831,158.0389 489.9871,151.5041 C484.2486,158.0684 477.1404,158.1493 472.8639,149.823 C461.6127,156.0265 453.4989,155.0676 450,141.0552 C450.8517,139.8109 451.9508,140.227 452.4407,141.4178 C444.9008,139.5739 444.3591,133.52 449.2723,128.5983 C443.5723,125.2637 444.5212,119.1363 449.7945,116.2664 C443.0991,112.9352 442.2924,108.2936 447.6487,103.0114 C440.6493,98.41 440.8181,92.79 446.9471,87.5912 C440.0316,84.0493 440.9078,77.9212 447.1705,74.6059 C441.5676,68.9435 442.8679,64.5597 449.5504,61.0549 C444.8279,56.9575 445.0661,52.0189 451.2557,49.5372 C443.9511,39.83 443.5761,31.4661 457,27.0552 C459.0793,26.5203 460.0569,27.4196 459.4635,29.5374 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="22" font-weight="bold" lengthAdjust="spacing" textLength="197" x="450" y="52.4761">External Access</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="50" x="523" y="311.7534">80/443</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="542" y="327.0552"/><!--MD5=[fd0ee0ff1c5622e274e902f191c6e1f8]
+entity nginx.conf--><g id="elem_nginx.conf"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="101" x="271.5" y="400.0552"/><polygon fill="#FFFFFF" points="355.5,405.0552,355.5,419.0552,367.5,419.0552,367.5,411.0552,361.5,405.0552,355.5,405.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="361.5" x2="361.5" y1="405.0552" y2="411.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="367.5" x2="361.5" y1="411.0552" y2="411.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="71" x="281.5" y="426.0503">nginx.conf</text></g><!--MD5=[d8403a733739ce5b1f880fd9879c1280]
+entity SSL Certificates--><g id="elem_SSL Certificates"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="136" x="100" y="400.0552"/><polygon fill="#FFFFFF" points="219,405.0552,219,419.0552,231,419.0552,231,411.0552,225,405.0552,219,405.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="225" x2="225" y1="405.0552" y2="411.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="231" x2="225" y1="411.0552" y2="411.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="106" x="110" y="426.0503">SSL Certificates</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="291" y="561.7534">5001</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="303" y="577.0552"/><!--MD5=[defe7725400d8946a874334dbff65da2]
+entity Flask App--><g id="elem_Flask App"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="96" x="436" y="650.0552"/><polygon fill="#FFFFFF" points="515,655.0552,515,669.0552,527,669.0552,527,661.0552,521,655.0552,515,655.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="521" x2="521" y1="655.0552" y2="661.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="527" x2="521" y1="661.0552" y2="661.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="66" x="446" y="676.0503">Flask App</text></g><!--MD5=[4b3b2ae43d23c7d7c3e0bfda9f3f6323]
+entity HTML Templates--><g id="elem_HTML Templates"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="145" x="567.5" y="650.0552"/><polygon fill="#FFFFFF" points="695.5,655.0552,695.5,669.0552,707.5,669.0552,707.5,661.0552,701.5,655.0552,695.5,655.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="701.5" x2="701.5" y1="655.0552" y2="661.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="707.5" x2="701.5" y1="661.0552" y2="661.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="115" x="577.5" y="676.0503">HTML Templates</text></g><!--MD5=[d7490c4befbe82542b2507764b2f4297]
+entity Static Assets--><g id="elem_Static Assets"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="119" x="424.5" y="837.5552"/><polygon fill="#FFFFFF" points="526.5,842.5552,526.5,856.5552,538.5,856.5552,538.5,848.5552,532.5,842.5552,526.5,842.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="532.5" x2="532.5" y1="842.5552" y2="848.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="538.5" x2="532.5" y1="848.5552" y2="848.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="89" x="434.5" y="863.5503">Static Assets</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2137" y="561.7534">5000</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2149" y="577.0552"/><!--MD5=[472f10c7d69474eeef8e37e0f3536a20]
+entity JWT Authentication--><g id="elem_JWT Authentication"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="159" x="2080.5" y="650.0552"/><polygon fill="#FFFFFF" points="2222.5,655.0552,2222.5,669.0552,2234.5,669.0552,2234.5,661.0552,2228.5,655.0552,2222.5,655.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2228.5" x2="2228.5" y1="655.0552" y2="661.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2234.5" x2="2228.5" y1="661.0552" y2="661.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="129" x="2090.5" y="676.0503">JWT Authentication</text></g><!--MD5=[3565baba7577bcb9cfab921959b6c3e6]
+entity Service Discovery--><g id="elem_Service Discovery"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="151" x="1894.5" y="650.0552"/><polygon fill="#FFFFFF" points="2028.5,655.0552,2028.5,669.0552,2040.5,669.0552,2040.5,661.0552,2034.5,655.0552,2028.5,655.0552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2034.5" x2="2034.5" y1="655.0552" y2="661.0552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2040.5" x2="2034.5" y1="661.0552" y2="661.0552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="121" x="1904.5" y="676.0503">Service Discovery</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3978" y="835.7534">5001</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3990" y="851.0552"/><!--MD5=[1c392733a8b68e2e17ac0d3ddd783972]
+entity User Management--><g id="elem_User Management"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="157" x="3813.5" y="955.5552"/><polygon fill="#FFFFFF" points="3953.5,960.5552,3953.5,974.5552,3965.5,974.5552,3965.5,966.5552,3959.5,960.5552,3953.5,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3959.5" x2="3959.5" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3965.5" x2="3959.5" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="127" x="3823.5" y="981.5503">User Management</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="1319" y="835.7534">5002</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="1331" y="851.0552"/><!--MD5=[7756aa03d609ecfededfb0d8c0fa0f3d]
+entity Catalog Management--><g id="elem_Catalog Management"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="177" x="816.5" y="955.5552"/><polygon fill="#FFFFFF" points="976.5,960.5552,976.5,974.5552,988.5,974.5552,988.5,966.5552,982.5,960.5552,976.5,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="982.5" x2="982.5" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="988.5" x2="982.5" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="147" x="826.5" y="981.5503">Catalog Management</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="1950" y="835.7534">5003</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="1962" y="851.0552"/><!--MD5=[4f7639aadf7b2ba908c15890dfd71305]
+entity Transaction Management--><g id="elem_Transaction Management"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="206" x="1445" y="955.5552"/><polygon fill="#FFFFFF" points="1634,960.5552,1634,974.5552,1646,974.5552,1646,966.5552,1640,960.5552,1634,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1640" x2="1640" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="1646" x2="1640" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="176" x="1455" y="981.5503">Transaction Management</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2409" y="835.7534">5004</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2421" y="851.0552"/><!--MD5=[3379bc0686a27cb8af3e6fb19f6427a0]
+entity Store Management--><g id="elem_Store Management"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="162" x="2072" y="955.5552"/><polygon fill="#FFFFFF" points="2217,960.5552,2217,974.5552,2229,974.5552,2229,966.5552,2223,960.5552,2217,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2223" x2="2223" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2229" x2="2223" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="132" x="2082" y="981.5503">Store Management</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2790" y="835.7534">5005</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2802" y="851.0552"/><!--MD5=[48370e3c3772c1fe6e7a64ac4123efad]
+entity Shopping Cart--><g id="elem_Shopping Cart"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="128" x="2657" y="955.5552"/><polygon fill="#FFFFFF" points="2768,960.5552,2768,974.5552,2780,974.5552,2780,966.5552,2774,960.5552,2768,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2774" x2="2774" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2780" x2="2774" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="98" x="2667" y="981.5503">Shopping Cart</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3352" y="835.7534">5006</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3364" y="851.0552"/><!--MD5=[052e754b61a9d89c240003c2524ba53d]
+entity Order Processing--><g id="elem_Order Processing"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="150" x="3192" y="955.5552"/><polygon fill="#FFFFFF" points="3325,960.5552,3325,974.5552,3337,974.5552,3337,966.5552,3331,960.5552,3325,960.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3331" x2="3331" y1="960.5552" y2="966.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3337" x2="3331" y1="966.5552" y2="966.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="120" x="3202" y="981.5503">Order Processing</text></g><!--MD5=[5a3f2a73ed6d331241bacd7eb084a338]
+entity customer_db--><g id="elem_customer_db"><path d="M2104,1202.5552 C2104,1192.5552 2181,1192.5552 2181,1192.5552 C2181,1192.5552 2258,1192.5552 2258,1202.5552 L2258,1227.852 C2258,1237.852 2181,1237.852 2181,1237.852 C2181,1237.852 2104,1237.852 2104,1227.852 L2104,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M2104,1202.5552 C2104,1212.5552 2181,1212.5552 2181,1212.5552 C2181,1212.5552 2258,1212.5552 2258,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="134" x="2114" y="1229.5503">customer-db :5432</text></g><!--MD5=[0331cedaeb86ac53f5f996d3dba17419]
+entity product_db--><g id="elem_product_db"><path d="M1271,1202.5552 C1271,1192.5552 1342,1192.5552 1342,1192.5552 C1342,1192.5552 1413,1192.5552 1413,1202.5552 L1413,1227.852 C1413,1237.852 1342,1237.852 1342,1237.852 C1342,1237.852 1271,1237.852 1271,1227.852 L1271,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1271,1202.5552 C1271,1212.5552 1342,1212.5552 1342,1212.5552 C1342,1212.5552 1413,1212.5552 1413,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="1281" y="1229.5503">product-db :5433</text></g><!--MD5=[5ca4f65f8173326ef7cc85e27191585e]
+entity sales_db--><g id="elem_sales_db"><path d="M1448,1202.5552 C1448,1192.5552 1510,1192.5552 1510,1192.5552 C1510,1192.5552 1572,1192.5552 1572,1202.5552 L1572,1227.852 C1572,1237.852 1510,1237.852 1510,1237.852 C1510,1237.852 1448,1237.852 1448,1227.852 L1448,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1448,1202.5552 C1448,1212.5552 1510,1212.5552 1510,1212.5552 C1510,1212.5552 1572,1212.5552 1572,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="104" x="1458" y="1229.5503">sales-db :5434</text></g><!--MD5=[aba337b8d90500a4c8b05560e0442262]
+entity store_db--><g id="elem_store_db"><path d="M1607,1202.5552 C1607,1192.5552 1669,1192.5552 1669,1192.5552 C1669,1192.5552 1731,1192.5552 1731,1202.5552 L1731,1227.852 C1731,1237.852 1669,1237.852 1669,1237.852 C1669,1237.852 1607,1237.852 1607,1227.852 L1607,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1607,1202.5552 C1607,1212.5552 1669,1212.5552 1669,1212.5552 C1669,1212.5552 1731,1212.5552 1731,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="104" x="1617" y="1229.5503">store-db :5435</text></g><!--MD5=[494c33bcdf6b47a390a69b58a9b56e7d]
+entity cart_db--><g id="elem_cart_db"><path d="M1766,1202.5552 C1766,1192.5552 1823,1192.5552 1823,1192.5552 C1823,1192.5552 1880,1192.5552 1880,1202.5552 L1880,1227.852 C1880,1237.852 1823,1237.852 1823,1237.852 C1823,1237.852 1766,1237.852 1766,1227.852 L1766,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1766,1202.5552 C1766,1212.5552 1823,1212.5552 1823,1212.5552 C1823,1212.5552 1880,1212.5552 1880,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="94" x="1776" y="1229.5503">cart-db :5436</text></g><!--MD5=[2034f27cfd5a28f164d4c0c02109779d]
+entity checkout_db--><g id="elem_checkout_db"><path d="M1915.5,1202.5552 C1915.5,1192.5552 1992,1192.5552 1992,1192.5552 C1992,1192.5552 2068.5,1192.5552 2068.5,1202.5552 L2068.5,1227.852 C2068.5,1237.852 1992,1237.852 1992,1237.852 C1992,1237.852 1915.5,1237.852 1915.5,1227.852 L1915.5,1202.5552 " fill="#FFFFFF" style="stroke:#000000;stroke-width:1.0;"/><path d="M1915.5,1202.5552 C1915.5,1212.5552 1992,1212.5552 1992,1212.5552 C1992,1212.5552 2068.5,1212.5552 2068.5,1202.5552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="133" x="1925.5" y="1229.5503">checkout-db :5437</text></g><!--MD5=[0faa1fa9b955827d7adea6f10d87b733]
+entity Persistent Volumes--><g id="elem_Persistent Volumes"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="164" x="1072" y="1195.5552"/><polygon fill="#FFFFFF" points="1219,1200.5552,1219,1214.5552,1231,1214.5552,1231,1206.5552,1225,1200.5552,1219,1200.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1225" x2="1225" y1="1200.5552" y2="1206.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="1231" x2="1225" y1="1206.5552" y2="1206.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="134" x="1082" y="1221.5503">Persistent Volumes</text></g><!--MD5=[642fc166ef1bf147ff2d2ee877a06b99]
+entity Backup Strategy--><g id="elem_Backup Strategy"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="143" x="893.5" y="1195.5552"/><polygon fill="#FFFFFF" points="1019.5,1200.5552,1019.5,1214.5552,1031.5,1214.5552,1031.5,1206.5552,1025.5,1200.5552,1019.5,1200.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="1025.5" x2="1025.5" y1="1200.5552" y2="1206.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="1031.5" x2="1025.5" y1="1206.5552" y2="1206.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="113" x="903.5" y="1221.5503">Backup Strategy</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="2802" y="1193.7534">6379</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="2814" y="1209.0552"/><!--MD5=[c851a035a246c7d148f0868e9a6ed3fc]
+entity In-Memory Cache--><g id="elem_In-Memory Cache"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="150" x="2485" y="1300.5552"/><polygon fill="#FFFFFF" points="2618,1305.5552,2618,1319.5552,2630,1319.5552,2630,1311.5552,2624,1305.5552,2618,1305.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2624" x2="2624" y1="1305.5552" y2="1311.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2630" x2="2624" y1="1311.5552" y2="1311.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="120" x="2495" y="1326.5503">In-Memory Cache</text></g><!--MD5=[7f22d228116635155ad9dcd04e147a71]
+entity Session Storage--><g id="elem_Session Storage"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="143" x="2306.5" y="1300.5552"/><polygon fill="#FFFFFF" points="2432.5,1305.5552,2432.5,1319.5552,2444.5,1319.5552,2444.5,1311.5552,2438.5,1305.5552,2432.5,1305.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="2438.5" x2="2438.5" y1="1305.5552" y2="1311.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="2444.5" x2="2438.5" y1="1311.5552" y2="1311.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="113" x="2316.5" y="1326.5503">Session Storage</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3658" y="1193.7534">9090</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3670" y="1209.0552"/><!--MD5=[bb2f956e190ecd787cf136e11108d84e]
+entity Metrics Collection--><g id="elem_Metrics Collection"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="152" x="3825" y="1300.5552"/><polygon fill="#FFFFFF" points="3960,1305.5552,3960,1319.5552,3972,1319.5552,3972,1311.5552,3966,1305.5552,3960,1305.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3966" x2="3966" y1="1305.5552" y2="1311.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3972" x2="3966" y1="1311.5552" y2="1311.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="122" x="3835" y="1326.5503">Metrics Collection</text></g><!--MD5=[835085598f249815657dd70d0b2dc8dd]
+entity Alert Rules--><g id="elem_Alert Rules"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="104" x="3686" y="1300.5552"/><polygon fill="#FFFFFF" points="3773,1305.5552,3773,1319.5552,3785,1319.5552,3785,1311.5552,3779,1305.5552,3773,1305.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3779" x2="3779" y1="1305.5552" y2="1311.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3785" x2="3779" y1="1311.5552" y2="1311.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="74" x="3696" y="1326.5503">Alert Rules</text></g><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="36" x="3260" y="1298.7534">3000</text><rect fill="#FFFFFF" height="12" style="stroke:#000000;stroke-width:1.5;" width="12" x="3272" y="1314.0552"/><!--MD5=[63cd45bfe8ce5232e0cf4e791771f97b]
+entity Dashboard--><g id="elem_Dashboard"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="106" x="3225" y="1434.5552"/><polygon fill="#FFFFFF" points="3314,1439.5552,3314,1453.5552,3326,1453.5552,3326,1445.5552,3320,1439.5552,3314,1439.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3320" x2="3320" y1="1439.5552" y2="1445.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3326" x2="3320" y1="1445.5552" y2="1445.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="76" x="3235" y="1460.5503">Dashboard</text></g><!--MD5=[c1fab53e4fc6ef65647dc9f542d3c875]
+entity Visualization--><g id="elem_Visualization"><rect fill="#FFFFFF" height="39.2969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="115" x="3074.5" y="1434.5552"/><polygon fill="#FFFFFF" points="3172.5,1439.5552,3172.5,1453.5552,3184.5,1453.5552,3184.5,1445.5552,3178.5,1439.5552,3172.5,1439.5552" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="3178.5" x2="3178.5" y1="1439.5552" y2="1445.5552"/><line style="stroke:#000000;stroke-width:1.0;" x1="3184.5" x2="3178.5" y1="1445.5552" y2="1445.5552"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="85" x="3084.5" y="1460.5503">Visualization</text></g><!--MD5=[f0f14623859a3b4ef687f4b02f9acbe2]
+entity web_users--><g id="elem_web_users"><ellipse cx="548" cy="72.0552" fill="#FFFFFF" rx="8" ry="8" style="stroke:#000000;stroke-width:1.0;"/><path d="M548,80.0552 L548,107.0552 M535,88.0552 L561,88.0552 M548,107.0552 L535,122.0552 M548,107.0552 L561,122.0552 " fill="none" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="14" lengthAdjust="spacing" textLength="75" x="510.5" y="137.0503">Web Users</text></g><!--MD5=[4cab0103e6fda599e6790a2b0675b57c]
+link web_users to nginx_ports--><g id="link_web_users_nginx_ports"><path d="M548,140.1952 C548,194.0652 548,290.1352 548,321.6952 " fill="none" id="web_users-to-nginx_ports" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="548,326.8152,552,317.8152,548,321.8152,544,317.8152,548,326.8152" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="41" x="549" y="185.1221">HTTPS</text></g><!--MD5=[81cbaaf9838f89dbe9a7b3ca57f9e741]
+link nginx to gateway_port--><g id="link_nginx_gateway_port"><path d="M677.47,433.5652 C1036.57,469.6552 2026.48,569.1352 2143.63,580.9152 " fill="none" id="nginx-to-gateway_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2148.81,581.4352,2140.2555,576.5546,2143.8351,580.9348,2139.4549,584.5145,2148.81,581.4352" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="83" x="1256" y="492.1221">API Requests</text></g><!--MD5=[6593333c8369cefb0435025d2f0f7be9]
+link nginx to web_port--><g id="link_nginx_web_port"><path d="M485.0999,463.0593 C484.8097,463.2553 484.5189,463.4518 484.2275,463.6487 C483.0622,464.4361 481.8877,465.2297 480.7047,466.0291 C461.7769,478.8186 440.6738,493.0783 419.9175,507.1039 C378.405,535.1552 338.28,562.2702 319.72,574.8152 " fill="none" id="nginx-to-web_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="315.26,577.8252,324.9565,576.0996,319.4026,575.0254,320.4768,569.4714,315.26,577.8252" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="87" x="457" y="492.1221">Web Interface</text></g><!--MD5=[258be36215f6e72ec42a98e2616b0880]
+link gateway_container to customer_port--><g id="link_gateway_container_customer_port"><path d="M2603.5289,670.3065 C2611.8901,670.3984 2620.4993,670.5059 2629.3458,670.6307 C2647.0386,670.8804 2665.6801,671.1993 2685.1835,671.6023 C2724.1902,672.4081 2766.6445,673.5498 2811.852,675.1444 C2902.2672,678.3336 3003.6956,683.3345 3110.5838,691.0839 C3324.36,706.5827 3559.975,733.0752 3773,778.0552 C3857.22,795.8352 3953.22,836.8852 3985.09,851.0952 " fill="none" id="gateway_container-to-customer_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3989.96,853.2852,3983.3836,845.9536,3985.3975,851.2399,3980.1112,853.2537,3989.96,853.2852" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="119" x="3702" y="766.1221">User Management</text></g><!--MD5=[b798a69f1b67e2263ca97717fec5702e]
+link gateway_container to product_port--><g id="link_gateway_container_product_port"><path d="M2347.3315,713.0918 C2346.5373,713.4564 2345.7397,713.8206 2344.9389,714.1844 C2343.3373,714.9121 2341.7227,715.6381 2340.0962,716.3614 C2314.0725,727.9352 2284.995,738.8352 2257,745.0552 C2221.09,753.0352 1962.76,751.7152 1926,753.0552 C1811.94,757.2152 1517.05,731.1452 1413,778.0552 C1379.91,792.9752 1353.72,829.3752 1342.68,846.6552 " fill="none" id="gateway_container-to-product_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1339.97,850.9852,1348.137,845.4806,1342.6238,846.7476,1341.3568,841.2344,1339.97,850.9852" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="123" x="1927" y="766.1221">Catalog Operations</text></g><!--MD5=[a5c60c7c478fbcf2c53c16e394ea17a7]
+link gateway_container to sales_port--><g id="link_gateway_container_sales_port"><path d="M2341.5702,713.204 C2341.1738,713.3806 2340.7767,713.5571 2340.3788,713.7337 C2339.5832,714.0867 2338.7848,714.4398 2337.9838,714.7927 C2312.35,726.0852 2284.005,737.2302 2257,745.0552 C2163.3,772.1952 2126.16,732.3052 2040,778.0552 C2009.05,794.4852 1984.36,829.5352 1973.7,846.4852 " fill="none" id="gateway_container-to-sales_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1971.07,850.7552,1979.2018,845.1988,1973.6969,846.5008,1972.3948,840.9958,1971.07,850.7552" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="108" x="2216" y="766.1221">Sales Processing</text></g><!--MD5=[51b59ac284b2d9af13c279454c7aa0f9]
+link gateway_container to store_port--><g id="link_gateway_container_store_port"><path d="M2427,713.3912 C2427,713.6077 2427,713.8248 2427,714.0423 C2427,715.7827 2427,717.5557 2427,719.3575 C2427,733.7717 2427,750.027 2427,766.1664 C2427,798.4452 2427,830.2602 2427,845.9552 " fill="none" id="gateway_container-to-store_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2427,851.0452,2431,842.0452,2427,846.0452,2423,842.0452,2427,851.0452" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="109" x="2428" y="766.1221">Store Operations</text></g><!--MD5=[5ade62f90a7b0fa33ed0f88c0d31717e]
+link gateway_container to cart_port--><g id="link_gateway_container_cart_port"><path d="M2515.0571,713.4277 C2516.941,714.345 2518.844,715.2716 2520.7648,716.2068 C2524.6064,718.0773 2528.5195,719.9826 2532.4947,721.9181 C2564.2962,737.4024 2600.0737,754.822 2635.055,771.8539 C2705.0175,805.9177 2771.795,838.4302 2797.21,850.8052 " fill="none" id="gateway_container-to-cart_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2801.85,853.0552,2795.502,845.525,2797.3525,850.8706,2792.0068,852.7211,2801.85,853.0552" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="116" x="2629" y="766.1221">Cart Management</text></g><!--MD5=[9ce281170d09fce86351bf2eee2e5ae2]
+link gateway_container to checkout_port--><g id="link_gateway_container_checkout_port"><path d="M2604.0671,686.9835 C2605.3105,687.1186 2606.5588,687.2545 2607.8118,687.3914 C2610.3177,687.6651 2612.8426,687.9424 2615.386,688.2234 C2620.4726,688.7853 2625.6331,689.3619 2630.8635,689.9532 C2651.7854,692.3184 2673.8273,694.9198 2696.7477,697.7681 C2742.5884,703.4649 2791.9431,710.1495 2842.8788,717.9089 C2944.75,733.4277 3052.945,753.2452 3152,778.0552 C3233.46,798.4552 3327.15,837.5052 3358.86,851.1852 " fill="none" id="gateway_container-to-checkout_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3363.72,853.2852,3357.0505,846.0382,3359.1317,851.2983,3353.8716,853.3795,3363.72,853.2852" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="109" x="3114" y="766.1221">Order Processing</text></g><!--MD5=[241053567a6e5d576bdd910759bd4c05]
+link customer_container to customer_db--><g id="link_customer_container_customer_db"><path d="M4161.45,989.0752 C4123.39,1006.4052 4052.16,1036.4852 3988,1050.5552 C3952.62,1058.3152 3699.19,1074.0652 3663,1075.5552 C3643.84,1076.3452 2299.2,1075.0552 2282,1083.5552 C2238.12,1105.2452 2207.82,1156.1152 2192.52,1187.5452 " fill="none" id="customer_container-to-customer_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2190.2,1192.4152,2197.6895,1186.0193,2192.3558,1187.9038,2190.4713,1182.57,2190.2,1192.4152" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="65" x="3910" y="1071.6221">User Data</text></g><!--MD5=[f55415290a870ef95fe3c019556daadd]
+link product_container to product_db--><g id="link_product_container_product_db"><path d="M1226.2666,1018.7052 C1226.5496,1019.1829 1226.8342,1019.6635 1227.1206,1020.1468 C1227.6932,1021.1134 1228.2725,1022.0911 1228.858,1023.0795 C1230.0291,1025.0562 1231.2253,1027.0753 1232.4442,1029.1328 C1242.1959,1045.593 1253.4044,1064.5108 1264.8488,1083.8264 C1287.7375,1122.4577 1311.57,1162.6802 1326.58,1188.0152 " fill="none" id="product_container-to-product_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1329.2,1192.4452,1328.0378,1182.6651,1326.6443,1188.1477,1321.1618,1186.7542,1329.2,1192.4452" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="84" x="1259" y="1071.6221">Product Data</text></g><!--MD5=[2a4772ce32362917304409fa89cf419f]
+link sales_container to sales_db--><g id="link_sales_container_sales_db"><path d="M1753.6134,1018.7956 C1752.8024,1019.1463 1751.9888,1019.497 1751.1725,1019.8477 C1725.0525,1031.0702 1696.28,1042.2902 1669,1050.5552 C1650.4,1056.1952 1643.94,1051.0652 1626,1058.5552 C1608.02,1066.0552 1603.38,1069.3952 1590,1083.5552 C1560.16,1115.1452 1535.8,1159.6352 1522.09,1187.6452 " fill="none" id="sales_container-to-sales_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1519.82,1192.3352,1527.3338,1185.9679,1521.9929,1187.832,1520.1288,1182.4912,1519.82,1192.3352" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="70" x="1627" y="1071.6221">Sales Data</text></g><!--MD5=[c2b5acad86e2f776e9c654aab8890265]
+link store_container to store_db--><g id="link_store_container_store_db"><path d="M2344.8865,1018.702 C2344.0687,1019.0667 2343.2475,1019.4311 2342.423,1019.7951 C2340.7741,1020.523 2339.1119,1021.2492 2337.4375,1021.9727 C2310.6475,1033.5477 2280.74,1044.4202 2252,1050.5552 C2155.93,1071.0652 1906.21,1038.6952 1810,1058.5552 C1781.31,1064.4752 1771.32,1064.5652 1749,1083.5552 C1715.52,1112.0452 1691.9,1158.2052 1679.38,1187.3052 " fill="none" id="store_container-to-store_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1677.32,1192.1752,1684.5065,1185.4407,1679.2654,1187.5691,1677.1369,1182.328,1677.32,1192.1752" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="70" x="1811" y="1071.6221">Store Data</text></g><!--MD5=[b9c2c3229f8c3d661265f8580ce5e2b3]
+link cart_container to cart_db--><g id="link_cart_container_cart_db"><path d="M2948.57,989.0852 C2917.71,1007.0152 2858.36,1038.4652 2803,1050.5552 C2760.72,1059.7852 2067.05,1054.1052 2024,1058.5552 C1967.21,1064.4252 1944.38,1050.2652 1898,1083.5552 C1862.48,1109.0452 1841.35,1156.9652 1830.98,1187.1052 " fill="none" id="cart_container-to-cart_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="1829.28,1192.1452,1835.9339,1184.884,1830.8697,1187.4046,1828.3491,1182.3404,1829.28,1192.1452" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="62" x="2025" y="1071.6221">Cart Data</text></g><!--MD5=[2bb986a4c531ded9968dbaba2be01c38]
+link checkout_container to checkout_db--><g id="link_checkout_container_checkout_db"><path d="M3533.13,989.1052 C3495.95,1007.0752 3424.75,1038.5752 3360,1050.5552 C3303.79,1060.9552 2388.08,1055.4152 2331,1058.5552 C2222.15,1064.5452 2181.5,1029.2152 2087,1083.5552 C2045.72,1107.2852 2017.39,1157.0052 2003,1187.7552 " fill="none" id="checkout_container-to-checkout_db" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2000.81,1192.5252,2008.2004,1186.015,2002.8962,1187.9812,2000.93,1182.677,2000.81,1192.5252" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="95" x="2332" y="1071.6221">Checkout Data</text></g><!--MD5=[de905060871a9a70de88a3c22fe1d2a1]
+link product_container to redis_port--><g id="link_product_container_redis_port"><path d="M1308.7578,1018.798 C1309.8277,1019.1643 1310.9019,1019.5302 1311.9802,1019.8956 C1314.1368,1020.6265 1316.3097,1021.3554 1318.4975,1022.0814 C1353.5025,1033.6977 1392.32,1044.5652 1429,1050.5552 C1538.99,1068.5152 2322.66,1037.0052 2432,1058.5552 C2589.68,1089.6252 2764.92,1183.3152 2809.33,1208.0252 " fill="none" id="product_container-to-redis_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2813.87,1210.5652,2807.9648,1202.683,2809.5053,1208.1261,2804.0622,1209.6665,2813.87,1210.5652" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="93" x="2499" y="1071.6221">Product Cache</text></g><!--MD5=[7ce96ff0e7aabb3d74f0bb6bb405730c]
+link cart_container to redis_port--><g id="link_cart_container_redis_port"><path d="M2958.24,989.2052 C2944.4,1005.0352 2921.12,1032.7152 2904,1058.5552 C2869.2,1111.0952 2836.17,1179.4252 2824.47,1204.3852 " fill="none" id="cart_container-to-redis_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="2822.3,1209.0352,2829.7318,1202.5723,2824.4152,1204.5046,2822.4829,1199.188,2822.3,1209.0352" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="94" x="2905" y="1071.6221">Session Cache</text></g><!--MD5=[f7921e90f5108084e8b4cb0fbf86ae26]
+link customer_container to prometheus_port--><g id="link_customer_container_prometheus_port"><path d="M4164.47,989.0852 C4127.58,1008.5452 4055.47,1046.0852 3993,1075.5552 C3874.48,1131.4752 3727.7,1192.6852 3686.94,1209.5452 " fill="none" id="customer_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3682.1,1211.5452,3691.9448,1211.8278,3686.7255,1209.6464,3688.9068,1204.4271,3682.1,1211.5452" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="4026" y="1071.6221">Metrics</text></g><!--MD5=[e80fcd215f1f537067cf74d7cbc741dc]
+link product_container to prometheus_port--><g id="link_product_container_prometheus_port"><path d="M1307.9437,1018.5845 C1308.2106,1018.6761 1308.4779,1018.7677 1308.7453,1018.8594 C1309.8153,1019.2258 1310.8894,1019.5919 1311.9677,1019.9574 C1314.1243,1020.6886 1316.2972,1021.4177 1318.485,1022.1439 C1353.49,1033.7627 1392.31,1044.6152 1429,1050.5552 C1515.38,1064.5352 2918.39,1040.4752 3004,1058.5552 C3022.5,1062.4652 3025.01,1069.7252 3043,1075.5552 C3288.2,1154.9752 3601.51,1203.1752 3664.63,1212.4252 " fill="none" id="product_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3669.95,1213.1952,3661.6146,1207.9491,3665.0014,1212.4801,3660.4704,1215.8668,3669.95,1213.1952" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3044" y="1071.6221">Metrics</text></g><!--MD5=[4b2b27bd991fae82a21cc63e1ad22c6e]
+link sales_container to prometheus_port--><g id="link_sales_container_prometheus_port"><path d="M1943.4404,1018.8014 C1944.4395,1019.1677 1945.4425,1019.5336 1946.4495,1019.8991 C1948.4634,1020.6301 1950.4927,1021.3591 1952.5363,1022.0852 C1985.2325,1033.7027 2021.55,1044.5702 2056,1050.5552 C2170.18,1070.3952 2984.17,1042.9052 3099,1058.5552 C3333.02,1090.4552 3607.13,1188.5952 3664.95,1209.9352 " fill="none" id="sales_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3669.87,1211.7552,3662.8291,1204.8686,3665.1837,1210.0121,3660.0401,1212.3667,3669.87,1211.7552" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3196" y="1071.6221">Metrics</text></g><!--MD5=[920518e853c602eb7150d25a63447df8]
+link store_container to prometheus_port--><g id="link_store_container_prometheus_port"><path d="M2454.95,989.0652 C2495.08,1006.9852 2571.84,1038.4152 2641,1050.5552 C2711.05,1062.8452 3211.21,1044.8652 3281,1058.5552 C3441.16,1089.9852 3619.83,1183.4052 3665.12,1208.0452 " fill="none" id="store_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3669.75,1210.5752,3663.7554,1202.7608,3665.3578,1208.1859,3659.9326,1209.7883,3669.75,1210.5752" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3349" y="1071.6221">Metrics</text></g><!--MD5=[df6e368728089ee5ae5b2d0e480570e7]
+link cart_container to prometheus_port--><g id="link_cart_container_prometheus_port"><path d="M2997.53,989.1752 C3036.31,1006.9152 3109.71,1037.7952 3176,1050.5552 C3228.4,1060.6452 3364.81,1043.4952 3416,1058.5552 C3524.17,1090.3852 3633.5,1177.9452 3666.19,1205.5852 " fill="none" id="cart_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3670.13,1208.9352,3665.8641,1200.0581,3666.3207,1205.6965,3660.6823,1206.1531,3670.13,1208.9352" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3463" y="1071.6221">Metrics</text></g><!--MD5=[cc80cd9f86c65634bcde975e599b955a]
+link checkout_container to prometheus_port--><g id="link_checkout_container_prometheus_port"><path d="M3565.46,989.1852 C3586.46,1031.9152 3652.55,1166.3552 3671.11,1204.1052 " fill="none" id="checkout_container-to-prometheus_port" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3673.49,1208.9552,3673.1183,1199.1133,3671.2883,1204.466,3665.9356,1202.636,3673.49,1208.9552" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="46" x="3608" y="1071.6221">Metrics</text></g><!--MD5=[c3a324d1728e80ca62c058da64951903]
+link prometheus_container to grafana_container--><g id="link_prometheus_container_grafana_container"><path d="M4049.4894,1363.6681 C4049.2994,1363.7305 4049.1095,1363.7929 4048.9194,1363.8553 C4048.5394,1363.98 4048.159,1364.1045 4047.7785,1364.2289 C4047.0174,1364.4776 4046.2553,1364.7256 4045.4924,1364.9728 C4043.9666,1365.4673 4042.4375,1365.9587 4040.9059,1366.4466 C4037.8425,1367.4225 4034.7691,1368.3842 4031.6919,1369.328 C4019.3831,1373.1033 4007.015,1376.5927 3995,1379.5552 C3930.915,1395.3502 3861.36,1408.1777 3794.9463,1418.4264 C3761.7394,1423.5508 3729.3178,1428.0305 3698.758,1431.9141 C3683.478,1433.8559 3668.6636,1435.6486 3654.449,1437.2985 C3650.8954,1437.7109 3647.3793,1438.1144 3643.9028,1438.5091 C3642.1645,1438.7065 3640.4361,1438.9016 3638.7179,1439.0945 " fill="none" id="prometheus_container-to-grafana_container" style="stroke:#000000;stroke-width:1.0;"/><polygon fill="#000000" points="3638.7179,1439.0945,3648.1081,1442.0653,3643.6867,1438.5366,3647.2154,1434.1152,3638.7179,1439.0945" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="Verdana" font-size="13" lengthAdjust="spacing" textLength="80" x="3955" y="1400.6221">Data Source</text></g><!--MD5=[eeb79161525c6cf14d7da59531fe1a63]
+@startuml
+!theme plain
+skinparam backgroundColor white
+skinparam node {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+node "Production Server (10.194.32.174)" {
+    
+    node "Frontend Tier" {
+        component "NGINX Load Balancer" as nginx {
+            port "80/443" as nginx_ports
+            artifact "nginx.conf"
+            artifact "SSL Certificates"
+        }
+        
+        component "Web Interface Container" as web_container {
+            port "5001" as web_port
+            artifact "Flask App"
+            artifact "HTML Templates"
+            artifact "Static Assets"
+        }
+    }
+    
+    node "API Gateway Tier" {
+        component "API Gateway Container" as gateway_container {
+            port "5000" as gateway_port
+            artifact "Flask App"
+            artifact "JWT Authentication"
+            artifact "Service Discovery"
+        }
+    }
+    
+    node "Backend Services Tier" {
+        component "Customer Service Container" as customer_container {
+            port "5001" as customer_port
+            artifact "Flask App"
+            artifact "User Management"
+        }
+        
+        component "Product Service Container" as product_container {
+            port "5002" as product_port
+            artifact "Flask App"
+            artifact "Catalog Management"
+        }
+        
+        component "Sales Service Container" as sales_container {
+            port "5003" as sales_port
+            artifact "Flask App"
+            artifact "Transaction Management"
+        }
+        
+        component "Store Service Container" as store_container {
+            port "5004" as store_port
+            artifact "Flask App"
+            artifact "Store Management"
+        }
+        
+        component "Cart Service Container" as cart_container {
+            port "5005" as cart_port
+            artifact "Flask App"
+            artifact "Shopping Cart"
+        }
+        
+        component "Checkout Service Container" as checkout_container {
+            port "5006" as checkout_port
+            artifact "Flask App"
+            artifact "Order Processing"
+        }
+    }
+    
+    node "Data Tier" {
+        component "PostgreSQL Database Cluster" as db_cluster {
+            database "customer-db :5432" as customer_db
+            database "product-db :5433" as product_db
+            database "sales-db :5434" as sales_db
+            database "store-db :5435" as store_db
+            database "cart-db :5436" as cart_db
+            database "checkout-db :5437" as checkout_db
+            artifact "Persistent Volumes"
+            artifact "Backup Strategy"
+        }
+        
+        component "Redis Cache Container" as redis_container {
+            port "6379" as redis_port
+            artifact "In-Memory Cache"
+            artifact "Session Storage"
+        }
+    }
+    
+    node "Monitoring Tier" {
+        component "Prometheus Container" as prometheus_container {
+            port "9090" as prometheus_port
+            artifact "Metrics Collection"
+            artifact "Alert Rules"
+        }
+        
+        component "Grafana Container" as grafana_container {
+            port "3000" as grafana_port
+            artifact "Dashboard"
+            artifact "Visualization"
+        }
+    }
+}
+
+cloud "External Access" {
+    actor "Web Users" as web_users
+    
+}
+
+' Connexions externes
+web_users - -> nginx_ports : "HTTPS"
+
+
+' Load balancer
+nginx - -> gateway_port : "API Requests"
+nginx - -> web_port : "Web Interface"
+
+' API Gateway vers services
+gateway_container - -> customer_port : "User Management"
+gateway_container - -> product_port : "Catalog Operations"
+gateway_container - -> sales_port : "Sales Processing"
+gateway_container - -> store_port : "Store Operations"
+gateway_container - -> cart_port : "Cart Management"
+gateway_container - -> checkout_port : "Order Processing"
+
+' Services vers bases de données
+customer_container - -> customer_db : "User Data"
+product_container - -> product_db : "Product Data"
+sales_container - -> sales_db : "Sales Data"
+store_container - -> store_db : "Store Data"
+cart_container - -> cart_db : "Cart Data"
+checkout_container - -> checkout_db : "Checkout Data"
+
+' Cache connections
+product_container - -> redis_port : "Product Cache"
+cart_container - -> redis_port : "Session Cache"
+
+' Monitoring
+customer_container - -> prometheus_port : "Metrics"
+product_container - -> prometheus_port : "Metrics"
+sales_container - -> prometheus_port : "Metrics"
+store_container - -> prometheus_port : "Metrics"
+cart_container - -> prometheus_port : "Metrics"
+checkout_container - -> prometheus_port : "Metrics"
+
+prometheus_container - -> grafana_container : "Data Source"
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor white
+    FontColor black
+    FontName Verdana
+    HyperLinkColor blue
+    LineColor black
+    LineThickness 1
+    Margin 5
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  header {
+    LineThickness 0
+  }
+  node {
+    MaximumWidth 300
+  }
+  title {
+    FontSize 22
+    LineThickness 0
+  }
+</style>
+
+skinparam ArrowLollipopColor black
+skinparam BackgroundColor white
+skinparam DefaultFontName Verdana
+skinparam DefaultMonospacedFontName Courier
+skinparam LifelineStrategy nosolid
+skinparam ParticipantPadding 10
+skinparam SequenceLifeLineBorderColor black
+skinparam Shadowing false
+skinparam UseBetaStyle true
+
+skinparam Activity {
+  BackgroundColor white
+  BarColor black
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam Boundary {
+  FontColor black
+}
+skinparam Box {
+  Padding 5
+}
+skinparam CircledCharacter {
+  FontColor black
+  FontName Courier
+  Radius 9
+}
+skinparam Class {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassAttribute {
+  FontColor black
+  FontName Verdana
+}
+skinparam ClassStereotype {
+  FontColor black
+  FontName Verdana
+}
+skinparam Footer {
+  FontColor black
+  FontName Verdana
+}
+skinparam Header {
+  FontColor black
+  FontName Verdana
+}
+skinparam Hyperlink {
+  Color blue
+}
+skinparam IconPackage {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPrivate {
+  Color black
+  BackgroundColor white
+}
+skinparam IconProtected {
+  Color black
+  BackgroundColor white
+}
+skinparam IconPublic {
+  Color black
+  BackgroundColor white
+}
+skinparam Note {
+  FontColor black
+  FontName Verdana
+}
+skinparam Object {
+  BorderColor black
+}
+skinparam Package {
+  BorderColor black
+  FontColor black
+  FontName Verdana
+}
+skinparam State {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeA {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeC {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeE {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeI {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam StereotypeN {
+  BackgroundColor white
+  BorderColor black
+}
+skinparam UseCaseStereoType {
+  FontColor black
+  FontName Verdana
+}
+skinparam backgroundColor white
+skinparam node {
+    BackgroundColor lightyellow
+    BorderColor black
+}
+
+node "Production Server (10.194.32.174)" {
+    
+    node "Frontend Tier" {
+        component "NGINX Load Balancer" as nginx {
+            port "80/443" as nginx_ports
+            artifact "nginx.conf"
+            artifact "SSL Certificates"
+        }
+        
+        component "Web Interface Container" as web_container {
+            port "5001" as web_port
+            artifact "Flask App"
+            artifact "HTML Templates"
+            artifact "Static Assets"
+        }
+    }
+    
+    node "API Gateway Tier" {
+        component "API Gateway Container" as gateway_container {
+            port "5000" as gateway_port
+            artifact "Flask App"
+            artifact "JWT Authentication"
+            artifact "Service Discovery"
+        }
+    }
+    
+    node "Backend Services Tier" {
+        component "Customer Service Container" as customer_container {
+            port "5001" as customer_port
+            artifact "Flask App"
+            artifact "User Management"
+        }
+        
+        component "Product Service Container" as product_container {
+            port "5002" as product_port
+            artifact "Flask App"
+            artifact "Catalog Management"
+        }
+        
+        component "Sales Service Container" as sales_container {
+            port "5003" as sales_port
+            artifact "Flask App"
+            artifact "Transaction Management"
+        }
+        
+        component "Store Service Container" as store_container {
+            port "5004" as store_port
+            artifact "Flask App"
+            artifact "Store Management"
+        }
+        
+        component "Cart Service Container" as cart_container {
+            port "5005" as cart_port
+            artifact "Flask App"
+            artifact "Shopping Cart"
+        }
+        
+        component "Checkout Service Container" as checkout_container {
+            port "5006" as checkout_port
+            artifact "Flask App"
+            artifact "Order Processing"
+        }
+    }
+    
+    node "Data Tier" {
+        component "PostgreSQL Database Cluster" as db_cluster {
+            database "customer-db :5432" as customer_db
+            database "product-db :5433" as product_db
+            database "sales-db :5434" as sales_db
+            database "store-db :5435" as store_db
+            database "cart-db :5436" as cart_db
+            database "checkout-db :5437" as checkout_db
+            artifact "Persistent Volumes"
+            artifact "Backup Strategy"
+        }
+        
+        component "Redis Cache Container" as redis_container {
+            port "6379" as redis_port
+            artifact "In-Memory Cache"
+            artifact "Session Storage"
+        }
+    }
+    
+    node "Monitoring Tier" {
+        component "Prometheus Container" as prometheus_container {
+            port "9090" as prometheus_port
+            artifact "Metrics Collection"
+            artifact "Alert Rules"
+        }
+        
+        component "Grafana Container" as grafana_container {
+            port "3000" as grafana_port
+            artifact "Dashboard"
+            artifact "Visualization"
+        }
+    }
+}
+
+cloud "External Access" {
+    actor "Web Users" as web_users
+    
+}
+
+web_users - -> nginx_ports : "HTTPS"
+
+
+nginx - -> gateway_port : "API Requests"
+nginx - -> web_port : "Web Interface"
+
+gateway_container - -> customer_port : "User Management"
+gateway_container - -> product_port : "Catalog Operations"
+gateway_container - -> sales_port : "Sales Processing"
+gateway_container - -> store_port : "Store Operations"
+gateway_container - -> cart_port : "Cart Management"
+gateway_container - -> checkout_port : "Order Processing"
+
+customer_container - -> customer_db : "User Data"
+product_container - -> product_db : "Product Data"
+sales_container - -> sales_db : "Sales Data"
+store_container - -> store_db : "Store Data"
+cart_container - -> cart_db : "Cart Data"
+checkout_container - -> checkout_db : "Checkout Data"
+
+product_container - -> redis_port : "Product Cache"
+cart_container - -> redis_port : "Session Cache"
+
+customer_container - -> prometheus_port : "Metrics"
+product_container - -> prometheus_port : "Metrics"
+sales_container - -> prometheus_port : "Metrics"
+store_container - -> prometheus_port : "Metrics"
+cart_container - -> prometheus_port : "Metrics"
+checkout_container - -> prometheus_port : "Metrics"
+
+prometheus_container - -> grafana_container : "Data Source"
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>
