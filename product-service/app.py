@@ -7,6 +7,11 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
+    
+    # Créer les tables
+    with app.app_context():
+        db.create_all()
+    
     app.register_blueprint(product_bp)
     return app
 
