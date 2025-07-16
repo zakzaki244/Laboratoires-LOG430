@@ -26,6 +26,81 @@
         <div style="margin-top: 1rem; text-align: center;">
             <p>Pas encore de compte ? <a href="/register">S'inscrire</a></p>
         </div>
+        
+        <!-- Informations de connexion pour les tests -->
+        <div class="card" style="margin-top: 2rem; background-color: #f8f9fa; border-left: 4px solid #007bff;">
+            <div class="card-header">
+                <h3 class="card-title" style="color: #007bff;">📋 Informations de connexion (Pour les tests)</h3>
+            </div>
+            <div class="card-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #dc3545; margin-bottom: 0.5rem;">👨‍💼 Admin</h4>
+                        <p><strong>Nom d'utilisateur :</strong> admin</p>
+                        <p><strong>Mot de passe :</strong> admin123</p>
+                    </div>
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #28a745; margin-bottom: 0.5rem;">🏢 Gestionnaire</h4>
+                        <p><strong>Nom d'utilisateur :</strong> gestionnaire</p>
+                        <p><strong>Mot de passe :</strong> gest123</p>
+                    </div>
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #ffc107; margin-bottom: 0.5rem;">📦 Responsable Produit</h4>
+                        <p><strong>Nom d'utilisateur :</strong> resp_produit</p>
+                        <p><strong>Mot de passe :</strong> prod123</p>
+                    </div>
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #17a2b8; margin-bottom: 0.5rem;">🚚 Responsable Logistique</h4>
+                        <p><strong>Nom d'utilisateur :</strong> resp_log</p>
+                        <p><strong>Mot de passe :</strong> log123</p>
+                    </div>
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #6610f2; margin-bottom: 0.5rem;">👥 Employé</h4>
+                        <p><strong>Nom d'utilisateur :</strong> employe</p>
+                        <p><strong>Mot de passe :</strong> emp123</p>
+                    </div>
+                    
+                    <div class="connection-info">
+                        <h4 style="color: #20c997; margin-bottom: 0.5rem;">🛒 Client</h4>
+                        <p><strong>Nom d'utilisateur :</strong> client</p>
+                        <p><strong>Mot de passe :</strong> client123</p>
+                    </div>
+                    
+                </div>
+                
+                <div style="margin-top: 1.5rem; padding: 1rem; background-color: #e9ecef; border-radius: 0.375rem;">
+                    <h5 style="color: #495057; margin-bottom: 0.5rem;">ℹ️ Note importante :</h5>
+                    <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                        Ces comptes de test sont créés automatiquement lors de l'initialisation du système. 
+                        Chaque rôle a des permissions différentes et accès à des fonctionnalités spécifiques.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.connection-info {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background-color: white;
+}
+
+.connection-info p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.connection-info strong {
+    color: #495057;
+}
+</style>
+
 {% endblock %}
