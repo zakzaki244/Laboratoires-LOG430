@@ -19,6 +19,20 @@ class UserService:
         user_id = self.user_repository.add(user)
         return {'id': user_id, 'message': "Utilisateur enregistré avec succès"}, 201
 
+    # def login(self, data):
+    #     print("LOGIN DATA:", data)
+    #     user = None
+    #     if 'email' in data:
+    #         user = self.user_repository.get_by_email(data['email'])
+    #         print("USER BY EMAIL:", user)
+    #     elif 'username' in data:
+    #         user = self.user_repository.get_by_username(data['username'])
+    #         print("USER BY USERNAME:", user)
+    #     if not user or not check_password_hash(user.password_hash, data['password']):
+    #         return {'message': "Identifiants invalides"}, 401
+    #     token = generate_jwt({'user_id': user.id, 'role': user.role})
+    #     return {'token': token}, 200
+
     def login(self, data):
         print("LOGIN DATA:", data)
         user = None
@@ -28,10 +42,18 @@ class UserService:
         elif 'username' in data:
             user = self.user_repository.get_by_username(data['username'])
             print("USER BY USERNAME:", user)
-        if not user or not check_password_hash(user.password_hash, data['password']):
-            return {'message': "Identifiants invalides"}, 401
-        token = generate_jwt({'user_id': user.id, 'role': user.role})
-        return {'token': token}, 200
+            if not user or not check_password_hash(user.password_hash, data['password']):
+                return {'message': "Identifiants invalides"}, 401
+            token = generate_jwt({'user_id': user.id, 'role': user.role})
+            # --- AJOUTE CETTE PARTIE ---
+            user_dict = {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": user.role
+    }
+            return {'token': token, 'user': user_dict}, 200
+        
 
     def get_user(self, user_id):
         user = self.user_repository.get_by_id(user_id)
