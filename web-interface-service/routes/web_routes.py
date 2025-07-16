@@ -5,7 +5,7 @@ from functools import wraps
 bp = Blueprint('web', __name__)
 
 # Configuration
-API_GATEWAY_URL = 'http://api-gateway:8080'
+API_GATEWAY_URL = 'http://10.194.32.174:8080'
 
 def login_required(f):
     @wraps(f)
