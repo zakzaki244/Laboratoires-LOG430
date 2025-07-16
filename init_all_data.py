@@ -17,7 +17,7 @@ SERVICES = {
     'store': 'http://10.194.32.174:5004',
     'cart': 'http://10.194.32.174:5005',
     'checkout': 'http://10.194.32.174:5006',
-    'logistics': 'http://10.194.32.174:5007'
+    # 'logistics': 'http://10.194.32.174:5007'
 }
 
 def wait_for_service(url, service_name):
@@ -616,7 +616,7 @@ def main():
     init_store_service(headers)
     init_product_service(headers)
     init_sales_service(headers)
-    init_logistics_service(headers)
+    # init_logistics_service(headers)
     
     print("\n🎉 Data initialization completed!")
     print("\n📋 Summary of created data:")
@@ -629,7 +629,7 @@ def main():
     print("  • Livres (3 produits): roman, cuisine, guide")
     print("  • Maison (6 produits): cuisine, salle de bain, éclairage, déco")
     print("- 2 sample sales")
-    print("- 3 demandes de réapprovisionnement")
+    # print("- 3 demandes de réapprovisionnement")
     print("\n🔑 Default login credentials:")
     print("- Admin: admin@supermarche.com / admin123")
     print("- Manager: manager@supermarche.com / manager123")
