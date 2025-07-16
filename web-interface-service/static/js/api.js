@@ -1,5 +1,5 @@
 // Configuration API
-const API_BASE_URL = window.location.origin;
+const API_BASE_URL = "http://10.194.32.174:8080";
 
 // Fonctions utilitaires pour les appels API
 class ApiService {
