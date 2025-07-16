@@ -17,7 +17,7 @@ SERVICES = {
     'store': 'http://10.194.32.174:5004',
     'cart': 'http://10.194.32.174:5005',
     'checkout': 'http://10.194.32.174:5006',
-    'logistics': 'http://10.194.32.174:5007'
+    #'logistics': 'http://10.194.32.174:5007'
 }
 
 def wait_for_service(url, service_name):
@@ -25,6 +25,7 @@ def wait_for_service(url, service_name):
     max_attempts = 30
     for attempt in range(max_attempts):
         try:
+            # Essayer différentes routes selon le service
             if service_name == 'customer':
                 response = requests.get(f"{url}/users", timeout=5)
             elif service_name == 'product':
@@ -36,14 +37,11 @@ def wait_for_service(url, service_name):
             elif service_name == 'cart':
                 response = requests.get(f"{url}/cart", timeout=5)
             elif service_name == 'checkout':
-                response = requests.get(f"{url}/checkout", timeout=5)
+                response = requests.post(f"{url}/checkout", json={}, timeout=5)
             else:
                 response = requests.get(f"{url}/", timeout=5)
             
-            if response.status_code in [200, 401, 403]:  # 401/403 = service fonctionne mais auth requise
-                
-                print(f"✅ {service_name} service is ready") 
-           
+            if response.status_code in [200, 401, 403, 405]:  # 401/403 = service fonctionne mais auth requise
                 print(f"✅ {service_name} service is ready")
                 return True
         except requests.exceptions.RequestException:
