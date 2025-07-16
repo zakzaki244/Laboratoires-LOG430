@@ -25,8 +25,25 @@ def wait_for_service(url, service_name):
     max_attempts = 30
     for attempt in range(max_attempts):
         try:
-            response = requests.get(f"{url}/health", timeout=5)
-            if response.status_code == 200:
+            if service_name == 'customer':
+                response = requests.get(f"{url}/users", timeout=5)
+            elif service_name == 'product':
+                response = requests.get(f"{url}/products", timeout=5)
+            elif service_name == 'store':
+                response = requests.get(f"{url}/stores", timeout=5)
+            elif service_name == 'sales':
+                response = requests.get(f"{url}/sales", timeout=5)
+            elif service_name == 'cart':
+                response = requests.get(f"{url}/cart", timeout=5)
+            elif service_name == 'checkout':
+                response = requests.get(f"{url}/checkout", timeout=5)
+            else:
+                response = requests.get(f"{url}/", timeout=5)
+            
+            if response.status_code in [200, 401, 403]:  # 401/403 = service fonctionne mais auth requise
+                
+                print(f"✅ {service_name} service is ready") 
+           
                 print(f"✅ {service_name} service is ready")
                 return True
         except requests.exceptions.RequestException:
