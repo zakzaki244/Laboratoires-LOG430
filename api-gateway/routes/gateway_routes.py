@@ -75,7 +75,7 @@ def list_users():
 @role_required(['admin', 'gestionnaire', 'responsable_produit'])
 def create_product():
 
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'POST', '/products',
         headers=dict(request.headers),
@@ -87,7 +87,7 @@ def create_product():
 @jwt_required
 def get_product(product_id):
 
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', f'/products/{product_id}',
         headers=dict(request.headers)
@@ -98,7 +98,7 @@ def get_product(product_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire', 'responsable_produit'])
 def update_product(product_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'PUT', f'/products/{product_id}',
         headers=dict(request.headers),
@@ -110,7 +110,7 @@ def update_product(product_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire', 'responsable_produit'])
 def delete_product(product_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'DELETE', f'/products/{product_id}',
         headers=dict(request.headers)
@@ -120,7 +120,7 @@ def delete_product(product_id):
 @bp.route('/products', methods=['GET'])
 @jwt_required
 def list_products():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/products',
         headers=dict(request.headers),
@@ -132,7 +132,7 @@ def list_products():
 @jwt_required
 @role_required(['admin', 'gestionnaire', 'responsable_logistique'])
 def update_stock(product_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('product')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'PATCH', f'/products/{product_id}/stock',
         headers=dict(request.headers),
@@ -145,7 +145,7 @@ def update_stock(product_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire'])
 def create_store():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('store')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'POST', '/stores',
         headers=dict(request.headers),
@@ -156,7 +156,7 @@ def create_store():
 @bp.route('/stores/<int:store_id>', methods=['GET'])
 @jwt_required
 def get_store(store_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('store')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', f'/stores/{store_id}',
         headers=dict(request.headers)
@@ -167,7 +167,7 @@ def get_store(store_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire'])
 def update_store(store_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('store')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'PUT', f'/stores/{store_id}',
         headers=dict(request.headers),
@@ -179,7 +179,7 @@ def update_store(store_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire'])
 def delete_store(store_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('store')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'DELETE', f'/stores/{store_id}',
         headers=dict(request.headers)
@@ -189,7 +189,7 @@ def delete_store(store_id):
 @bp.route('/stores', methods=['GET'])
 @jwt_required
 def list_stores():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('store')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/stores',
         headers=dict(request.headers),
@@ -202,7 +202,7 @@ def list_stores():
 @jwt_required
 @role_required(['gestionnaire', 'admin', 'responsable_logistique'])
 def create_sale():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('sales')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'POST', '/sales',
         headers=dict(request.headers),
@@ -214,7 +214,7 @@ def create_sale():
 @jwt_required
 @role_required(['gestionnaire', 'admin', 'responsable_logistique'])
 def get_sale(sale_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('sales')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', f'/sales/{sale_id}',
         headers=dict(request.headers)
@@ -225,7 +225,7 @@ def get_sale(sale_id):
 @jwt_required
 @role_required(['admin', 'gestionnaire'])
 def delete_sale(sale_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('sales')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'DELETE', f'/sales/{sale_id}',
         headers=dict(request.headers)
@@ -236,7 +236,7 @@ def delete_sale(sale_id):
 @jwt_required
 @role_required(['gestionnaire', 'admin', 'responsable_logistique'])
 def list_sales():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('sales')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/sales',
         headers=dict(request.headers)
@@ -247,7 +247,7 @@ def list_sales():
 @jwt_required
 @role_required(['gestionnaire', 'admin', 'responsable_logistique'])
 def generate_sales_report():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('sales')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/sales/report',
         headers=dict(request.headers),
@@ -259,7 +259,7 @@ def generate_sales_report():
 @bp.route('/cart', methods=['GET'])
 @jwt_required
 def get_cart():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('cart')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/cart',
         headers=dict(request.headers),
@@ -270,7 +270,7 @@ def get_cart():
 @bp.route('/cart/items', methods=['POST'])
 @jwt_required
 def add_cart_item():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('cart')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'POST', '/cart/items',
         headers=dict(request.headers),
@@ -281,7 +281,7 @@ def add_cart_item():
 @bp.route('/cart/items/<int:product_id>', methods=['PUT'])
 @jwt_required
 def update_cart_item(product_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('cart')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'PUT', f'/cart/items/{product_id}',
         headers=dict(request.headers),
@@ -292,7 +292,7 @@ def update_cart_item(product_id):
 @bp.route('/cart/items/<int:product_id>', methods=['DELETE'])
 @jwt_required
 def remove_cart_item(product_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('cart')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'DELETE', f'/cart/items/{product_id}',
         headers=dict(request.headers),
@@ -303,7 +303,7 @@ def remove_cart_item(product_id):
 @bp.route('/cart', methods=['DELETE'])
 @jwt_required
 def clear_cart():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('cart')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'DELETE', '/cart',
         headers=dict(request.headers),
@@ -315,7 +315,7 @@ def clear_cart():
 @bp.route('/checkout', methods=['POST'])
 @jwt_required
 def process_checkout():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('checkout')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'POST', '/checkout',
         headers=dict(request.headers),
@@ -326,7 +326,7 @@ def process_checkout():
 @bp.route('/checkout/<int:checkout_id>', methods=['GET'])
 @jwt_required
 def get_checkout(checkout_id):
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('checkout')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', f'/checkout/{checkout_id}',
         headers=dict(request.headers)
@@ -336,7 +336,7 @@ def get_checkout(checkout_id):
 @bp.route('/checkout/history', methods=['GET'])
 @jwt_required
 def get_checkout_history():
-    service_url = ServiceDiscovery.get_service_url('customer')
+    service_url = ServiceDiscovery.get_service_url('checkout')
     response_json, status_code = ServiceDiscovery.forward_request(
         service_url, 'GET', '/checkout/history',
         headers=dict(request.headers)

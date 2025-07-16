@@ -43,17 +43,17 @@ class UserService:
         elif 'username' in data:
             user = self.user_repository.get_by_username(data['username'])
             print("USER BY USERNAME:", user)
-            if not user or not check_password_hash(user.password_hash, data['password']):
-                return {'message': "Identifiants invalides"}, 401
-            token = generate_jwt({'user_id': user.id, 'role': user.role})
-            # --- AJOUTE CETTE PARTIE ---
-            user_dict = {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "role": user.role
-    }
-            return jsonify({'token': token, 'user': user_dict}), 200
+        if not user or not check_password_hash(user.password_hash, data['password']):
+            return {'message': "Identifiants invalides"}, 401
+        token = generate_jwt({'user_id': user.id, 'role': user.role})
+        # --- AJOUTE CETTE PARTIE ---
+        user_dict = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": user.role
+            }
+        return {'token': token, 'user': user_dict}, 200
         
 
     def get_user(self, user_id):

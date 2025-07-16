@@ -12,7 +12,8 @@ def register():
 
 @bp.route('/login', methods=['POST'])
 def login():
-    return jsonify(*user_service.login(request.json))
+    result, status = user_service.login(request.json)
+    return jsonify(result), status
 
 @bp.route('/users/<int:user_id>', methods=['GET'])
 @jwt_required
