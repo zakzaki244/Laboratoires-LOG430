@@ -28,5 +28,5 @@ def role_required(roles):
             if not user or user.get('role') not in roles:
                 return {'message': 'Accès interdit'}, 403
             return f(*args, **kwargs)
-        return decorator
+        return decorated
     return decorator
