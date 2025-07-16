@@ -1,0 +1,556 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de Bord - Manager{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Tableau de Bord Manager</h1>
+        </div>
+    </div>
+
+    <!-- Statistiques principales -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Ventes du Jour</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="today-sales">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                CA du Jour</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="today-revenue">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Nouveaux Clients</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="new-customers">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-plus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Alertes Stock</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="stock-alerts">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphiques de performance -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Performance des Ventes (7 derniers jours)</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="weeklySalesChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Top Produits</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="topProductsChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activité récente et alertes -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Activité Récente</h6>
+                </div>
+                <div class="card-body">
+                    <div id="recentActivity">
+                        <!-- Activité chargée dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alertes Prioritaires</h6>
+                </div>
+                <div class="card-body">
+                    <div id="priorityAlerts">
+                        <!-- Alertes chargées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Résumé des magasins -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Performance par Magasin</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="storePerformanceTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Magasin</th>
+                                    <th>Ventes du Jour</th>
+                                    <th>CA du Jour</th>
+                                    <th>Stock Faible</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="storePerformanceTableBody">
+                                <!-- Données chargées dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détails Performance -->
+<div class="modal fade" id="performanceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails de Performance</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="performanceModalContent">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let weeklySalesChart, topProductsChart;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    loadRecentActivity();
+    loadPriorityAlerts();
+    loadStorePerformance();
+});
+
+async function loadDashboardData() {
+    try {
+        const [salesResponse, customersResponse, productsResponse] = await Promise.all([
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/customers', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const sales = await salesResponse.json();
+        const customers = await customersResponse.json();
+        const products = await productsResponse.json();
+
+        // Calculer les statistiques du jour
+        const today = new Date();
+        const todaySales = sales.filter(sale => {
+            const saleDate = new Date(sale.created_at);
+            return saleDate.toDateString() === today.toDateString();
+        });
+
+        const todayRevenue = todaySales.reduce((sum, sale) => sum + sale.total_amount, 0);
+        const stockAlerts = products.filter(p => p.stock <= p.min_stock).length;
+
+        // Mettre à jour les statistiques
+        document.getElementById('today-sales').textContent = todaySales.length;
+        document.getElementById('today-revenue').textContent = todayRevenue.toFixed(2) + ' €';
+        document.getElementById('new-customers').textContent = customers.length;
+        document.getElementById('stock-alerts').textContent = stockAlerts;
+
+        // Créer les graphiques
+        createWeeklySalesChart(sales);
+        createTopProductsChart(sales);
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+        showAlert('Erreur lors du chargement des données', 'danger');
+    }
+}
+
+function createWeeklySalesChart(sales) {
+    const ctx = document.getElementById('weeklySalesChart').getContext('2d');
+    
+    // Générer les 7 derniers jours
+    const last7Days = [];
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        last7Days.push(date.toLocaleDateString('fr-FR', { weekday: 'short' }));
+    }
+
+    // Compter les ventes par jour
+    const salesByDay = {};
+    last7Days.forEach(day => salesByDay[day] = 0);
+
+    sales.forEach(sale => {
+        const saleDate = new Date(sale.created_at);
+        const dayKey = saleDate.toLocaleDateString('fr-FR', { weekday: 'short' });
+        if (salesByDay.hasOwnProperty(dayKey)) {
+            salesByDay[dayKey]++;
+        }
+    });
+
+    weeklySalesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(salesByDay),
+            datasets: [{
+                label: 'Ventes',
+                data: Object.values(salesByDay),
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function createTopProductsChart(sales) {
+    const ctx = document.getElementById('topProductsChart').getContext('2d');
+    
+    // Compter les ventes par produit
+    const productSales = {};
+    sales.forEach(sale => {
+        if (sale.items) {
+            sale.items.forEach(item => {
+                const productName = item.product_name || 'Produit inconnu';
+                productSales[productName] = (productSales[productName] || 0) + item.quantity;
+            });
+        }
+    });
+
+    // Prendre les 5 meilleurs produits
+    const topProducts = Object.entries(productSales)
+        .sort(([,a], [,b]) => b - a)
+        .slice(0, 5);
+
+    topProductsChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: topProducts.map(([name]) => name),
+            datasets: [{
+                data: topProducts.map(([,count]) => count),
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+async function loadRecentActivity() {
+    try {
+        const [salesResponse, customersResponse] = await Promise.all([
+            fetch('/api/sales?limit=5', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/customers?limit=5', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const sales = await salesResponse.json();
+        const customers = await customersResponse.json();
+
+        const activityContainer = document.getElementById('recentActivity');
+        activityContainer.innerHTML = '';
+
+        // Combiner et trier les activités
+        const activities = [
+            ...sales.map(sale => ({
+                type: 'sale',
+                date: new Date(sale.created_at),
+                text: `Nouvelle vente de ${sale.total_amount} €`
+            })),
+            ...customers.map(customer => ({
+                type: 'customer',
+                date: new Date(customer.created_at),
+                text: `Nouveau client: ${customer.name}`
+            }))
+        ].sort((a, b) => b.date - a.date).slice(0, 10);
+
+        activities.forEach(activity => {
+            const activityDiv = document.createElement('div');
+            activityDiv.className = 'd-flex align-items-center mb-3';
+            activityDiv.innerHTML = `
+                <div class="mr-3">
+                    <i class="fas fa-${activity.type === 'sale' ? 'shopping-cart' : 'user'} text-${activity.type === 'sale' ? 'success' : 'info'}"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="small text-gray-500">${activity.date.toLocaleString()}</div>
+                    <div>${activity.text}</div>
+                </div>
+            `;
+            activityContainer.appendChild(activityDiv);
+        });
+
+    } catch (error) {
+        console.error('Erreur lors du chargement de l\'activité récente:', error);
+    }
+}
+
+async function loadPriorityAlerts() {
+    try {
+        const [productsResponse, salesResponse] = await Promise.all([
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const products = await productsResponse.json();
+        const sales = await salesResponse.json();
+
+        const alertsContainer = document.getElementById('priorityAlerts');
+        alertsContainer.innerHTML = '';
+
+        const alerts = [];
+
+        // Produits en rupture de stock
+        const outOfStock = products.filter(p => p.stock === 0);
+        if (outOfStock.length > 0) {
+            alerts.push({
+                type: 'danger',
+                icon: 'times-circle',
+                title: 'Rupture de stock',
+                message: `${outOfStock.length} produit(s) en rupture`
+            });
+        }
+
+        // Produits avec stock faible
+        const lowStock = products.filter(p => p.stock <= p.min_stock && p.stock > 0);
+        if (lowStock.length > 0) {
+            alerts.push({
+                type: 'warning',
+                icon: 'exclamation-triangle',
+                title: 'Stock faible',
+                message: `${lowStock.length} produit(s) à réapprovisionner`
+            });
+        }
+
+        // Ventes du jour
+        const today = new Date();
+        const todaySales = sales.filter(sale => {
+            const saleDate = new Date(sale.created_at);
+            return saleDate.toDateString() === today.toDateString();
+        });
+
+        if (todaySales.length === 0) {
+            alerts.push({
+                type: 'info',
+                icon: 'info-circle',
+                title: 'Aucune vente',
+                message: 'Aucune vente enregistrée aujourd\'hui'
+            });
+        }
+
+        alerts.forEach(alert => {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${alert.type} alert-sm mb-2`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${alert.icon}"></i>
+                <strong>${alert.title}:</strong> ${alert.message}
+            `;
+            alertsContainer.appendChild(alertDiv);
+        });
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des alertes:', error);
+    }
+}
+
+async function loadStorePerformance() {
+    try {
+        const [storesResponse, salesResponse, productsResponse] = await Promise.all([
+            fetch('/api/stores', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const stores = await storesResponse.json();
+        const sales = await salesResponse.json();
+        const products = await productsResponse.json();
+
+        const tbody = document.getElementById('storePerformanceTableBody');
+        tbody.innerHTML = '';
+
+        const today = new Date();
+
+        stores.forEach(store => {
+            // Ventes du jour pour ce magasin
+            const storeSales = sales.filter(sale => {
+                const saleDate = new Date(sale.created_at);
+                return saleDate.toDateString() === today.toDateString() && sale.store_id === store.id;
+            });
+
+            const todayRevenue = storeSales.reduce((sum, sale) => sum + sale.total_amount, 0);
+            
+            // Produits avec stock faible pour ce magasin
+            const lowStockProducts = products.filter(p => p.store_id === store.id && p.stock <= p.min_stock).length;
+
+            // Calculer la performance (basée sur les ventes du jour)
+            const performance = storeSales.length > 0 ? 'Bon' : 'À améliorer';
+            const performanceClass = storeSales.length > 0 ? 'text-success' : 'text-warning';
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${store.name}</td>
+                <td>${storeSales.length}</td>
+                <td>${todayRevenue.toFixed(2)} €</td>
+                <td>
+                    <span class="badge ${lowStockProducts > 0 ? 'badge-warning' : 'badge-success'}">
+                        ${lowStockProducts}
+                    </span>
+                </td>
+                <td class="${performanceClass}">${performance}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des performances des magasins:', error);
+    }
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}

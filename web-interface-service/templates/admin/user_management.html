@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des Utilisateurs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Gestion des Utilisateurs</h1>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                    <i class="fas fa-plus"></i> Nouvel Utilisateur
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtres -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select class="form-control" id="roleFilter">
+                <option value="">Tous les rôles</option>
+                <option value="admin">Administrateur</option>
+                <option value="manager">Manager</option>
+                <option value="product_manage">Gestionnaire Produits</option>
+                <option value="logistics">Logistique</option>
+                <option value="client">Client</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="searchUser" placeholder="Rechercher un utilisateur...">
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="statusFilter">
+                <option value="">Tous les statuts</option>
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary" onclick="applyFilters()">
+                <i class="fas fa-filter"></i> Filtrer
+            </button>
+        </div>
+    </div>
+
+    <!-- Tableau des utilisateurs -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des Utilisateurs</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Statut</th>
+                            <th>Date de Création</th>
+                            <th>Dernière Connexion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Données chargées dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajout/Modification Utilisateur -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalTitle">Nouvel Utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userName">Nom complet *</label>
+                                <input type="text" class="form-control" id="userName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userEmail">Email *</label>
+                                <input type="email" class="form-control" id="userEmail" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userPassword">Mot de passe *</label>
+                                <input type="password" class="form-control" id="userPassword" required>
+                                <small class="form-text text-muted">Laissez vide pour conserver le mot de passe actuel lors de la modification</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userRole">Rôle *</label>
+                                <select class="form-control" id="userRole" required>
+                                    <option value="">Sélectionner un rôle</option>
+                                    <option value="admin">Administrateur</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="product_manage">Gestionnaire Produits</option>
+                                    <option value="logistics">Logistique</option>
+                                    <option value="client">Client</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userStatus">Statut</label>
+                                <select class="form-control" id="userStatus">
+                                    <option value="active">Actif</option>
+                                    <option value="inactive">Inactif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="userPhone">Téléphone</label>
+                                <input type="tel" class="form-control" id="userPhone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userAddress">Adresse</label>
+                        <textarea class="form-control" id="userAddress" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveUser()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirmation Suppression -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+                <p class="text-danger"><strong>Cette action est irréversible.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détails Utilisateur -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails de l'Utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="userDetailsContent">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentUserId = null;
+let users = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadUsers();
+});
+
+async function loadUsers() {
+    try {
+        const response = await fetch('/api/customers', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        users = await response.json();
+        displayUsers(users);
+    } catch (error) {
+        console.error('Erreur lors du chargement des utilisateurs:', error);
+        showAlert('Erreur lors du chargement des utilisateurs', 'danger');
+    }
+}
+
+function displayUsers(users) {
+    const tbody = document.getElementById('usersTableBody');
+    tbody.innerHTML = '';
+
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>
+                <span class="badge badge-${getRoleBadgeClass(user.role)}">
+                    ${getRoleDisplayName(user.role)}
+                </span>
+            </td>
+            <td>
+                <span class="badge badge-${user.status === 'active' ? 'success' : 'secondary'}">
+                    ${user.status === 'active' ? 'Actif' : 'Inactif'}
+                </span>
+            </td>
+            <td>${new Date(user.created_at).toLocaleDateString()}</td>
+            <td>${user.last_login ? new Date(user.last_login).toLocaleDateString() : 'Jamais'}</td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewUserDetails(${user.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="editUser(${user.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getRoleBadgeClass(role) {
+    switch (role) {
+        case 'admin': return 'danger';
+        case 'manager': return 'primary';
+        case 'product_manage': return 'info';
+        case 'logistics': return 'warning';
+        case 'client': return 'success';
+        default: return 'secondary';
+    }
+}
+
+function getRoleDisplayName(role) {
+    switch (role) {
+        case 'admin': return 'Administrateur';
+        case 'manager': return 'Manager';
+        case 'product_manage': return 'Gestionnaire Produits';
+        case 'logistics': return 'Logistique';
+        case 'client': return 'Client';
+        default: return role;
+    }
+}
+
+function applyFilters() {
+    const roleFilter = document.getElementById('roleFilter').value;
+    const searchTerm = document.getElementById('searchUser').value.toLowerCase();
+    const statusFilter = document.getElementById('statusFilter').value;
+
+    const filteredUsers = users.filter(user => {
+        let show = true;
+
+        if (roleFilter && user.role !== roleFilter) show = false;
+        if (statusFilter && user.status !== statusFilter) show = false;
+        if (searchTerm && !user.name.toLowerCase().includes(searchTerm) && !user.email.toLowerCase().includes(searchTerm)) show = false;
+
+        return show;
+    });
+
+    displayUsers(filteredUsers);
+}
+
+function editUser(userId) {
+    currentUserId = userId;
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    document.getElementById('userModalTitle').textContent = 'Modifier l\'Utilisateur';
+    document.getElementById('userId').value = user.id;
+    document.getElementById('userName').value = user.name;
+    document.getElementById('userEmail').value = user.email;
+    document.getElementById('userPassword').value = ''; // Ne pas afficher le mot de passe
+    document.getElementById('userRole').value = user.role;
+    document.getElementById('userStatus').value = user.status || 'active';
+    document.getElementById('userPhone').value = user.phone || '';
+    document.getElementById('userAddress').value = user.address || '';
+    
+    $('#addUserModal').modal('show');
+}
+
+function deleteUser(userId) {
+    currentUserId = userId;
+    $('#deleteConfirmModal').modal('show');
+}
+
+async function confirmDelete() {
+    try {
+        const response = await fetch(`/api/customers/${currentUserId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (response.ok) {
+            showAlert('Utilisateur supprimé avec succès', 'success');
+            $('#deleteConfirmModal').modal('hide');
+            loadUsers();
+        } else {
+            showAlert('Erreur lors de la suppression', 'danger');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors de la suppression', 'danger');
+    }
+}
+
+async function saveUser() {
+    const formData = {
+        name: document.getElementById('userName').value,
+        email: document.getElementById('userEmail').value,
+        role: document.getElementById('userRole').value,
+        status: document.getElementById('userStatus').value,
+        phone: document.getElementById('userPhone').value,
+        address: document.getElementById('userAddress').value
+    };
+
+    // Ajouter le mot de passe seulement s'il est fourni
+    const password = document.getElementById('userPassword').value;
+    if (password) {
+        formData.password = password;
+    }
+
+    const userId = document.getElementById('userId').value;
+    const method = userId ? 'PUT' : 'POST';
+    const url = userId ? `/api/customers/${userId}` : '/api/customers';
+
+    try {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            showAlert(userId ? 'Utilisateur modifié avec succès' : 'Utilisateur créé avec succès', 'success');
+            $('#addUserModal').modal('hide');
+            resetForm();
+            loadUsers();
+        } else {
+            const errorData = await response.json();
+            showAlert(errorData.message || 'Erreur lors de l\'enregistrement', 'danger');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors de l\'enregistrement', 'danger');
+    }
+}
+
+function viewUserDetails(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    const content = document.getElementById('userDetailsContent');
+    content.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Informations personnelles</h6>
+                <p><strong>ID:</strong> ${user.id}</p>
+                <p><strong>Nom:</strong> ${user.name}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Téléphone:</strong> ${user.phone || 'Non renseigné'}</p>
+                <p><strong>Adresse:</strong> ${user.address || 'Non renseignée'}</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Informations système</h6>
+                <p><strong>Rôle:</strong> 
+                    <span class="badge badge-${getRoleBadgeClass(user.role)}">
+                        ${getRoleDisplayName(user.role)}
+                    </span>
+                </p>
+                <p><strong>Statut:</strong> 
+                    <span class="badge badge-${user.status === 'active' ? 'success' : 'secondary'}">
+                        ${user.status === 'active' ? 'Actif' : 'Inactif'}
+                    </span>
+                </p>
+                <p><strong>Date de création:</strong> ${new Date(user.created_at).toLocaleString()}</p>
+                <p><strong>Dernière connexion:</strong> ${user.last_login ? new Date(user.last_login).toLocaleString() : 'Jamais'}</p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <h6>Actions</h6>
+                <button class="btn btn-warning btn-sm" onclick="editUser(${user.id}); $('#userDetailsModal').modal('hide');">
+                    <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id}); $('#userDetailsModal').modal('hide');">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
+            </div>
+        </div>
+    `;
+    
+    $('#userDetailsModal').modal('show');
+}
+
+function resetForm() {
+    document.getElementById('userForm').reset();
+    document.getElementById('userId').value = '';
+    document.getElementById('userModalTitle').textContent = 'Nouvel Utilisateur';
+    currentUserId = null;
+}
+
+// Réinitialiser le formulaire quand le modal se ferme
+$('#addUserModal').on('hidden.bs.modal', function () {
+    resetForm();
+});
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}
+    

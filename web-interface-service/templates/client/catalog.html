@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Catalogue - SuperMarché{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Catalogue des produits</h2>
+            <div>
+                <select id="store-selector" class="form-select" style="width: auto;">
+                    <option value="">Tous les magasins</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="search-bar" style="margin-bottom: 1rem;">
+            <input type="text" id="search-input" class="form-input" placeholder="Rechercher un produit...">
+        </div>
+        
+        <div id="products-container" class="products-grid">
+            <!-- Les produits seront chargés ici via JavaScript -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Charger les magasins pour le sélecteur
+async function loadStores() {
+    try {
+        const stores = await ApiService.getStores();
+        const selector = document.getElementById('store-selector');
+        
+        stores.forEach(store => {
+            const option = document.createElement('option');
+            option.value = store.id;
+            option.textContent = store.name;
+            selector.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erreur lors du chargement des magasins:', error);
+    }
+}
+
+// Charger les produits
+async function loadProducts(storeId = null) {
+    try {
+        const products = await ApiService.getProducts(storeId);
+        displayProducts(products);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement des produits', 'error');
+    }
+}
+
+// Afficher les produits
+function displayProducts(products) {
+    const container = document.getElementById('products-container');
+    
+    if (products.length === 0) {
+        container.innerHTML = '<div class="alert alert-info">Aucun produit trouvé</div>';
+        return;
+    }
+    
+    const html = products.map(product => `
+        <div class="card product-card">
+            <div class="card-header">
+                <h3 class="card-title">${product.name}</h3>
+                <span class="badge">${product.category}</span>
+            </div>
+            <p>${product.description || 'Aucune description'}</p>
+            <div class="product-details">
+                <p><strong>Prix :</strong> ${Utils.formatPrice(product.price)}</p>
+                <p><strong>Stock :</strong> ${product.quantity_stock}</p>
+                <p><strong>Magasin :</strong> ${product.store_id}</p>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-primary btn-add-to-cart" data-product-id="${product.id}" data-price="${product.price}">
+                    Ajouter au panier
+                </button>
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+// Événements
+document.addEventListener('DOMContentLoaded', function() {
+    loadStores();
+    loadProducts();
+    
+    // Filtre par magasin
+    document.getElementById('store-selector').addEventListener('change', function(e) {
+        const storeId = e.target.value || null;
+        loadProducts(storeId);
+    });
+    
+    // Recherche
+    document.getElementById('search-input').addEventListener('input', function(e) {
+        const query = e.target.value;
+        // Implémenter la recherche côté client ou appeler l'API
+    });
+    
+    // Ajouter au panier
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.btn-add-to-cart')) {
+            const productId = e.target.dataset.productId;
+            const price = parseFloat(e.target.dataset.price);
+            
+            const quantity = prompt('Quantité à ajouter :', '1');
+            if (quantity && !isNaN(quantity)) {
+                addToCart(productId, parseInt(quantity), price);
+            }
+        }
+    });
+});
+
+async function addToCart(productId, quantity, price) {
+    try {
+        const storeId = getCurrentStoreId();
+        const itemData = {
+            product_id: productId,
+            quantity: quantity,
+            unit_price: price,
+            store_id: storeId
+        };
+        
+        await ApiService.addToCart(itemData);
+        Utils.showAlert('Produit ajouté au panier !', 'success');
+    } catch (error) {
+        Utils.showAlert('Erreur lors de l\'ajout au panier', 'error');
+    }
+}
+
+function getCurrentStoreId() {
+    const selector = document.getElementById('store-selector');
+    return selector.value || 1; // Magasin par défaut
+}
+</script>
+{% endblock %}

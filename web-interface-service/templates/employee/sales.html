@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des ventes - SuperMarché{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Gestion des ventes</h2>
+            <button class="btn btn-primary" onclick="showCreateSaleModal()">
+                Nouvelle vente
+            </button>
+        </div>
+        
+        <div class="sales-filters" style="margin-bottom: 1rem;">
+            <input type="date" id="start-date" class="form-input" style="width: auto; margin-right: 1rem;">
+            <input type="date" id="end-date" class="form-input" style="width: auto; margin-right: 1rem;">
+            <button class="btn btn-secondary" onclick="filterSales()">Filtrer</button>
+        </div>
+        
+        <div id="sales-container">
+            <!-- Les ventes seront chargées ici via JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour créer une vente -->
+<div id="create-sale-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Nouvelle vente</h3>
+            <span class="close" onclick="hideCreateSaleModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="create-sale-form">
+                <div class="form-group">
+                    <label for="client-id" class="form-label">ID Client</label>
+                    <input type="number" id="client-id" name="client_id" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="store-id" class="form-label">ID Magasin</label>
+                    <input type="number" id="store-id" name="store_id" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Articles</label>
+                    <div id="sale-items">
+                        <div class="sale-item">
+                            <input type="number" name="items[0][product_id]" placeholder="ID Produit" class="form-input" style="width: 30%; margin-right: 1rem;">
+                            <input type="number" name="items[0][quantity]" placeholder="Quantité" class="form-input" style="width: 30%; margin-right: 1rem;">
+                            <input type="number" step="0.01" name="items[0][unit_price]" placeholder="Prix unitaire" class="form-input" style="width: 30%;">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="addSaleItem()">Ajouter un article</button>
+                </div>
+                <button type="submit" class="btn btn-primary">Créer la vente</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let saleItemCount = 1;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadSales();
+    
+    // Gestion du formulaire de création de vente
+    document.getElementById('create-sale-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        createSale();
+    });
+});
+
+async function loadSales() {
+    try {
+        const sales = await ApiService.getSales();
+        displaySales(sales);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement des ventes', 'error');
+    }
+}
+
+function displaySales(sales) {
+    const container = document.getElementById('sales-container');
+    
+    if (!sales || sales.length === 0) {
+        container.innerHTML = '<div class="alert alert-info">Aucune vente trouvée</div>';
+        return;
+    }
+    
+    const salesHtml = sales.map(sale => `
+        <div class="card sale-card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                <h3 class="card-title">Vente #${sale.id}</h3>
+                <span class="sale-date">${Utils.formatDate(sale.created_at)}</span>
+            </div>
+            <div class="sale-details">
+                <p><strong>Client:</strong> #${sale.client_id}</p>
+                <p><strong>Magasin:</strong> #${sale.store_id}</p>
+                <p><strong>Total:</strong> ${Utils.formatPrice(sale.total_amount)}</p>
+            </div>
+            <div class="sale-actions">
+                <button class="btn btn-primary btn-sm" onclick="viewSaleDetails(${sale.id})">
+                    Voir les détails
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deleteSale(${sale.id})">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = salesHtml;
+}
+
+function showCreateSaleModal() {
+    document.getElementById('create-sale-modal').style.display = 'flex';
+}
+
+function hideCreateSaleModal() {
+    document.getElementById('create-sale-modal').style.display = 'none';
+}
+
+function addSaleItem() {
+    const container = document.getElementById('sale-items');
+    const newItem = document.createElement('div');
+    newItem.className = 'sale-item';
+    newItem.style.marginTop = '1rem';
+    newItem.innerHTML = `
+        <input type="number" name="items[${saleItemCount}][product_id]" placeholder="ID Produit" class="form-input" style="width: 30%; margin-right: 1rem;">
+        <input type="number" name="items[${saleItemCount}][quantity]" placeholder="Quantité" class="form-input" style="width: 30%; margin-right: 1rem;">
+        <input type="number" step="0.01" name="items[${saleItemCount}][unit_price]" placeholder="Prix unitaire" class="form-input" style="width: 30%;">
+    `;
+    container.appendChild(newItem);
+    saleItemCount++;
+}
+
+async function createSale() {
+    const form = document.getElementById('create-sale-form');
+    const formData = new FormData(form);
+    
+    // Convertir les données du formulaire en format attendu par l'API
+    const saleData = {
+        client_id: parseInt(formData.get('client_id')),
+        store_id: parseInt(formData.get('store_id')),
+        items: []
+    };
+    
+    // Récupérer tous les articles
+    for (let i = 0; i < saleItemCount; i++) {
+        const productId = formData.get(`items[${i}][product_id]`);
+        const quantity = formData.get(`items[${i}][quantity]`);
+        const unitPrice = formData.get(`items[${i}][unit_price]`);
+        
+        if (productId && quantity && unitPrice) {
+            saleData.items.push({
+                product_id: parseInt(productId),
+                quantity: parseInt(quantity),
+                unit_price: parseFloat(unitPrice)
+            });
+        }
+    }
+    
+    try {
+        await ApiService.createSale(saleData);
+        Utils.showAlert('Vente créée avec succès', 'success');
+        hideCreateSaleModal();
+        loadSales();
+        form.reset();
+    } catch (error) {
+        Utils.showAlert('Erreur lors de la création de la vente', 'error');
+    }
+}
+
+async function viewSaleDetails(saleId) {
+    try {
+        const sale = await ApiService.getSale(saleId);
+        showSaleModal(sale);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement des détails', 'error');
+    }
+}
+
+function showSaleModal(sale) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Détails de la vente #${sale.id}</h3>
+                <span class="close" onclick="this.parentElement.parentElement.parentElement.remove()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>Date:</strong> ${Utils.formatDate(sale.created_at)}</p>
+                <p><strong>Client:</strong> #${sale.client_id}</p>
+                <p><strong>Magasin:</strong> #${sale.store_id}</p>
+                <p><strong>Total:</strong> ${Utils.formatPrice(sale.total_amount)}</p>
+                
+                <h4>Articles vendus:</h4>
+                <div class="sale-items">
+                    ${sale.items ? sale.items.map(item => `
+                        <div class="sale-item">
+                            <span>Produit #${item.product_id}</span>
+                            <span>Quantité: ${item.quantity}</span>
+                            <span>Prix: ${Utils.formatPrice(item.unit_price)}</span>
+                        </div>
+                    `).join('') : 'Aucun détail disponible'}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+async function deleteSale(saleId) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette vente ?')) {
+        try {
+            await ApiService.deleteSale(saleId);
+            Utils.showAlert('Vente supprimée avec succès', 'success');
+            loadSales();
+        } catch (error) {
+            Utils.showAlert('Erreur lors de la suppression', 'error');
+        }
+    }
+}
+
+function filterSales() {
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    
+    // Implémenter le filtrage des ventes
+    console.log('Filtrer les ventes:', { startDate, endDate });
+}
+</script>
+
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #747d8c;
+}
+
+.close:hover {
+    color: #2f3542;
+}
+
+.sale-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f2f6;
+}
+</style>
+{% endblock %}

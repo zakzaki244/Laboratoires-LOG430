@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion des Stocks{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Gestion des Stocks</h1>
+        </div>
+    </div>
+
+    <!-- Statistiques des stocks -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Produits</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-products">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Stock Suffisant</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="sufficient-stock">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Stock Faible</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="low-stock">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Rupture Stock</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="out-of-stock">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtres -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select class="form-control" id="storeFilter">
+                <option value="">Tous les magasins</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="stockFilter">
+                <option value="">Tous les stocks</option>
+                <option value="sufficient">Stock suffisant</option>
+                <option value="low">Stock faible</option>
+                <option value="out">Rupture de stock</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="searchProduct" placeholder="Rechercher un produit...">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" onclick="applyFilters()">
+                <i class="fas fa-filter"></i> Filtrer
+            </button>
+        </div>
+    </div>
+
+    <!-- Tableau des stocks -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">État des Stocks</h6>
+            <button class="btn btn-success" onclick="exportInventory()">
+                <i class="fas fa-download"></i> Exporter
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="inventoryTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Magasin</th>
+                            <th>Stock Actuel</th>
+                            <th>Stock Minimum</th>
+                            <th>État</th>
+                            <th>Dernière Mise à Jour</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <!-- Données chargées dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ajustement Stock -->
+<div class="modal fade" id="adjustStockModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajuster le Stock</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="adjustStockForm">
+                    <input type="hidden" id="adjustProductId">
+                    <div class="form-group">
+                        <label for="currentStock">Stock Actuel</label>
+                        <input type="number" class="form-control" id="currentStock" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="adjustmentType">Type d'ajustement</label>
+                        <select class="form-control" id="adjustmentType" required>
+                            <option value="add">Ajouter du stock</option>
+                            <option value="remove">Retirer du stock</option>
+                            <option value="set">Définir le stock</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adjustmentQuantity">Quantité</label>
+                        <input type="number" class="form-control" id="adjustmentQuantity" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="adjustmentReason">Raison</label>
+                        <textarea class="form-control" id="adjustmentReason" rows="3" placeholder="Raison de l'ajustement..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveStockAdjustment()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Historique des Mouvements -->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Historique des Mouvements de Stock</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="historyContent">
+                    <!-- Contenu chargé dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let products = [];
+let stores = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadStores();
+    loadInventory();
+});
+
+async function loadStores() {
+    try {
+        const response = await fetch('/api/stores', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        stores = await response.json();
+        
+        const storeFilter = document.getElementById('storeFilter');
+        stores.forEach(store => {
+            storeFilter.innerHTML += `<option value="${store.id}">${store.name}</option>`;
+        });
+    } catch (error) {
+        console.error('Erreur lors du chargement des magasins:', error);
+    }
+}
+
+async function loadInventory() {
+    try {
+        const response = await fetch('/api/products', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        products = await response.json();
+        displayInventory(products);
+        updateStatistics(products);
+    } catch (error) {
+        console.error('Erreur lors du chargement de l\'inventaire:', error);
+        showAlert('Erreur lors du chargement de l\'inventaire', 'danger');
+    }
+}
+
+function displayInventory(products) {
+    const tbody = document.getElementById('inventoryTableBody');
+    tbody.innerHTML = '';
+
+    products.forEach(product => {
+        const store = stores.find(s => s.id === product.store_id);
+        const stockStatus = getStockStatus(product.stock, product.min_stock);
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <strong>${product.name}</strong><br>
+                <small class="text-muted">${product.description || 'Aucune description'}</small>
+            </td>
+            <td>${store ? store.name : 'N/A'}</td>
+            <td>
+                <span class="badge ${stockStatus.badge}">${product.stock}</span>
+            </td>
+            <td>${product.min_stock}</td>
+            <td>
+                <span class="badge ${stockStatus.badge}">${stockStatus.text}</span>
+            </td>
+            <td>${new Date(product.updated_at || product.created_at).toLocaleDateString()}</td>
+            <td>
+                <button class="btn btn-sm btn-primary" onclick="adjustStock(${product.id})">
+                    <i class="fas fa-edit"></i> Ajuster
+                </button>
+                <button class="btn btn-sm btn-info" onclick="viewHistory(${product.id})">
+                    <i class="fas fa-history"></i> Historique
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getStockStatus(stock, minStock) {
+    if (stock === 0) {
+        return { text: 'Rupture', badge: 'badge-danger' };
+    } else if (stock <= minStock) {
+        return { text: 'Faible', badge: 'badge-warning' };
+    } else {
+        return { text: 'Suffisant', badge: 'badge-success' };
+    }
+}
+
+function updateStatistics(products) {
+    const total = products.length;
+    const sufficient = products.filter(p => p.stock > p.min_stock).length;
+    const low = products.filter(p => p.stock <= p.min_stock && p.stock > 0).length;
+    const out = products.filter(p => p.stock === 0).length;
+
+    document.getElementById('total-products').textContent = total;
+    document.getElementById('sufficient-stock').textContent = sufficient;
+    document.getElementById('low-stock').textContent = low;
+    document.getElementById('out-of-stock').textContent = out;
+}
+
+function applyFilters() {
+    const storeFilter = document.getElementById('storeFilter').value;
+    const stockFilter = document.getElementById('stockFilter').value;
+    const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+
+    const filteredProducts = products.filter(product => {
+        let show = true;
+
+        // Filtre par magasin
+        if (storeFilter && product.store_id != storeFilter) {
+            show = false;
+        }
+
+        // Filtre par état de stock
+        if (stockFilter) {
+            const status = getStockStatus(product.stock, product.min_stock);
+            if (stockFilter === 'sufficient' && status.text !== 'Suffisant') show = false;
+            if (stockFilter === 'low' && status.text !== 'Faible') show = false;
+            if (stockFilter === 'out' && status.text !== 'Rupture') show = false;
+        }
+
+        // Filtre par recherche
+        if (searchTerm && !product.name.toLowerCase().includes(searchTerm)) {
+            show = false;
+        }
+
+        return show;
+    });
+
+    displayInventory(filteredProducts);
+}
+
+function adjustStock(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    document.getElementById('adjustProductId').value = product.id;
+    document.getElementById('currentStock').value = product.stock;
+    document.getElementById('adjustmentQuantity').value = '';
+    document.getElementById('adjustmentReason').value = '';
+    
+    $('#adjustStockModal').modal('show');
+}
+
+async function saveStockAdjustment() {
+    const productId = document.getElementById('adjustProductId').value;
+    const currentStock = parseInt(document.getElementById('currentStock').value);
+    const adjustmentType = document.getElementById('adjustmentType').value;
+    const quantity = parseInt(document.getElementById('adjustmentQuantity').value);
+    const reason = document.getElementById('adjustmentReason').value;
+
+    let newStock;
+    switch (adjustmentType) {
+        case 'add':
+            newStock = currentStock + quantity;
+            break;
+        case 'remove':
+            newStock = Math.max(0, currentStock - quantity);
+            break;
+        case 'set':
+            newStock = quantity;
+            break;
+    }
+
+    try {
+        const response = await fetch(`/api/products/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                stock: newStock,
+                adjustment_reason: reason
+            })
+        });
+
+        if (response.ok) {
+            showAlert('Stock ajusté avec succès', 'success');
+            $('#adjustStockModal').modal('hide');
+            loadInventory();
+        } else {
+            showAlert('Erreur lors de l\'ajustement du stock', 'danger');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors de l\'ajustement du stock', 'danger');
+    }
+}
+
+function viewHistory(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    // Simuler un historique (dans un vrai projet, cela viendrait d'une API)
+    const historyContent = document.getElementById('historyContent');
+    historyContent.innerHTML = `
+        <h6>Historique pour: ${product.name}</h6>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Quantité</th>
+                        <th>Stock Final</th>
+                        <th>Raison</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${new Date().toLocaleDateString()}</td>
+                        <td><span class="badge badge-info">Ajustement</span></td>
+                        <td>+${product.stock}</td>
+                        <td>${product.stock}</td>
+                        <td>Stock initial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    $('#historyModal').modal('show');
+}
+
+function exportInventory() {
+    const filteredProducts = products.filter(product => {
+        const storeFilter = document.getElementById('storeFilter').value;
+        const stockFilter = document.getElementById('stockFilter').value;
+        
+        if (storeFilter && product.store_id != storeFilter) return false;
+        if (stockFilter) {
+            const status = getStockStatus(product.stock, product.min_stock);
+            if (stockFilter === 'sufficient' && status.text !== 'Suffisant') return false;
+            if (stockFilter === 'low' && status.text !== 'Faible') return false;
+            if (stockFilter === 'out' && status.text !== 'Rupture') return false;
+        }
+        return true;
+    });
+
+    // Créer le contenu CSV
+    let csvContent = "Produit,Magasin,Stock Actuel,Stock Minimum,État\n";
+    filteredProducts.forEach(product => {
+        const store = stores.find(s => s.id === product.store_id);
+        const status = getStockStatus(product.stock, product.min_stock);
+        csvContent += `"${product.name}","${store ? store.name : 'N/A'}",${product.stock},${product.min_stock},"${status.text}"\n`;
+    });
+
+    // Télécharger le fichier
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `inventaire_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Panier - SuperMarché{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Mon panier</h2>
+            <div class="cart-summary">
+                <span class="total-amount">Total: <span id="cart-total">0,00 €</span></span>
+            </div>
+        </div>
+        
+        <div id="cart-container">
+            <!-- Le contenu du panier sera chargé ici via JavaScript -->
+        </div>
+        
+        <div class="cart-actions" style="margin-top: 2rem; text-align: center;">
+            <button class="btn btn-success btn-checkout" style="margin-right: 1rem;">
+                Finaliser la commande
+            </button>
+            <button class="btn btn-danger" onclick="clearCart()">
+                Vider le panier
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadCart();
+});
+
+async function loadCart() {
+    try {
+        const storeId = getCurrentStoreId();
+        const cart = await ApiService.getCart(storeId);
+        displayCart(cart);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement du panier', 'error');
+    }
+}
+
+function displayCart(cart) {
+    const container = document.getElementById('cart-container');
+    const totalElement = document.getElementById('cart-total');
+    
+    if (!cart.items || cart.items.length === 0) {
+        container.innerHTML = `
+            <div class="alert alert-info">
+                <h3>Votre panier est vide</h3>
+                <p>Ajoutez des produits depuis le catalogue pour commencer vos achats.</p>
+                <a href="/client/catalog" class="btn btn-primary">Voir le catalogue</a>
+            </div>
+        `;
+        totalElement.textContent = '0,00 €';
+        return;
+    }
+    
+    const itemsHtml = cart.items.map(item => `
+        <div class="cart-item card" style="margin-bottom: 1rem;">
+            <div class="cart-item-content">
+                <div class="cart-item-info">
+                    <h4>Produit #${item.product_id}</h4>
+                    <p>Prix unitaire: ${Utils.formatPrice(item.unit_price)}</p>
+                </div>
+                <div class="cart-item-quantity">
+                    <label>Quantité:</label>
+                    <input type="number" value="${item.quantity}" min="1" 
+                           onchange="updateQuantity(${item.product_id}, this.value)" 
+                           style="width: 80px; margin: 0 1rem;">
+                </div>
+                <div class="cart-item-subtotal">
+                    <strong>Sous-total: ${Utils.formatPrice(item.quantity * item.unit_price)}</strong>
+                </div>
+                <div class="cart-item-actions">
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${item.product_id})">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = itemsHtml;
+    totalElement.textContent = Utils.formatPrice(cart.total);
+}
+
+async function updateQuantity(productId, quantity) {
+    try {
+        const storeId = getCurrentStoreId();
+        await ApiService.updateCartItem(productId, parseInt(quantity), storeId);
+        Utils.showAlert('Quantité mise à jour', 'success');
+        loadCart();
+    } catch (error) {
+        Utils.showAlert('Erreur lors de la mise à jour', 'error');
+    }
+}
+
+async function removeFromCart(productId) {
+    if (confirm('Êtes-vous sûr de vouloir retirer ce produit du panier ?')) {
+        try {
+            const storeId = getCurrentStoreId();
+            await ApiService.removeFromCart(productId, storeId);
+            Utils.showAlert('Produit retiré du panier', 'success');
+            loadCart();
+        } catch (error) {
+            Utils.showAlert('Erreur lors de la suppression', 'error');
+        }
+    }
+}
+
+async function clearCart() {
+    if (confirm('Êtes-vous sûr de vouloir vider le panier ?')) {
+        try {
+            const storeId = getCurrentStoreId();
+            await ApiService.clearCart(storeId);
+            Utils.showAlert('Panier vidé', 'success');
+            loadCart();
+        } catch (error) {
+            Utils.showAlert('Erreur lors du vidage du panier', 'error');
+        }
+    }
+}
+
+async function processCheckout() {
+    try {
+        const storeId = getCurrentStoreId();
+        const paymentData = {
+            store_id: storeId,
+            payment_data: {
+                payment_method: 'card'
+            }
+        };
+        
+        const result = await ApiService.processCheckout(paymentData);
+        Utils.showAlert('Commande finalisée avec succès !', 'success');
+        setTimeout(() => {
+            window.location.href = '/client/orders';
+        }, 2000);
+    } catch (error) {
+        Utils.showAlert('Erreur lors de la finalisation', 'error');
+    }
+}
+
+function getCurrentStoreId() {
+    // Récupérer l'ID du magasin depuis l'URL ou les paramètres
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('store_id') || 1;
+}
+
+// Événement pour le bouton de finalisation
+document.addEventListener('click', function(e) {
+    if (e.target.matches('.btn-checkout')) {
+        processCheckout();
+    }
+});
+</script>
+{% endblock %}

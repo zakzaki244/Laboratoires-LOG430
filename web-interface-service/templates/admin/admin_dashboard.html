@@ -1,0 +1,627 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de Bord Administrateur{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Tableau de Bord Administrateur</h1>
+        </div>
+    </div>
+
+    <!-- Statistiques principales -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Utilisateurs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-users">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Magasins</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-stores">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-store fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Produits</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-products">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Ventes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-sales">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions rapides -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Actions Administratives</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/users'">
+                                <i class="fas fa-users"></i><br>
+                                Gérer les Utilisateurs
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-success btn-block" onclick="window.location.href='/admin/stores'">
+                                <i class="fas fa-store"></i><br>
+                                Gérer les Magasins
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-info btn-block" onclick="window.location.href='/admin/system'">
+                                <i class="fas fa-cogs"></i><br>
+                                Configuration Système
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-warning btn-block" onclick="window.location.href='/admin/logs'">
+                                <i class="fas fa-file-alt"></i><br>
+                                Logs Système
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphiques de performance -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Évolution des Utilisateurs</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                            <a class="dropdown-item" href="#" onclick="updateUserChart('week')">Cette semaine</a>
+                            <a class="dropdown-item" href="#" onclick="updateUserChart('month')">Ce mois</a>
+                            <a class="dropdown-item" href="#" onclick="updateUserChart('year')">Cette année</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="usersChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition par Rôle</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="rolesChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des derniers utilisateurs -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Derniers Utilisateurs Inscrits</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="recentUsersTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Rôle</th>
+                                    <th>Date d'Inscription</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUsersTableBody">
+                                <!-- Données chargées dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alertes système -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alertes Système</h6>
+                </div>
+                <div class="card-body">
+                    <div id="systemAlerts">
+                        <!-- Alertes chargées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détails Utilisateur -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails de l'Utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="userDetailsContent">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let usersChart, rolesChart;
+let currentPeriod = 'month';
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    loadRecentUsers();
+    loadSystemAlerts();
+});
+
+async function loadDashboardData() {
+    try {
+        const [usersResponse, storesResponse, productsResponse, salesResponse] = await Promise.all([
+            fetch('/api/customers', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/stores', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const users = await usersResponse.json();
+        const stores = await storesResponse.json();
+        const products = await productsResponse.json();
+        const sales = await salesResponse.json();
+
+        // Mettre à jour les statistiques
+        document.getElementById('total-users').textContent = users.length;
+        document.getElementById('total-stores').textContent = stores.length;
+        document.getElementById('total-products').textContent = products.length;
+        document.getElementById('total-sales').textContent = sales.length;
+
+        // Créer les graphiques
+        createUsersChart(users);
+        createRolesChart(users);
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+        showAlert('Erreur lors du chargement des données', 'danger');
+    }
+}
+
+function createUsersChart(users) {
+    const ctx = document.getElementById('usersChart').getContext('2d');
+    
+    // Grouper les utilisateurs par période
+    const usersByPeriod = groupUsersByPeriod(users, currentPeriod);
+
+    usersChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(usersByPeriod),
+            datasets: [{
+                label: 'Nouveaux utilisateurs',
+                data: Object.values(usersByPeriod),
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function createRolesChart(users) {
+    const ctx = document.getElementById('rolesChart').getContext('2d');
+    
+    // Compter les utilisateurs par rôle
+    const usersByRole = {};
+    users.forEach(user => {
+        const roleName = getRoleDisplayName(user.role);
+        usersByRole[roleName] = (usersByRole[roleName] || 0) + 1;
+    });
+
+    rolesChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(usersByRole),
+            datasets: [{
+                data: Object.values(usersByRole),
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+function groupUsersByPeriod(users, period) {
+    const grouped = {};
+    
+    users.forEach(user => {
+        const date = new Date(user.created_at);
+        let key;
+        
+        switch (period) {
+            case 'week':
+                key = date.toLocaleDateString('fr-FR', { weekday: 'short' });
+                break;
+            case 'month':
+                key = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+                break;
+            case 'year':
+                key = date.toLocaleDateString('fr-FR', { month: 'short' });
+                break;
+        }
+        
+        grouped[key] = (grouped[key] || 0) + 1;
+    });
+    
+    return grouped;
+}
+
+function getRoleDisplayName(role) {
+    switch (role) {
+        case 'admin': return 'Administrateur';
+        case 'manager': return 'Manager';
+        case 'product_manage': return 'Gestionnaire Produits';
+        case 'logistics': return 'Logistique';
+        case 'client': return 'Client';
+        default: return role;
+    }
+}
+
+function updateUserChart(period) {
+    currentPeriod = period;
+    if (usersChart) {
+        usersChart.destroy();
+    }
+    loadDashboardData();
+}
+
+async function loadRecentUsers() {
+    try {
+        const response = await fetch('/api/customers?limit=10', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const users = await response.json();
+        displayRecentUsers(users);
+    } catch (error) {
+        console.error('Erreur lors du chargement des utilisateurs récents:', error);
+    }
+}
+
+function displayRecentUsers(users) {
+    const tbody = document.getElementById('recentUsersTableBody');
+    tbody.innerHTML = '';
+
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>
+                <span class="badge badge-${getRoleBadgeClass(user.role)}">
+                    ${getRoleDisplayName(user.role)}
+                </span>
+            </td>
+            <td>${new Date(user.created_at).toLocaleDateString()}</td>
+            <td>
+                <span class="badge badge-${user.status === 'active' ? 'success' : 'secondary'}">
+                    ${user.status === 'active' ? 'Actif' : 'Inactif'}
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewUserDetails(${user.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="editUser(${user.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getRoleBadgeClass(role) {
+    switch (role) {
+        case 'admin': return 'danger';
+        case 'manager': return 'primary';
+        case 'product_manage': return 'info';
+        case 'logistics': return 'warning';
+        case 'client': return 'success';
+        default: return 'secondary';
+    }
+}
+
+async function viewUserDetails(userId) {
+    try {
+        const response = await fetch(`/api/customers/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const user = await response.json();
+        
+        const content = document.getElementById('userDetailsContent');
+        content.innerHTML = `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Informations personnelles</h6>
+                    <p><strong>ID:</strong> ${user.id}</p>
+                    <p><strong>Nom:</strong> ${user.name}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Téléphone:</strong> ${user.phone || 'Non renseigné'}</p>
+                    <p><strong>Adresse:</strong> ${user.address || 'Non renseignée'}</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Informations système</h6>
+                    <p><strong>Rôle:</strong> 
+                        <span class="badge badge-${getRoleBadgeClass(user.role)}">
+                            ${getRoleDisplayName(user.role)}
+                        </span>
+                    </p>
+                    <p><strong>Statut:</strong> 
+                        <span class="badge badge-${user.status === 'active' ? 'success' : 'secondary'}">
+                            ${user.status === 'active' ? 'Actif' : 'Inactif'}
+                        </span>
+                    </p>
+                    <p><strong>Date de création:</strong> ${new Date(user.created_at).toLocaleString()}</p>
+                    <p><strong>Dernière connexion:</strong> ${user.last_login ? new Date(user.last_login).toLocaleString() : 'Jamais'}</p>
+                </div>
+            </div>
+        `;
+        
+        $('#userDetailsModal').modal('show');
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors du chargement des détails', 'danger');
+    }
+}
+
+function editUser(userId) {
+    window.location.href = `/admin/users?edit=${userId}`;
+}
+
+async function loadSystemAlerts() {
+    try {
+        const [usersResponse, productsResponse, salesResponse] = await Promise.all([
+            fetch('/api/customers', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const users = await usersResponse.json();
+        const products = await productsResponse.json();
+        const sales = await salesResponse.json();
+
+        const alertsContainer = document.getElementById('systemAlerts');
+        alertsContainer.innerHTML = '';
+
+        const alerts = [];
+
+        // Vérifier les utilisateurs inactifs
+        const inactiveUsers = users.filter(u => u.status === 'inactive');
+        if (inactiveUsers.length > 0) {
+            alerts.push({
+                type: 'warning',
+                icon: 'user-times',
+                title: 'Utilisateurs inactifs',
+                message: `${inactiveUsers.length} utilisateur(s) inactif(s)`
+            });
+        }
+
+        // Vérifier les produits en rupture de stock
+        const outOfStock = products.filter(p => p.stock === 0);
+        if (outOfStock.length > 0) {
+            alerts.push({
+                type: 'danger',
+                icon: 'exclamation-triangle',
+                title: 'Produits en rupture',
+                message: `${outOfStock.length} produit(s) en rupture de stock`
+            });
+        }
+
+        // Vérifier les nouveaux utilisateurs
+        const today = new Date();
+        const newUsers = users.filter(user => {
+            const userDate = new Date(user.created_at);
+            return userDate.toDateString() === today.toDateString();
+        });
+
+        if (newUsers.length > 0) {
+            alerts.push({
+                type: 'info',
+                icon: 'user-plus',
+                title: 'Nouveaux utilisateurs',
+                message: `${newUsers.length} nouvel(le)(s) utilisateur(s) aujourd'hui`
+            });
+        }
+
+        // Vérifier l'activité des ventes
+        const todaySales = sales.filter(sale => {
+            const saleDate = new Date(sale.created_at);
+            return saleDate.toDateString() === today.toDateString();
+        });
+
+        if (todaySales.length === 0) {
+            alerts.push({
+                type: 'info',
+                icon: 'info-circle',
+                title: 'Aucune vente',
+                message: 'Aucune vente enregistrée aujourd\'hui'
+            });
+        }
+
+        if (alerts.length === 0) {
+            alertsContainer.innerHTML = '<div class="alert alert-success">Aucune alerte système en cours</div>';
+            return;
+        }
+
+        alerts.forEach(alert => {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${alert.type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${alert.icon}"></i>
+                <strong>${alert.title}:</strong> ${alert.message}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            `;
+            alertsContainer.appendChild(alertDiv);
+        });
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des alertes système:', error);
+    }
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}  
+
+    

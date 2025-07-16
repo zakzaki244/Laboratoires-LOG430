@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SuperMarché - Gestion{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="logo">🏪 SuperMarché</a>
+            
+            {% if current_user %}
+            <ul class="nav-links">
+                {% if current_user.role == 'client' %}
+                    <li><a href="/client/catalog">Catalogue</a></li>
+                    <li><a href="/client/cart">Panier</a></li>
+                    <li><a href="/client/orders">Mes commandes</a></li>
+                {% elif current_user.role == 'employe_magasin' %}
+                    <li><a href="/employee/sales">Ventes</a></li>
+                    <li><a href="/employee/stock">Stock</a></li>
+                {% elif current_user.role == 'responsable_produit' %}
+                    <li><a href="/product_manager/products">Produits</a></li>
+                    <li><a href="/product_manager/inventory">Inventaire</a></li>
+                {% elif current_user.role == 'responsable_logistique' %}
+                    <li><a href="/logistics/logistics">Logistique</a></li>
+                    <li><a href="/logistics/reports">Rapports</a></li>
+                {% elif current_user.role == 'gestionnaire' %}
+                    <li><a href="/manager/dashboard">Tableau de bord</a></li>
+                    <li><a href="/manager/management">Gestion</a></li>
+                {% elif current_user.role == 'admin' %}
+                    <li><a href="/admin/dashboard">Administration</a></li>
+                    <li><a href="/admin/user_management">Utilisateurs</a></li>
+                {% endif %}
+            </ul>
+            
+            <div class="user-info">
+                <span class="user-role">{{ current_user.role.replace('_', ' ').title() }}</span>
+                <span>{{ current_user.username }}</span>
+                <button class="logout-btn">Déconnexion</button>
+            </div>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

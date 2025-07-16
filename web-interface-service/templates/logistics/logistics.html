@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Logistique - SuperMarché{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <span class="stat-number" id="total-products">0</span>
+            <span class="stat-label">Produits en stock</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="low-stock-products">0</span>
+            <span class="stat-label">Stock faible</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="total-stores">0</span>
+            <span class="stat-label">Magasins</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="total-sales">0</span>
+            <span class="stat-label">Ventes du jour</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Produits en stock faible</h3>
+            </div>
+            <div id="low-stock-container">
+                <!-- Les produits en stock faible seront chargés ici -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Répartition par magasin</h3>
+            </div>
+            <div id="store-distribution">
+                <!-- La répartition par magasin sera affichée ici -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Actions logistiques</h3>
+        </div>
+        <div class="quick-actions">
+            <a href="/logistics/reports" class="quick-action-btn">
+                <div class="quick-action-icon">📊</div>
+                <div class="quick-action-title">Rapports</div>
+                <div class="quick-action-desc">Consulter les rapports détaillés</div>
+            </a>
+            <a href="/product_manager/inventory" class="quick-action-btn">
+                <div class="quick-action-icon">📦</div>
+                <div class="quick-action-title">Inventaire</div>

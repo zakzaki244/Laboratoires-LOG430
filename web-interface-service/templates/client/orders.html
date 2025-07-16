@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Mes commandes - SuperMarché{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Historique des commandes</h2>
+        </div>
+        
+        <div id="orders-container">
+            <!-- Les commandes seront chargées ici via JavaScript -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadOrders();
+});
+
+async function loadOrders() {
+    try {
+        const orders = await ApiService.getCheckoutHistory();
+        displayOrders(orders);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement des commandes', 'error');
+    }
+}
+
+function displayOrders(orders) {
+    const container = document.getElementById('orders-container');
+    
+    if (!orders || orders.length === 0) {
+        container.innerHTML = `
+            <div class="alert alert-info">
+                <h3>Aucune commande trouvée</h3>
+                <p>Vous n'avez pas encore passé de commande.</p>
+                <a href="/client/catalog" class="btn btn-primary">Voir le catalogue</a>
+            </div>
+        `;
+        return;
+    }
+    
+    const ordersHtml = orders.map(order => `
+        <div class="card order-card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+                <h3 class="card-title">Commande #${order.id}</h3>
+                <span class="order-status ${order.status}">${order.status}</span>
+            </div>
+            <div class="order-details">
+                <p><strong>Date:</strong> ${Utils.formatDate(order.created_at)}</p>
+                <p><strong>Magasin:</strong> #${order.store_id}</p>
+                <p><strong>Total:</strong> ${Utils.formatPrice(order.total_amount)}</p>
+                <p><strong>Méthode de paiement:</strong> ${order.payment_method}</p>
+            </div>
+            <div class="order-actions">
+                <button class="btn btn-primary btn-sm" onclick="viewOrderDetails(${order.id})">
+                    Voir les détails
+                </button>
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = ordersHtml;
+}
+
+async function viewOrderDetails(orderId) {
+    try {
+        const order = await ApiService.getCheckout(orderId);
+        showOrderModal(order);
+    } catch (error) {
+        Utils.showAlert('Erreur lors du chargement des détails', 'error');
+    }
+}
+
+function showOrderModal(order) {
+    // Créer une modal pour afficher les détails de la commande
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Détails de la commande #${order.id}</h3>
+                <span class="close" onclick="this.parentElement.parentElement.parentElement.remove()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>Date:</strong> ${Utils.formatDate(order.created_at)}</p>
+                <p><strong>Magasin:</strong> #${order.store_id}</p>
+                <p><strong>Total:</strong> ${Utils.formatPrice(order.total_amount)}</p>
+                <p><strong>Méthode de paiement:</strong> ${order.payment_method}</p>
+                <p><strong>Statut:</strong> ${order.status}</p>
+                
+                <h4>Articles commandés:</h4>
+                <div class="order-items">
+                    ${order.items ? order.items.map(item => `
+                        <div class="order-item">
+                            <span>Produit #${item.product_id}</span>
+                            <span>Quantité: ${item.quantity}</span>
+                            <span>Prix: ${Utils.formatPrice(item.unit_price)}</span>
+                        </div>
+                    `).join('') : 'Aucun détail disponible'}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+// Styles pour la modal
+const modalStyles = `
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e1e8ed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #747d8c;
+}
+
+.close:hover {
+    color: #2f3542;
+}
+
+.order-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.order-status.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.order-status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.order-status.failed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.order-items {
+    margin-top: 1rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f2f6;
+}
+</style>
+`;
+
+document.head.insertAdjacentHTML('beforeend', modalStyles);
+</script>
+{% endblock %}

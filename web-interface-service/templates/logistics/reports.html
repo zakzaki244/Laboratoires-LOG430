@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% block title %}Rapports Logistiques{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Rapports Logistiques</h1>
+        </div>
+    </div>
+
+    <!-- Statistiques générales -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Magasins</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-stores">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-store fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Produits</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-products">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Ventes du Mois</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthly-sales">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Réapprovisionnements</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="reappro-requests">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-truck fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphiques -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Évolution des Ventes</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="salesChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition par Magasin</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="storeChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des produits à réapprovisionner -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Produits à Réapprovisionner</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="reapproTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Magasin</th>
+                                    <th>Stock Actuel</th>
+                                    <th>Stock Minimum</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reapproTableBody">
+                                <!-- Données chargées dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour les détails -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails du Produit</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="detailsModalBody">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let salesChart, storeChart;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    loadReapproData();
+});
+
+async function loadDashboardData() {
+    try {
+        const [storesResponse, productsResponse, salesResponse] = await Promise.all([
+            fetch('/api/stores', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const stores = await storesResponse.json();
+        const products = await productsResponse.json();
+        const sales = await salesResponse.json();
+
+        // Mise à jour des statistiques
+        document.getElementById('total-stores').textContent = stores.length;
+        document.getElementById('total-products').textContent = products.length;
+        document.getElementById('monthly-sales').textContent = sales.length;
+
+        // Création des graphiques
+        createSalesChart(sales);
+        createStoreChart(stores, products);
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+        showAlert('Erreur lors du chargement des données', 'danger');
+    }
+}
+
+function createSalesChart(sales) {
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    
+    // Grouper les ventes par date
+    const salesByDate = {};
+    sales.forEach(sale => {
+        const date = new Date(sale.created_at).toLocaleDateString();
+        salesByDate[date] = (salesByDate[date] || 0) + 1;
+    });
+
+    salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(salesByDate),
+            datasets: [{
+                label: 'Ventes',
+                data: Object.values(salesByDate),
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function createStoreChart(stores, products) {
+    const ctx = document.getElementById('storeChart').getContext('2d');
+    
+    // Compter les produits par magasin
+    const productsByStore = {};
+    stores.forEach(store => {
+        productsByStore[store.name] = products.filter(p => p.store_id === store.id).length;
+    });
+
+    storeChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(productsByStore),
+            datasets: [{
+                data: Object.values(productsByStore),
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF'
+                ]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}
+
+async function loadReapproData() {
+    try {
+        const response = await fetch('/api/products', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const products = await response.json();
+
+        const tbody = document.getElementById('reapproTableBody');
+        tbody.innerHTML = '';
+
+        products.forEach(product => {
+            if (product.stock <= product.min_stock) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.store_name || 'N/A'}</td>
+                    <td><span class="badge badge-danger">${product.stock}</span></td>
+                    <td>${product.min_stock}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="createReapproRequest(${product.id})">
+                            Demander Réappro
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+        });
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des données de réapprovisionnement:', error);
+    }
+}
+
+async function createReapproRequest(productId) {
+    try {
+        const response = await fetch('/api/reappro-requests', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: 50,
+                status: 'pending'
+            })
+        });
+
+        if (response.ok) {
+            showAlert('Demande de réapprovisionnement créée avec succès', 'success');
+            loadReapproData();
+        } else {
+            showAlert('Erreur lors de la création de la demande', 'danger');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors de la création de la demande', 'danger');
+    }
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}
+
+    

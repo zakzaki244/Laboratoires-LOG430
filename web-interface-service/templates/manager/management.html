@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}Gestion Générale{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-4">Gestion Générale</h1>
+        </div>
+    </div>
+
+    <!-- Statistiques générales -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Ventes</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-sales">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Chiffre d'Affaires</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-revenue">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-euro-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Clients Actifs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="active-customers">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Produits en Rupture</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="out-of-stock">-</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions rapides -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Actions Rapides</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-primary btn-block" onclick="window.location.href='/manager/products'">
+                                <i class="fas fa-box"></i><br>
+                                Gérer les Produits
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-success btn-block" onclick="window.location.href='/manager/stores'">
+                                <i class="fas fa-store"></i><br>
+                                Gérer les Magasins
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-info btn-block" onclick="window.location.href='/manager/sales'">
+                                <i class="fas fa-chart-line"></i><br>
+                                Voir les Ventes
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-warning btn-block" onclick="window.location.href='/manager/reports'">
+                                <i class="fas fa-file-alt"></i><br>
+                                Générer Rapports
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphiques de performance -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Évolution des Ventes</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                            <a class="dropdown-item" href="#" onclick="updateChart('week')">Cette semaine</a>
+                            <a class="dropdown-item" href="#" onclick="updateChart('month')">Ce mois</a>
+                            <a class="dropdown-item" href="#" onclick="updateChart('year')">Cette année</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="salesChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition par Magasin</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="storeChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des dernières ventes -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Dernières Ventes</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="recentSalesTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID Vente</th>
+                                    <th>Client</th>
+                                    <th>Magasin</th>
+                                    <th>Montant</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentSalesTableBody">
+                                <!-- Données chargées dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alertes et notifications -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alertes et Notifications</h6>
+                </div>
+                <div class="card-body">
+                    <div id="alertsContainer">
+                        <!-- Alertes chargées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détails Vente -->
+<div class="modal fade" id="saleDetailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Détails de la Vente</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="saleDetailsContent">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let salesChart, storeChart;
+let currentPeriod = 'month';
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+    loadRecentSales();
+    loadAlerts();
+});
+
+async function loadDashboardData() {
+    try {
+        const [salesResponse, customersResponse, productsResponse] = await Promise.all([
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/customers', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const sales = await salesResponse.json();
+        const customers = await customersResponse.json();
+        const products = await productsResponse.json();
+
+        // Calculer les statistiques
+        const totalRevenue = sales.reduce((sum, sale) => sum + sale.total_amount, 0);
+        const outOfStockProducts = products.filter(p => p.stock === 0).length;
+
+        // Mettre à jour les statistiques
+        document.getElementById('total-sales').textContent = sales.length;
+        document.getElementById('total-revenue').textContent = totalRevenue.toFixed(2) + ' €';
+        document.getElementById('active-customers').textContent = customers.length;
+        document.getElementById('out-of-stock').textContent = outOfStockProducts;
+
+        // Créer les graphiques
+        createSalesChart(sales);
+        createStoreChart(sales);
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des données:', error);
+        showAlert('Erreur lors du chargement des données', 'danger');
+    }
+}
+
+function createSalesChart(sales) {
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    
+    // Grouper les ventes par période
+    const salesByPeriod = groupSalesByPeriod(sales, currentPeriod);
+
+    salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(salesByPeriod),
+            datasets: [{
+                label: 'Ventes',
+                data: Object.values(salesByPeriod),
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function createStoreChart(sales) {
+    const ctx = document.getElementById('storeChart').getContext('2d');
+    
+    // Grouper les ventes par magasin
+    const salesByStore = {};
+    sales.forEach(sale => {
+        const storeName = sale.store_name || 'Magasin inconnu';
+        salesByStore[storeName] = (salesByStore[storeName] || 0) + 1;
+    });
+
+    storeChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(salesByStore),
+            datasets: [{
+                data: Object.values(salesByStore),
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#4BC0C0',
+                    '#9966FF'
+                ]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}
+
+function groupSalesByPeriod(sales, period) {
+    const grouped = {};
+    
+    sales.forEach(sale => {
+        const date = new Date(sale.created_at);
+        let key;
+        
+        switch (period) {
+            case 'week':
+                key = date.toLocaleDateString('fr-FR', { weekday: 'short' });
+                break;
+            case 'month':
+                key = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+                break;
+            case 'year':
+                key = date.toLocaleDateString('fr-FR', { month: 'short' });
+                break;
+        }
+        
+        grouped[key] = (grouped[key] || 0) + 1;
+    });
+    
+    return grouped;
+}
+
+function updateChart(period) {
+    currentPeriod = period;
+    if (salesChart) {
+        salesChart.destroy();
+    }
+    loadDashboardData();
+}
+
+async function loadRecentSales() {
+    try {
+        const response = await fetch('/api/sales?limit=10', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const sales = await response.json();
+        displayRecentSales(sales);
+    } catch (error) {
+        console.error('Erreur lors du chargement des ventes récentes:', error);
+    }
+}
+
+function displayRecentSales(sales) {
+    const tbody = document.getElementById('recentSalesTableBody');
+    tbody.innerHTML = '';
+
+    sales.forEach(sale => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>#${sale.id}</td>
+            <td>${sale.customer_name || 'Client inconnu'}</td>
+            <td>${sale.store_name || 'Magasin inconnu'}</td>
+            <td>${sale.total_amount} €</td>
+            <td>${new Date(sale.created_at).toLocaleDateString()}</td>
+            <td>
+                <span class="badge badge-success">Complétée</span>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="viewSaleDetails(${sale.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+async function viewSaleDetails(saleId) {
+    try {
+        const response = await fetch(`/api/sales/${saleId}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const sale = await response.json();
+        
+        const content = document.getElementById('saleDetailsContent');
+        content.innerHTML = `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Informations de la vente</h6>
+                    <p><strong>ID:</strong> #${sale.id}</p>
+                    <p><strong>Client:</strong> ${sale.customer_name || 'Client inconnu'}</p>
+                    <p><strong>Magasin:</strong> ${sale.store_name || 'Magasin inconnu'}</p>
+                    <p><strong>Date:</strong> ${new Date(sale.created_at).toLocaleString()}</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Articles</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Quantité</th>
+                                    <th>Prix</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${sale.items ? sale.items.map(item => `
+                                    <tr>
+                                        <td>${item.product_name}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>${item.unit_price} €</td>
+                                        <td>${item.quantity * item.unit_price} €</td>
+                                    </tr>
+                                `).join('') : '<tr><td colspan="4">Aucun article</td></tr>'}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-right">
+                        <h5>Total: ${sale.total_amount} €</h5>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        $('#saleDetailsModal').modal('show');
+    } catch (error) {
+        console.error('Erreur:', error);
+        showAlert('Erreur lors du chargement des détails', 'danger');
+    }
+}
+
+async function loadAlerts() {
+    try {
+        const [productsResponse, salesResponse] = await Promise.all([
+            fetch('/api/products', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            fetch('/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        ]);
+
+        const products = await productsResponse.json();
+        const sales = await salesResponse.json();
+
+        const alerts = [];
+        
+        // Vérifier les produits en rupture de stock
+        const outOfStock = products.filter(p => p.stock === 0);
+        if (outOfStock.length > 0) {
+            alerts.push({
+                type: 'danger',
+                icon: 'exclamation-triangle',
+                title: 'Produits en rupture de stock',
+                message: `${outOfStock.length} produit(s) en rupture de stock`
+            });
+        }
+
+        // Vérifier les produits avec stock faible
+        const lowStock = products.filter(p => p.stock <= p.min_stock && p.stock > 0);
+        if (lowStock.length > 0) {
+            alerts.push({
+                type: 'warning',
+                icon: 'exclamation-circle',
+                title: 'Stock faible',
+                message: `${lowStock.length} produit(s) avec un stock faible`
+            });
+        }
+
+        // Vérifier les ventes récentes
+        const today = new Date();
+        const todaySales = sales.filter(sale => {
+            const saleDate = new Date(sale.created_at);
+            return saleDate.toDateString() === today.toDateString();
+        });
+
+        if (todaySales.length > 0) {
+            alerts.push({
+                type: 'info',
+                icon: 'info-circle',
+                title: 'Ventes du jour',
+                message: `${todaySales.length} vente(s) réalisée(s) aujourd'hui`
+            });
+        }
+
+        displayAlerts(alerts);
+
+    } catch (error) {
+        console.error('Erreur lors du chargement des alertes:', error);
+    }
+}
+
+function displayAlerts(alerts) {
+    const container = document.getElementById('alertsContainer');
+    container.innerHTML = '';
+
+    if (alerts.length === 0) {
+        container.innerHTML = '<div class="alert alert-success">Aucune alerte en cours</div>';
+        return;
+    }
+
+    alerts.forEach(alert => {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${alert.type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+            <i class="fas fa-${alert.icon}"></i>
+            <strong>${alert.title}:</strong> ${alert.message}
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        `;
+        container.appendChild(alertDiv);
+    });
+}
+
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}

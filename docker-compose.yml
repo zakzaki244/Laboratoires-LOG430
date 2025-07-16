@@ -1,85 +1,269 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: log430
-      POSTGRES_PASSWORD: laboratoire
-      POSTGRES_DB: log430
-    volumes:
-      - db:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    ports:
-      - "9090:9090"
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-
-  web1:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
-    volumes:
-      - ./src:/app
-    restart: always
-    expose:
-      - "5000"
-
-  web2:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
-    volumes:
-      - ./src:/app
-    restart: always
-    expose:
-      - "5000"
-
+  # NGINX Load Balancer
   nginx:
-    image: nginx:latest
-    depends_on:
-      - web1
-      - web2
+    image: nginx:alpine
     ports:
-      - "5000:80"
+      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api-gateway
+      - web-interface-service
+    networks:
+      - microservices-network
 
-  # web:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - db
-  #   environment:
-  #     DATABASE_URL: postgresql://log430:laboratoire@db:5432/log430
-  #   ports:
-  #     - "5000:5000"
-  #   volumes:
-  #     - ./src:/app
-  #   restart: always
+  # Bases de données PostgreSQL pour chaque microservice
+  customer-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: customerdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - customer_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - microservices-network
+
+  product-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: productdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - product_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - microservices-network
+
+  sales-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: salesdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - sales_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    networks:
+      - microservices-network
+
+  store-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: storedb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - store_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - microservices-network
+
+  cart-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: cartdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - cart_data:/var/lib/postgresql/data
+    ports:
+      - "5436:5432"
+    networks:
+      - microservices-network
+
+  checkout-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: checkoutdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - checkout_data:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+    networks:
+      - microservices-network
+
+  logistics-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: logisticsdb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - logistics_data:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    networks:
+      - microservices-network
+
+  # Microservices
+  customer-service:
+    build: ./customer-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@customer-db:5432/customerdb
+      SECRET_KEY: customer_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - customer-db
+    ports:
+      - "5001:5000"
+    networks:
+      - microservices-network
+
+  product-service:
+    build: ./product-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@product-db:5432/productdb
+      SECRET_KEY: product_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - product-db
+    ports:
+      - "5002:5000"
+    networks:
+      - microservices-network
+
+  sales-service:
+    build: ./sales-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@sales-db:5432/salesdb
+      SECRET_KEY: sales_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - sales-db
+    ports:
+      - "5003:5000"
+    networks:
+      - microservices-network
+
+  store-service:
+    build: ./store-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@store-db:5432/storedb
+      SECRET_KEY: store_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - store-db
+    ports:
+      - "5004:5000"
+    networks:
+      - microservices-network
+
+  cart-service:
+    build: ./cart-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@cart-db:5432/cartdb
+      SECRET_KEY: cart_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - cart-db
+    ports:
+      - "5005:5000"
+    networks:
+      - microservices-network
+
+  checkout-service:
+    build: ./checkout-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@checkout-db:5432/checkoutdb
+      SECRET_KEY: checkout_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+      CART_SERVICE_URL: http://cart-service:5000
+      SALES_SERVICE_URL: http://sales-service:5000
+      PRODUCT_SERVICE_URL: http://product-service:5000
+    depends_on:
+      - checkout-db
+      - cart-service
+      - sales-service
+      - product-service
+    ports:
+      - "5006:5000"
+    networks:
+      - microservices-network
+
+  logistics-service:
+    build: ./logistics-service
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@logistics-db:5432/logisticsdb
+      SECRET_KEY: logistics_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+    depends_on:
+      - logistics-db
+    ports:
+      - "5007:5000"
+    networks:
+      - microservices-network
+
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway
+    environment:
+      SECRET_KEY: gateway_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+      CUSTOMER_SERVICE_URL: http://customer-service:5000
+      PRODUCT_SERVICE_URL: http://product-service:5000
+      SALES_SERVICE_URL: http://sales-service:5000
+      STORE_SERVICE_URL: http://store-service:5000
+      CART_SERVICE_URL: http://cart-service:5000
+      CHECKOUT_SERVICE_URL: http://checkout-service:5000
+      LOGISTICS_SERVICE_URL: http://logistics-service:5000
+    depends_on:
+      - customer-service
+      - product-service
+      - sales-service
+      - store-service
+      - cart-service
+      - checkout-service
+      - logistics-service
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-network
+
+  # Web Interface Service
+  web-interface-service:
+    build: ./web-interface-service
+    environment:
+      SECRET_KEY: web_interface_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+      API_GATEWAY_URL: http://api-gateway:8080
+    depends_on:
+      - api-gateway
+    ports:
+      - "5000:5000"
+    networks:
+      - microservices-network
+
+  # Services d'initialisation des données (optionnel)
+  customer-init:
+    build: ./customer-service
+    command: python init_data.py
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@customer-db:5432/customerdb
+    depends_on:
+      - customer-db
+    networks:
+      - microservices-network
 
 volumes:
-  db:
-  grafana_data:
+  customer_data:
+  product_data:
+  sales_data:
+  store_data:
+  cart_data:
+  checkout_data:
+  logistics_data:
+
+networks:
+  microservices-network:
+    driver: bridge
