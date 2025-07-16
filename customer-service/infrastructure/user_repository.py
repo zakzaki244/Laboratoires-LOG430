@@ -56,3 +56,15 @@ class UserRepository:
 
     def list_all(self):
         return UserModel.query.all()
+    
+    def get_by_email(self, email):
+        user_model = UserModel.query.filter_by(email=email).first()
+        if user_model:
+            return User(
+                id=user_model.id,
+                username=user_model.username,
+                email=user_model.email,
+                password_hash=user_model.password_hash,
+                role=user_model.role
+            )
+        return None

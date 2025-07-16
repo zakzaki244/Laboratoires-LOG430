@@ -20,7 +20,11 @@ class UserService:
         return {'id': user_id, 'message': "Utilisateur enregistré avec succès"}, 201
 
     def login(self, data):
-        user = self.user_repository.get_by_username(data['username'])
+        user = None
+        if 'email' in data:
+            user = self.user_repository.get_by_email(data['email'])
+        elif 'username' in data:
+            user = self.user_repository.get_by_username(data['username'])
         if not user or not check_password_hash(user.password_hash, data['password']):
             return {'message': "Identifiants invalides"}, 401
         token = generate_jwt({'user_id': user.id, 'role': user.role})
