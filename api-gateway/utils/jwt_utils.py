@@ -21,7 +21,7 @@ def jwt_required(f):
     return decorated
 
 def role_required(roles):
-    def decorator(f):
+    def role_decorator(f):
         @wraps(f)
         def decorated(*args, **kwargs):
             user = getattr(g, 'user', None)
@@ -29,4 +29,4 @@ def role_required(roles):
                 return {'message': 'Accès interdit'}, 403
             return f(*args, **kwargs)
         return decorated
-    return decorator
+    return role_decorator
