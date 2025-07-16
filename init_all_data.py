@@ -11,13 +11,13 @@ from datetime import datetime
 
 # Configuration des services
 SERVICES = {
-    'customer': 'http://localhost:5001',
-    'product': 'http://localhost:5002',
-    'sales': 'http://localhost:5003',
-    'store': 'http://localhost:5004',
-    'cart': 'http://localhost:5005',
-    'checkout': 'http://localhost:5006',
-    'logistics': 'http://localhost:5007'
+    'customer': 'http://10.194.32.174:5001',
+    'product': 'http://10.194.32.174:5002',
+    'sales': 'http://10.194.32.174:5003',
+    'store': 'http://10.194.32.174:5004',
+    'cart': 'http://10.194.32.174:5005',
+    'checkout': 'http://10.194.32.174:5006',
+    'logistics': 'http://10.194.32.174:5007'
 }
 
 def wait_for_service(url, service_name):
