@@ -17,7 +17,7 @@ SERVICES = {
     'store': 'http://10.194.32.174:5004',
     'cart': 'http://10.194.32.174:5005',
     'checkout': 'http://10.194.32.174:5006',
-    #'logistics': 'http://10.194.32.174:5007'
+    'logistics': 'http://10.194.32.174:5007'
 }
 
 def wait_for_service(url, service_name):
@@ -117,7 +117,7 @@ def init_customer_service():
     for customer in customers:
         try:
             response = requests.post(
-                f"{SERVICES['customer']}/customers",
+                f"{SERVICES['customer']}/register",
                 json=customer,
                 headers={'Content-Type': 'application/json'}
             )
@@ -128,7 +128,25 @@ def init_customer_service():
         except Exception as e:
             print(f"❌ Error creating customer {customer['name']}: {e}")
 
-def init_store_service():
+    # Login admin pour obtenir le token
+    try:
+        login_resp = requests.post(
+            f"{SERVICES['customer']}/login",
+            json={"email": "admin@supermarche.com", "password": "admin123"},
+            headers={'Content-Type': 'application/json'}
+        )
+        if login_resp.status_code == 200:
+            token = login_resp.json().get("token")
+            print("✅ Admin login successful, token obtained.")
+        else:
+            print(f"❌ Admin login failed: {login_resp.text}")
+            token = None
+    except Exception as e:
+        print(f"❌ Error during admin login: {e}")
+        token = None
+    return token
+
+def init_store_service(headers):
     """Initialiser les magasins et le centre logistique"""
     print("\n🏪 Initializing Store Service...")
     
@@ -175,7 +193,7 @@ def init_store_service():
             response = requests.post(
                 f"{SERVICES['store']}/stores",
                 json=store,
-                headers={'Content-Type': 'application/json'}
+                headers=headers
             )
             if response.status_code == 201:
                 print(f"✅ Created store: {store['name']} ({store['type']})")
@@ -184,7 +202,7 @@ def init_store_service():
         except Exception as e:
             print(f"❌ Error creating store {store['name']}: {e}")
 
-def init_product_service():
+def init_product_service(headers):
     """Initialiser les produits par catégories"""
     print("\n📦 Initializing Product Service...")
     
@@ -465,7 +483,7 @@ def init_product_service():
             response = requests.post(
                 f"{SERVICES['product']}/products",
                 json=product,
-                headers={'Content-Type': 'application/json'}
+                headers=headers
             )
             if response.status_code == 201:
                 print(f"✅ Created product: {product['name']} ({product['category']})")
@@ -474,7 +492,7 @@ def init_product_service():
         except Exception as e:
             print(f"❌ Error creating product {product['name']}: {e}")
 
-def init_sales_service():
+def init_sales_service(headers):
     """Initialiser quelques ventes de test"""
     print("\n💰 Initializing Sales Service...")
     
@@ -517,7 +535,7 @@ def init_sales_service():
                 response = requests.post(
                     f"{SERVICES['sales']}/sales",
                     json=sale,
-                    headers={'Content-Type': 'application/json'}
+                    headers=headers
                 )
                 if response.status_code == 201:
                     print(f"✅ Created sale for customer {sale['customer_id']}")
@@ -529,7 +547,7 @@ def init_sales_service():
     except Exception as e:
         print(f"❌ Error initializing sales: {e}")
 
-def init_logistics_service():
+def init_logistics_service(headers):
     """Initialiser les données logistiques"""
     print("\n🚚 Initializing Logistics Service...")
     
@@ -563,7 +581,7 @@ def init_logistics_service():
             response = requests.post(
                 f"{SERVICES['logistics']}/restock-requests",
                 json=request,
-                headers={'Content-Type': 'application/json'}
+                headers=headers
             )
             if response.status_code == 201:
                 print(f"✅ Created restock request for product {request['product_id']}")
@@ -588,12 +606,17 @@ def main():
     
     print("\n✅ All services are ready! Starting data initialization...")
     
+    admin_token = init_customer_service()
+    if not admin_token:
+        print("❌ Impossible d'obtenir le token admin, arrêt du script.")
+        return
+    headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {admin_token}'}
+
     # Initialiser les données dans l'ordre des dépendances
-    init_customer_service()
-    init_store_service()
-    init_product_service()
-    init_sales_service()
-    init_logistics_service()
+    init_store_service(headers)
+    init_product_service(headers)
+    init_sales_service(headers)
+    init_logistics_service(headers)
     
     print("\n🎉 Data initialization completed!")
     print("\n📋 Summary of created data:")
