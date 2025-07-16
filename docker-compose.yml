@@ -216,7 +216,7 @@ services:
       STORE_SERVICE_URL: http://store-service:5000
       CART_SERVICE_URL: http://cart-service:5000
       CHECKOUT_SERVICE_URL: http://checkout-service:5000
-      LOGISTICS_SERVICE_URL: http://logistics-service:5000
+#      LOGISTICS_SERVICE_URL: http://logistics-service:5000
     depends_on:
       - customer-service
       - product-service
@@ -224,7 +224,7 @@ services:
       - store-service
       - cart-service
       - checkout-service
-      - logistics-service
+#      - logistics-service
     ports:
       - "8080:8080"
     networks:
