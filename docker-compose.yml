@@ -93,6 +93,19 @@ services:
     networks:
       - microservices-network
 
+  saga-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sagadb
+      POSTGRES_USER: log430
+      POSTGRES_PASSWORD: laboratoire
+    volumes:
+      - saga_data:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    networks:
+      - microservices-network
+
 #  logistics-db:
 #    image: postgres:15
 #    environment:
@@ -191,6 +204,25 @@ services:
     networks:
       - microservices-network
 
+  saga-orchestrator:
+    build: ./saga-orchestrator
+    environment:
+      DATABASE_URL: postgresql://log430:laboratoire@saga-db:5432/sagadb
+      SECRET_KEY: saga_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+      PRODUCT_SERVICE_URL: http://product-service:5000
+      SALES_SERVICE_URL: http://sales-service:5000
+      CUSTOMER_SERVICE_URL: http://customer-service:5000
+    depends_on:
+      - saga-db
+      - product-service
+      - sales-service
+      - customer-service
+    ports:
+      - "5007:5000"
+    networks:
+      - microservices-network
+
 #  logistics-service:
 #    build: ./logistics-service
 #    environment:
@@ -216,6 +248,7 @@ services:
       STORE_SERVICE_URL: http://store-service:5000
       CART_SERVICE_URL: http://cart-service:5000
       CHECKOUT_SERVICE_URL: http://checkout-service:5000
+      SAGA_ORCHESTRATOR_URL: http://saga-orchestrator:5000
 #      LOGISTICS_SERVICE_URL: http://logistics-service:5000
     depends_on:
       - customer-service
@@ -224,6 +257,7 @@ services:
       - store-service
       - cart-service
       - checkout-service
+      - saga-orchestrator
 #      - logistics-service
     ports:
       - "8080:8080"
@@ -262,6 +296,7 @@ volumes:
   store_data:
   cart_data:
   checkout_data:
+  saga_data:
   logistics_data:
 
 networks:

@@ -2,6 +2,7 @@ from flask import Flask
 from config import Config
 from infrastructure.db import db
 from interface.product_routes import bp as product_bp
+from interface.saga_routes import bp as saga_bp
 
 def create_app():
     app = Flask(__name__)
@@ -13,6 +14,7 @@ def create_app():
         db.create_all()
     
     app.register_blueprint(product_bp)
+    app.register_blueprint(saga_bp)
     return app
 
 if __name__ == '__main__':
