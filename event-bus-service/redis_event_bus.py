@@ -5,7 +5,7 @@ from typing import List, Dict, Any, Callable, Optional
 import logging
 from datetime import datetime
 
-from .events import Event, EventBus, EventHandler
+from events import Event, EventBus, EventHandler
 
 logger = logging.getLogger(__name__)
 

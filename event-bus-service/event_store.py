@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 import json
 import logging
 
-from .events import Event
+from events import Event
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class MongoEventStore:
     def store_event(self, event: Event) -> bool:
         """Stocke un événement dans l'Event Store"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             # Convertir l'événement en document MongoDB
@@ -79,7 +79,7 @@ class MongoEventStore:
     def store_events_batch(self, events: List[Event]) -> bool:
         """Stocke plusieurs événements en batch"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             # Convertir tous les événements
@@ -114,7 +114,7 @@ class MongoEventStore:
     def get_events_by_aggregate(self, aggregate_id: str, from_version: int = 0) -> List[Event]:
         """Récupère tous les événements pour un agrégat donné"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             # Requête MongoDB
@@ -149,7 +149,7 @@ class MongoEventStore:
     def get_events_by_type(self, event_type: str, limit: int = 100) -> List[Event]:
         """Récupère les événements par type"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             cursor = self.events_collection.find(
@@ -179,7 +179,7 @@ class MongoEventStore:
     def get_events_since(self, since: datetime, limit: int = 1000) -> List[Event]:
         """Récupère les événements depuis une date donnée"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             cursor = self.events_collection.find(
@@ -210,7 +210,7 @@ class MongoEventStore:
     def get_event_by_id(self, event_id: str) -> Optional[Event]:
         """Récupère un événement par son ID"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             doc = self.events_collection.find_one({"event_id": event_id})
@@ -236,7 +236,7 @@ class MongoEventStore:
     def get_stats(self) -> Dict[str, Any]:
         """Obtient les statistiques de l'Event Store"""
         try:
-            if not self.events_collection:
+            if self.events_collection is None:
                 self.connect()
             
             total_events = self.events_collection.count_documents({})
@@ -272,7 +272,7 @@ class MongoEventStore:
     def create_snapshot(self, aggregate_id: str, version: int, data: Dict[str, Any]) -> bool:
         """Crée un snapshot d'un agrégat pour optimiser la reconstruction"""
         try:
-            if not self.snapshots_collection:
+            if self.snapshots_collection is None:
                 self.connect()
             
             snapshot_doc = {
@@ -299,7 +299,7 @@ class MongoEventStore:
     def get_snapshot(self, aggregate_id: str) -> Optional[Dict[str, Any]]:
         """Récupère le snapshot le plus récent d'un agrégat"""
         try:
-            if not self.snapshots_collection:
+            if self.snapshots_collection is None:
                 self.connect()
             
             snapshot = self.snapshots_collection.find_one({"aggregate_id": aggregate_id})

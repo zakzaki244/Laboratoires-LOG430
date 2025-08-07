@@ -94,7 +94,7 @@ services:
     depends_on:
       - event-bus-service
     ports:
-      - "5022:5000"
+      - "5032:5000"
     networks:
       - microservices-network
     healthcheck:

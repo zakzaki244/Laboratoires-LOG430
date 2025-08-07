@@ -29,7 +29,6 @@ REDIS_URL = os.getenv('REDIS_URL', 'redis://redis-events:6379')
 event_store = MongoEventStore(MONGODB_URL)
 event_bus = RedisEventBus(REDIS_URL)
 
-@app.before_first_request
 def initialize_services():
     """Initialise les services au démarrage"""
     try:
@@ -37,6 +36,9 @@ def initialize_services():
         logger.info("Event Store initialized")
     except Exception as e:
         logger.error(f"Failed to initialize Event Store: {e}")
+
+# Initialisation immédiate des services
+initialize_services()
 
 @app.route('/health', methods=['GET'])
 def health_check():

@@ -11,12 +11,12 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Event:
     """Modèle de base pour tous les événements"""
-    event_id: str
     event_type: str
     aggregate_id: str
     aggregate_type: str
     data: Dict[str, Any]
-    timestamp: datetime
+    event_id: Optional[str] = None
+    timestamp: Optional[datetime] = None
     version: int = 1
     correlation_id: Optional[str] = None
     
