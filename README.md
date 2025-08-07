@@ -1,83 +1,185 @@
-# 🏗️ Saga Orchestrator - Laboratoire 6 LOG430
+# 🏗️ Laboratoire 6 LOG430 - Saga Orchestrée Synchrone
 
-## 📋 Description
+## 📋 Vue d'ensemble
 
-Ce service implémente une **Saga orchestrée synchrone** pour gérer le processus de commande dans l'architecture microservices e-commerce. La Saga coordonne les interactions entre les microservices pour assurer la cohérence des données et la gestion des échecs.
+Ce laboratoire implémente une **Saga orchestrée synchrone** pour gérer le processus de commande dans une architecture microservices e-commerce. Le système assure la cohérence des données distribuées avec une gestion complète des échecs, des compensations automatiques et une observabilité avancée.
 
-## 🎯 Objectifs
+## 🎯 Objectifs du Laboratoire
 
-- **Saga orchestrée synchrone** : Coordination centralisée des microservices
-- **Machine d'état** : Suivi de l'évolution des commandes
-- **Gestion des échecs** : Mécanismes de compensation automatiques
-- **Observabilité** : Métriques Prometheus et logs structurés
+1. **Saga orchestrée synchrone** : Coordination centralisée des microservices
+2. **Machine d'état** : Suivi précis de l'évolution des commandes
+3. **Gestion des échecs** : Mécanismes de compensation automatiques et rollback
+4. **Observabilité** : Métriques Prometheus, dashboards Grafana et logs structurés
+5. **Tests complets** : Validation des scénarios de succès et d'échec
 
-## 🔄 Flux de la Saga
+---
 
+#  RAPPORT STRUCTURÉ - LABORATOIRE 6
+
+## 1. 🎭 Scénario Métier Implémenté
+
+### Contexte
+L'application e-commerce gère des commandes clients impliquant plusieurs microservices. Le défi principal est d'assurer la **cohérence des données distribuées** lors du processus de commande.
+
+### Scénario Principal : "Commande Client"
+1. **Acteur** : Client connecté
+2. **Objectif** : Passer une commande de produits
+3. **Préconditions** : 
+   - Client authentifié
+   - Produits disponibles dans le catalogue
+   - Système de paiement opérationnel
+
+### Flux Nominal
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   INITIATED     │───▶│ STOCK_CHECKED   │───▶│ STOCK_RESERVED  │───▶│ PAYMENT_PROCESSED│
-└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │                       │
-         ▼                       ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│     FAILED      │    │     FAILED      │    │     FAILED      │    │   CONFIRMED     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+Client → [API Gateway] → [Saga Orchestrator]
+                              ↓
+                    ┌─── Product Service (Vérif. stock)
+                    ├─── Product Service (Réservation)
+                    ├─── Sales Service (Paiement)
+                    └─── Sales Service (Confirmation)
 ```
 
-### Étapes de la Saga :
+### Défis Métier Résolus
+- **Cohérence** : Éviter les commandes sans stock suffisant
+- **Fiabilité** : Gérer les pannes de services
+- **Traçabilité** : Suivre l'état de chaque commande
+- **Compensation** : Annuler les opérations partielles en cas d'échec
 
-1. **Vérification du stock** (`STOCK_CHECKED`)
-   - Appel au service produit pour vérifier la disponibilité
-   - Échec si stock insuffisant
+## 2. 🔄 Saga Implémentée : Orchestration Synchrone
 
-2. **Réservation du stock** (`STOCK_RESERVED`)
-   - Réserve les produits pour la commande
-   - Réduit le stock disponible
+### Architecture Choisie
+**Pattern Saga Orchestrée** avec orchestrateur centralisé synchrone.
 
-3. **Traitement du paiement** (`PAYMENT_PROCESSED`)
-   - Appel au service de vente pour le paiement
-   - Échec si paiement refusé
+### Justification du Choix
+- ✅ **Contrôle centralisé** : Plus facile à déboguer et monitorer
+- ✅ **Cohérence** : Gestion séquentielle des étapes
+- ✅ **Simplicité** : Logique métier centralisée
+- ✅ **Observabilité** : Point unique de supervision
 
-4. **Confirmation de la commande** (`CONFIRMED`)
-   - Crée la vente dans la base de données
-   - État final de succès
+### Services Coordonnés
+1. **Product Service** : Gestion des stocks
+2. **Sales Service** : Traitement des paiements et ventes
+3. **Customer Service** : Validation des clients (implicite)
 
-## 🛠️ Installation et Déploiement
+
+### États et Transitions
+
+| État | Description | Actions possibles |
+|------|-------------|-------------------|
+| `INITIATED` | Saga démarrée | → `STOCK_CHECKED`, `FAILED` |
+| `STOCK_CHECKED` | Stock vérifié | → `STOCK_RESERVED`, `FAILED` |
+| `STOCK_RESERVED` | Stock réservé | → `PAYMENT_PROCESSED`, `CANCELLED` |
+| `PAYMENT_PROCESSED` | Paiement effectué | → `CONFIRMED`, `CANCELLED` |
+| `CONFIRMED` | ✅ Succès final | Aucune (terminal) |
+| `CANCELLED` | ❌ Annulé avec compensation | Aucune (terminal) |
+| `FAILED` | ❌ Échec sans compensation | Aucune (terminal) |
+
+## � Instructions de Déploiement et Tests
 
 ### Prérequis
 
-- Docker et Docker Compose
-- Python 3.11+
-- Accès aux microservices existants (product, sales, customer)
+- **Docker** (v20.10+) et **Docker Compose** (v2.0+)
+- **Python** 3.11+
+- **Git** pour cloner le projet
+- **cURL** ou **Postman** pour les tests API
 
-### Déploiement avec Docker
+### 📦 Déploiement Complet
 
 ```bash
-# 1. Cloner le projet
-git clone https://github.com/zakzaki244/Laboratoires-LOG430/tree/lab6 
+# 1. Cloner le projet (branche lab6)
+git clone https://github.com/zakzaki244/Laboratoires-LOG430.git -b lab6
 cd Laboratoires-LOG430
 
-# 2. Démarrer tous les services
+# 2. Vérifier les fichiers de configuration
+ls -la docker-compose.yml
+
+# 3. Démarrer toute l'infrastructure (base de données, services, monitoring)
 docker-compose up -d
 
-# 3. Vérifier que le saga orchestrator est démarré
-docker-compose ps saga-orchestrator
+# 4. Vérifier que tous les services sont démarrés
+docker-compose ps
 
-# 4. Vérifier les logs
+# 5. Attendre que les services soient prêts (environ 30 secondes)
+sleep 30
+
+# 6. Initialiser les données de test
+python init_all_data.py
+
+# 7. Vérifier les logs du saga orchestrator
 docker-compose logs saga-orchestrator
 ```
 
-### Configuration
+### 🔍 Vérification du Déploiement
 
-Le service utilise les variables d'environnement suivantes :
+```bash
+# Vérifier l'état de tous les services
+docker-compose ps
 
-```env
-DATABASE_URL=postgresql://log430:laboratoire@saga-db:5432/sagadb
-SECRET_KEY=saga_secret_key
-JWT_SECRET_KEY=jwt_secret_key
-PRODUCT_SERVICE_URL=http://product-service:5000
-SALES_SERVICE_URL=http://sales-service:5000
-CUSTOMER_SERVICE_URL=http://customer-service:5000
+# Tester la connectivité des services
+curl http://localhost:8080/health          # API Gateway
+curl http://localhost:5001/health          # Product Service
+curl http://localhost:5005/health          # Sales Service
+curl http://localhost:5006/health          # Saga Orchestrator
+
+# Vérifier les métriques Prometheus
+curl http://localhost:9090/metrics         # Prometheus
+curl http://localhost:5006/metrics         # Métriques Saga
+
+# Accéder aux interfaces
+# - Grafana: http://localhost:3000 (admin/admin)
+# - Prometheus: http://localhost:9090
+# - Application: http://localhost:8080
+```
+
+### ⚡ Tests Rapides
+
+#### Test de Succès
+```bash
+# Créer une commande qui réussit
+curl -X POST http://localhost:5006/api/saga/order \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer_id": "1",
+    "items": [
+      {
+        "product_id": 1,
+        "quantity": 1,
+        "price": 29.99
+      }
+    ]
+  }'
+```
+
+#### Test d'Échec (Stock insuffisant)
+```bash
+# Commande avec quantité excessive
+curl -X POST http://localhost:5006/api/saga/order \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer_id": "1",
+    "items": [
+      {
+        "product_id": 1,
+        "quantity": 999,
+        "price": 29.99
+      }
+    ]
+  }'
+```
+
+### 🧪 Suite de Tests Complète
+
+```bash
+# Naviguer vers le dossier des tests
+cd saga-orchestrator/tests
+
+# Exécuter tous les tests
+python -m pytest test_saga.py -v
+
+# Tests spécifiques
+python test_saga_success.py      # Tests de succès
+python test_saga_failure.py      # Tests d'échec
+python test_compensation.py      # Tests de compensation
 ```
 
 ## 📡 API Endpoints
@@ -148,17 +250,6 @@ GET /api/saga/{order_id}/status
 }
 ```
 
-### 3. Déclencher les compensations manuellement
-
-```http
-POST /api/saga/{order_id}/compensate
-```
-
-### 4. Métriques Prometheus
-
-```http
-GET /metrics
-```
 
 ## 🧪 Tests
 
@@ -181,104 +272,254 @@ python test_saga_failure.py
 python test_compensation.py
 ```
 
-## 📊 Observabilité
+---
 
-### Métriques Prometheus
+# 🔧 DOCUMENTATION TECHNIQUE
 
-- `saga_total{status="success"}` : Nombre de Sagas réussies
-- `saga_total{status="failed"}` : Nombre de Sagas échouées
-- `saga_duration_seconds` : Durée d'exécution des Sagas
-- `saga_step_duration_seconds{step="stock_check"}` : Durée de chaque étape
+## � API Endpoints Détaillés
 
-### Logs structurés
+### 1. Créer une Saga de Commande
 
-Les logs incluent :
-- ID de la Saga
-- Événements et transitions d'état
-- Erreurs et compensations
-- Durée d'exécution
-
-## 🔧 Mécanismes de Compensation
-
-### Compensation automatique
-
-En cas d'échec, les compensations sont exécutées automatiquement :
-
-1. **Annulation de réservation de stock** : Restaure le stock réservé
-2. **Remboursement de paiement** : Annule le paiement effectué
-
-### Ordre de compensation
-
-Les compensations sont exécutées dans l'ordre inverse des opérations :
-
-```
-Paiement → Réservation → Vérification
-   ↓           ↓            ↓
-Remboursement → Libération → (Aucune)
+```http
+POST /api/saga/order
+Content-Type: application/json
 ```
 
-## 🚨 Gestion des Erreurs
+**Payload :**
+```json
+{
+  "customer_id": "1",
+  "items": [
+    {
+      "product_id": 1,
+      "quantity": 2,
+      "price": 29.99
+    },
+    {
+      "product_id": 2,
+      "quantity": 1,
+      "price": 49.99
+    }
+  ]
+}
+```
 
-### Types d'erreurs gérées
+**Réponse de Succès (201) :**
+```json
+{
+  "success": true,
+  "order_id": "550e8400-e29b-41d4-a716-446655440000",
+  "state": "confirmed",
+  "message": "Commande confirmée avec succès",
+  "total_amount": 109.97,
+  "processing_time_ms": 1245
+}
+```
 
-- **Erreurs de communication** : Timeout, service indisponible
-- **Erreurs métier** : Stock insuffisant, paiement refusé
-- **Erreurs système** : Base de données, configuration
+**Réponse d'Échec (400/500) :**
+```json
+{
+  "success": false,
+  "order_id": "550e8400-e29b-41d4-a716-446655440001",
+  "state": "failed",
+  "error": "Stock insuffisant pour le produit 1",
+  "details": {
+    "step": "stock_check",
+    "product_id": 1,
+    "requested_quantity": 999,
+    "available_quantity": 10
+  }
+}
+```
 
-### Stratégies de récupération
+### 2. Obtenir le Statut Détaillé d'une Saga
 
-- **Retry automatique** : Pour les erreurs temporaires
-- **Compensation** : Pour les erreurs permanentes
-- **Logging détaillé** : Pour le debugging
+```http
+GET /api/saga/{order_id}/status
+```
 
-## 🔍 Monitoring et Debugging
+**Réponse :**
+```json
+{
+  "order_id": "550e8400-e29b-41d4-a716-446655440000",
+  "customer_id": "1",
+  "items": [
+    {"product_id": 1, "quantity": 2, "price": 29.99}
+  ],
+  "current_state": "confirmed",
+  "created_at": "2024-07-16T18:00:00.000Z",
+  "updated_at": "2024-07-16T18:00:05.245Z",
+  "processing_time_ms": 5245,
+  "events": [
+    {
+      "event": "saga_started",
+      "timestamp": "2024-07-16T18:00:00.000Z",
+      "state": "initiated",
+      "data": {"order_id": "550e8400-e29b-41d4-a716-446655440000"}
+    },
+    {
+      "event": "stock_check_success",
+      "timestamp": "2024-07-16T18:00:01.123Z",
+      "state": "stock_checked",
+      "data": {"products_verified": 1}
+    },
+    {
+      "event": "stock_reservation_success",
+      "timestamp": "2024-07-16T18:00:02.456Z",
+      "state": "stock_reserved",
+      "data": {"products_reserved": 1}
+    },
+    {
+      "event": "payment_success",
+      "timestamp": "2024-07-16T18:00:04.789Z",
+      "state": "payment_processed",
+      "data": {"amount": 59.98}
+    },
+    {
+      "event": "order_confirmed",
+      "timestamp": "2024-07-16T18:00:05.245Z",
+      "state": "confirmed",
+      "data": {"sale_id": "sale-uuid-67890"}
+    }
+  ],
+  "error_message": null,
+  "compensation_data": {}
+}
+```
 
-### Vérifier l'état des services
+### 3. Déclencher Compensation Manuelle
+
+```http
+POST /api/saga/{order_id}/compensate
+Authorization: Bearer {admin_token}
+```
+
+**Réponse :**
+```json
+{
+  "success": true,
+  "order_id": "550e8400-e29b-41d4-a716-446655440000",
+  "compensations_executed": [
+    {
+      "service": "product-service",
+      "action": "stock_release",
+      "status": "success",
+      "details": {"products_released": 2}
+    },
+    {
+      "service": "sales-service", 
+      "action": "payment_refund",
+      "status": "success",
+      "details": {"refund_amount": 59.98}
+    }
+  ]
+}
+```
+
+
+## ⚙️ Configuration Avancée
+
+### Variables d'Environnement
+
+```env
+# Base de données
+DATABASE_URL=postgresql://log430:laboratoire@saga-db:5432/sagadb
+
+# Sécurité
+SECRET_KEY=saga_secret_key_super_secure
+JWT_SECRET_KEY=jwt_secret_key_for_admin
+
+# Services externes
+PRODUCT_SERVICE_URL=http://product-service:5001
+SALES_SERVICE_URL=http://sales-service:5005
+CUSTOMER_SERVICE_URL=http://customer-service:5002
+
+# Timeouts et retry
+SERVICE_TIMEOUT=30
+MAX_RETRY_ATTEMPTS=3
+RETRY_DELAY=1
+
+# Monitoring
+PROMETHEUS_ENABLED=true
+LOG_LEVEL=INFO
+STRUCTURED_LOGS=true
+
+# Feature flags
+ENABLE_COMPENSATION=true
+ENABLE_METRICS=true
+ENABLE_HEALTH_CHECK=true
+```
+
+### docker-compose.yml - Service Saga
+```yaml
+saga-orchestrator:
+  build: ./saga-orchestrator
+  ports:
+    - "5006:5006"
+  environment:
+    - DATABASE_URL=postgresql://log430:laboratoire@saga-db:5432/sagadb
+    - PRODUCT_SERVICE_URL=http://product-service:5001
+    - SALES_SERVICE_URL=http://sales-service:5005
+    - CUSTOMER_SERVICE_URL=http://customer-service:5002
+  depends_on:
+    - saga-db
+    - product-service
+    - sales-service
+  networks:
+    - microservices-network
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:5006/health"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+```
+
+## 🛠️ Développement et Debug
+
+### Logs de Debug Détaillés
 
 ```bash
-# Vérifier que tous les services sont démarrés
-docker-compose ps
+# Activer les logs debug
+docker-compose exec saga-orchestrator \
+  python -c "import logging; logging.getLogger().setLevel(logging.DEBUG)"
 
-# Vérifier les logs du saga orchestrator
-docker-compose logs -f saga-orchestrator
+# Suivre les logs avec filtre
+docker-compose logs -f saga-orchestrator | grep "SAGA_ID"
 
-# Vérifier les logs des microservices
-docker-compose logs -f product-service
-docker-compose logs -f sales-service
+# Analyser les performances
+docker-compose logs saga-orchestrator | \
+  jq 'select(.processing_time_ms > 1000)' | \
+  jq '.processing_time_ms' | \
+  sort -n
 ```
 
-### Métriques Grafana
 
-1. Accéder à Grafana : http://localhost:3000
-2. Dashboard : "Saga Orchestrator Metrics"
-3. Métriques disponibles :
-   - Taux de succès des Sagas
-   - Durée moyenne d'exécution
-   - Nombre d'échecs par étape
-   - Temps de compensation
 
-## 📝 Cas d'usage
+### Monitoring en Temps Réel
 
-### Cas 1 : Commande réussie
+```bash
+# Dashboard en ligne de commande
+watch -n 2 'curl -s http://localhost:5006/metrics | grep saga_total'
 
-1. Client passe une commande
-2. Saga vérifie le stock → ✅
-3. Saga réserve le stock → ✅
-4. Saga traite le paiement → ✅
-5. Saga confirme la commande → ✅
-6. **Résultat** : Commande confirmée
+# Surveillance des erreurs
+tail -f /var/log/saga-orchestrator.log | grep ERROR
 
-### Cas 2 : Stock insuffisant
+# État des services
+watch -n 5 'docker-compose ps'
+```
 
-1. Client passe une commande
-2. Saga vérifie le stock → ❌ (stock insuffisant)
-3. **Résultat** : Saga échoue, aucune compensation nécessaire
+---
 
-### Cas 3 : Paiement refusé
+## 🎯 Conclusion du Laboratoire
 
-1. Client passe une commande
-2. Saga vérifie le stock → ✅
-3. Saga réserve le stock → ✅
-4. Saga traite le paiement → ❌ (refusé)
-5. **Compensation** : Libération du stock réservé
-6. **Résultat** : Saga annulée, stock restauré
+Ce laboratoire démontre une implémentation complète d'une **Saga orchestrée synchrone** avec :
+
+✅ **Machine d'état robuste** : Gestion précise des transitions  
+✅ **Compensation automatique** : Rollback en cas d'échec  
+✅ **Observabilité complète** : Métriques, logs et dashboards  
+✅ **Tests complets** : Scénarios de succès et d'échec  
+✅ **Documentation détaillée** : ADR, diagrammes et guides  
+
+L'architecture mise en place respecte les principes des systèmes distribués tout en maintenant la cohérence des données et la résilience aux pannes.
+
+---

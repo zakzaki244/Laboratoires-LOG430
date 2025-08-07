@@ -1,277 +1,136 @@
 # 9. Décisions d'Architecture (ADR)
 
-## ADR 0001 - Architecture Microservices
+---
 
-**Status:** accepted
+## ADR 001 - Choix du Pattern Saga Orchestrée vs Saga Chorégraphiée
+
+**Status:** accepted  
+**Context:** Laboratoire 6 - Saga pour transactions distribuées
 
 ### Contexte
-Le projet e-commerce nécessite une architecture scalable, maintenable et permettant le déploiement indépendant des différentes fonctionnalités (catalogue, panier, commandes, utilisateurs). L'équipe doit choisir entre une architecture monolithique et une architecture microservices.
+Pour gérer les transactions distribuées dans l'architecture microservices e-commerce, nous devions choisir entre deux patterns principaux pour assurer la cohérence des données :
+
+1. **Saga Orchestrée** : Coordination centralisée via un orchestrateur dédié
+2. **Saga Chorégraphiée** : Coordination décentralisée via événements inter-services
+
+Le choix impact directement la complexité, la maintenabilité et l'observabilité du système.
 
 ### Décision
-Adoption d'une architecture microservices avec les services suivants :
-- customer-service (gestion utilisateurs)
-- product-service (catalogue produits)
-- cart-service (panier d'achat)
-- checkout-service (processus de commande)
-- sales-service (historique des ventes)
-- store-service (gestion magasins)
-- api-gateway (point d'entrée unifié)
+Adoption du **Pattern Saga Orchestrée** avec orchestrateur centralisé synchrone pour la gestion des commandes e-commerce.
 
 ### Justification
-- **Scalabilité** : Chaque service peut être scalé indépendamment selon ses besoins
-- **Maintenance** : Équipes peuvent travailler sur différents services en parallèle
-- **Technologie** : Possibilité d'utiliser différentes technologies par service si nécessaire
-- **Déploiement** : Déploiement indépendant des services
-- **Résilience** : Panne d'un service n'affecte pas les autres
+
+**Avantages de l'orchestration :**
+- ✅ **Contrôle centralisé** : Toute la logique métier est dans un seul service
+- ✅ **Observabilité** : Point unique pour monitoring, debugging et métriques
+- ✅ **Cohérence** : Gestion séquentielle des étapes, plus prévisible
+- ✅ **Simplicité de développement** : Plus facile à comprendre et maintenir
+- ✅ **Gestion d'erreurs centralisée** : Compensation et rollback dans un seul endroit
+- ✅ **Tests plus simples** : Scénarios d'échec centralisés
+
+**Inconvénients :**
+- ❌ **Point de défaillance unique** : L'orchestrateur devient critique
+- ❌ **Couplage** : Les services connaissent l'existence de l'orchestrateur  
+- ❌ **Latence** : Communication synchrone potentiellement plus lente
+- ❌ **Scalabilité** : Goulot d'étranglement potentiel sous forte charge
+
+### Alternatives Considérées
+
+1. **Saga Chorégraphiée** 
+   - Rejetée car plus complexe à debugger et tracer
+   - Logique métier dispersée dans plusieurs services
+   - Difficulté de visualisation du flux global
 
 ### Conséquences
-- **Positives** :
-  - Développement parallèle par équipes spécialisées
-  - Scalabilité granulaire
-  - Isolation des pannes
-  - Flexibilité technologique
-- **Négatives** :
-  - Complexité de coordination entre services
-  - Latence réseau entre services
-  - Gestion des transactions distribuées
-  - Complexité de monitoring et debugging
+
+**Positives :**
+- Développement plus rapide du laboratoire
+- Debugging et troubleshooting facilités
+- Métriques et logs centralisés
+- Tests d'intégration simplifiés
+
+**Négatives :**
+- Surveillance accrue de la disponibilité de l'orchestrateur nécessaire
+- Besoin de mécanismes de failover pour la production
+
+**Stratégies de mitigation :**
+- Monitoring renforcé avec alertes sur l'orchestrateur
+- Health checks et circuit breakers
+- Réplication future de l'orchestrateur pour la haute disponibilité
 
 ---
 
-## ADR 0002 - Utilisation de Python/Flask
+## ADR 002 - Communication Synchrone vs Asynchrone pour la Saga
 
-**Status:** accepted
-
-### Contexte
-Le choix du langage et du framework pour implémenter les microservices. Les options considérées incluent Python/Flask, Python/Django, Node.js/Express, et Java/Spring Boot.
-
-### Décision
-Utilisation de Python avec le framework Flask pour tous les microservices.
-
-### Justification
-- **Simplicité** : Flask est léger et permet une mise en place rapide
-- **Flexibilité** : Architecture modulaire adaptée aux microservices
-- **Écosystème** : Riche écosystème de librairies Python
-- **Compétences** : Expertise de l'équipe en Python
-- **Productivité** : Développement rapide et syntaxe claire
-
-### Conséquences
-- **Positives** :
-  - Développement rapide et efficace
-  - Code maintenable et lisible
-  - Large communauté et support
-  - Intégration facile avec bases de données
-- **Négatives** :
-  - Performance moindre que des langages compilés
-  - GIL (Global Interpreter Lock) peut limiter le parallélisme
-  - Dépendance à la version Python
-
----
-
-## ADR 0003 - Authentification JWT
-
-**Status:** accepted
+**Status:** accepted  
+**Context:** Laboratoire 6 - Architecture de communication inter-services
 
 ### Contexte
-Le système nécessite une authentification sécurisée et scalable pour les utilisateurs. Les options incluent les sessions serveur, les tokens JWT, et l'authentification OAuth externe.
+L'orchestrateur Saga doit communiquer avec les microservices (product, sales, customer) pour exécuter les étapes de la transaction distribuée. Le choix du mode de communication impacte les performances, la fiabilité et la complexité d'infrastructure.
+
+**Options considérées :**
+1. **Communication synchrone** (HTTP REST)
+2. **Communication asynchrone** (Messages via broker)
+3. **Approche hybride** (sync pour lectures, async pour écritures)
 
 ### Décision
-Implémentation d'une authentification basée sur les tokens JWT (JSON Web Tokens).
+Adoption de la **communication synchrone HTTP REST** pour tous les appels inter-services de la Saga.
 
 ### Justification
-- **Stateless** : Pas de stockage de session côté serveur
-- **Scalabilité** : Tokens auto-contenus, pas de synchronisation entre instances
-- **Sécurité** : Signature cryptographique des tokens
-- **Flexibilité** : Support des rôles et permissions dans le token
-- **Standards** : Standard ouvert largement adopté
+
+**Avantages du synchrone :**
+- ✅ **Simplicité d'infrastructure** : Pas de broker de messages à gérer (RabbitMQ/Kafka)
+- ✅ **Cohérence immédiate** : Réponse directe des services avec statut de l'opération
+- ✅ **Debugging facilité** : Traces directes dans les logs, call stack claire
+- ✅ **Gestion d'erreurs standard** : Codes HTTP pour succès/échecs
+- ✅ **Tests simplifiés** : Pas de mocking de queues/topics
+- ✅ **Développement rapide** : APIs REST déjà disponibles dans les microservices
+
+**Inconvénients assumés :**
+- ❌ **Latence plus élevée** : Attente des réponses à chaque étape
+- ❌ **Disponibilité couplée** : Échec si service cible indisponible
+- ❌ **Scalabilité limitée** : Moins performant sous très forte charge
+- ❌ **Timeouts nécessaires** : Gestion des services lents
+
+### Alternatives Considérées
+
+1. **Messages asynchrones (Event-driven)**
+   - Rejetée car complexité infrastructure trop importante pour le laboratoire
+   - Nécessiterait RabbitMQ/Kafka + gestion des Dead Letter Queues
+   - Difficulté de corrélation des événements
+
+2. **Approche hybride (sync + async)**
+   - Rejetée car complexité de développement
+   - Difficile de tester et maintenir
 
 ### Conséquences
-- **Positives** :
-  - Scalabilité horizontale sans partage d'état
-  - Réduction de la charge sur le serveur
-  - Facilité d'intégration avec d'autres services
-  - Gestion des rôles intégrée
-- **Négatives** :
-  - Impossibilité de révoquer un token avant expiration
-  - Taille des tokens plus importante que les sessions
-  - Complexité de gestion des tokens expirés
 
----
+**Positives :**
+- Infrastructure Docker simplifiée (pas de broker de messages)
+- Développement et déploiement rapides
+- Debugging direct avec curl/Postman
+- Logs de requêtes HTTP tracés facilement
 
-## ADR 0004 - Base de Données par Service
+**Négatives :**
+- Timeouts et retry patterns nécessaires
+- Circuit breakers recommandés pour la production
+- Monitoring de la latence end-to-end critique
 
-**Status:** accepted
+**Stratégies de mitigation :**
+- Timeouts configurés sur tous les appels (30s max)
+- Retry automatique avec backoff exponentiel (3 tentatives)
+- Health checks sur tous les services
+- Métriques de latence dans Prometheus
 
-### Contexte
-Dans une architecture microservices, la question de la persistance des données est cruciale. Options : base de données partagée, base de données par service, ou mix des deux approches.
+### Configuration Technique
 
-### Décision
-Chaque microservice possède sa propre base de données SQLite en développement, avec migration possible vers PostgreSQL en production.
+```python
+# Timeouts et retry dans l'orchestrateur
+TIMEOUT_CONFIG = {
+    "connect_timeout": 5,    # 5s pour établir la connexion
+    "read_timeout": 30,      # 30s pour recevoir la réponse
+    "max_retries": 3,        # 3 tentatives maximum
+    "backoff_factor": 1      # 1s, 2s, 4s entre tentatives
+}
+```
 
-### Justification
-- **Isolation** : Chaque service contrôle son schéma de données
-- **Autonomie** : Pas de dépendance sur d'autres services pour les données
-- **Scalabilité** : Possibilité d'optimiser chaque base pour son usage
-- **Résilience** : Panne d'une base n'affecte pas les autres services
-
-### Conséquences
-- **Positives** :
-  - Indépendance des équipes de développement
-  - Possibilité d'optimiser chaque schéma
-  - Isolation des pannes
-  - Flexibilité dans le choix des technologies de stockage
-- **Négatives** :
-  - Complexité des requêtes cross-services
-  - Gestion des transactions distribuées
-  - Consistance éventuelle vs consistance forte
-  - Duplication potentielle de données
-
----
-
-## ADR 0005 - API Gateway Centralisée
-
-**Status:** accepted
-
-### Contexte
-Avec plusieurs microservices, les clients doivent connaître les adresses de chaque service. Il faut une solution pour centraliser l'accès et gérer les préoccupations transversales.
-
-### Décision
-Implémentation d'une API Gateway centralisée gérant l'authentification, le routage, et la limitation de débit.
-
-### Justification
-- **Point d'entrée unique** : Simplification pour les clients
-- **Sécurité centralisée** : Authentification et autorisation en un point
-- **Monitoring unifié** : Logs et métriques centralisées
-- **Gestion du trafic** : Rate limiting et load balancing
-
-### Conséquences
-- **Positives** :
-  - Simplification de l'architecture client
-  - Sécurité centralisée et cohérente
-  - Monitoring et observabilité améliorés
-  - Gestion uniforme des erreurs
-- **Négatives** :
-  - Point de défaillance unique potentiel
-  - Latence additionnelle
-  - Complexité de configuration
-  - Risque de devenir un goulot d'étranglement
-
----
-
-## ADR 0006 - Containerisation Docker
-
-**Status:** accepted
-
-### Contexte
-Le déploiement et la gestion des microservices nécessitent une solution de packaging et d'orchestration. Les options incluent le déploiement traditionnel, Docker, et les solutions cloud natives.
-
-### Décision
-Utilisation de Docker pour containeriser chaque microservice avec Docker Compose pour l'orchestration locale.
-
-### Justification
-- **Portabilité** : Même environnement dev/test/prod
-- **Isolation** : Chaque service dans son propre conteneur
-- **Scalabilité** : Facilité de scaling horizontal
-- **Déploiement** : Déploiement cohérent et reproductible
-
-### Conséquences
-- **Positives** :
-  - Environnements cohérents
-  - Déploiement simplifié
-  - Isolation des dépendances
-  - Facilité de scaling
-- **Négatives** :
-  - Courbe d'apprentissage Docker
-  - Overhead de performance
-  - Complexité de debugging
-  - Gestion des volumes et réseaux
-
----
-
-## ADR 0007 - Logging Structuré JSON
-
-**Status:** accepted
-
-### Contexte
-Le monitoring et debugging d'une architecture microservices nécessite une stratégie de logging cohérente et analysable. Les options incluent les logs texte traditionnels et les logs structurés JSON.
-
-### Décision
-Implémentation d'un système de logging structuré au format JSON avec corrélation des traces entre services.
-
-### Justification
-- **Analysabilité** : Logs facilement parsables par les outils
-- **Corrélation** : Trace ID pour suivre les requêtes cross-services
-- **Standardisation** : Format uniforme pour tous les services
-- **Observabilité** : Intégration avec les outils de monitoring
-
-### Conséquences
-- **Positives** :
-  - Debugging facilité avec la corrélation
-  - Intégration avec les outils d'analyse
-  - Monitoring et alerting améliorés
-  - Standardisation des logs
-- **Négatives** :
-  - Logs plus volumineux
-  - Complexité de mise en place
-  - Dépendance aux outils d'analyse
-  - Coût de stockage plus élevé
-
----
-
-## ADR 0008 - Communication Synchrone REST
-
-**Status:** accepted
-
-### Contexte
-Les microservices doivent communiquer entre eux. Les options incluent REST synchrone, messaging asynchrone, et GraphQL.
-
-### Décision
-Utilisation de REST pour la communication synchrone entre services, avec possibilité d'ajouter du messaging asynchrone pour les événements.
-
-### Justification
-- **Simplicité** : REST est bien connu et documenté
-- **Tooling** : Excellent support d'outils et librairies
-- **Debugging** : Facilité de test et debugging
-- **Standards** : Approche standardisée et largement adoptée
-
-### Conséquences
-- **Positives** :
-  - Facilité de développement et test
-  - Excellente documentation et tooling
-  - Compatibilité avec les standards web
-  - Courbe d'apprentissage faible
-- **Négatives** :
-  - Couplage temporel entre services
-  - Gestion des pannes en cascade
-  - Latence additionnelle
-  - Complexité de gestion des timeouts
-
----
-
-## ADR 0009 - Configuration Externalisée
-
-**Status:** accepted
-
-### Contexte
-La configuration des microservices doit être flexible et adaptable selon les environnements (dev, test, prod). Les options incluent les fichiers de configuration, variables d'environnement, et configuration centralisée.
-
-### Décision
-Utilisation des variables d'environnement pour la configuration avec des valeurs par défaut et validation au démarrage.
-
-### Justification
-- **Flexibilité** : Configuration différente par environnement
-- **Sécurité** : Pas de secrets dans le code
-- **Déploiement** : Facilité de déploiement sans rebuild
-- **Standards** : Approche 12-factor app
-
-### Conséquences
-- **Positives** :
-  - Sécurité améliorée (pas de secrets hardcodés)
-  - Flexibilité de déploiement
-  - Respect des bonnes pratiques
-  - Facilité de configuration par environnement
-- **Négatives** :
-  - Complexité de gestion des variables
-  - Risque d'erreur de configuration
-  - Debugging plus complexe
-  - Dépendance à l'infrastructure de déploiement
