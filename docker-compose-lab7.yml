@@ -1,0 +1,226 @@
+# Docker Compose pour Lab 7 - Architecture Événementielle
+# Event-Driven Architecture avec Pub/Sub, Event Sourcing, CQRS et Saga Chorégraphiée
+
+version: '3.8'
+
+services:
+  # ==========================================
+  # INFRASTRUCTURE ÉVÉNEMENTIELLE
+  # ==========================================
+  
+  # Redis pour Event Bus (Pub/Sub)
+  redis-events:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_events_data:/data
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # MongoDB pour Event Store
+  mongodb-eventstore:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: log430
+      MONGO_INITDB_ROOT_PASSWORD: laboratoire
+      MONGO_INITDB_DATABASE: eventstore
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_events_data:/data/db
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ==========================================
+  # SERVICES ÉVÉNEMENTIELS LAB 7
+  # ==========================================
+
+  # Event Store & Bus Service
+  event-bus-service:
+    build: ./event-bus-service
+    environment:
+      MONGODB_URL: mongodb://log430:laboratoire@mongodb-eventstore:27017/eventstore
+      REDIS_URL: redis://redis-events:6379
+    depends_on:
+      - redis-events
+      - mongodb-eventstore
+    ports:
+      - "5020:5000"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Inventory Event Service (Stock géré par événements)
+  inventory-event-service:
+    build: ./inventory-event-service
+    environment:
+      EVENT_STORE_URL: http://event-bus-service:5000
+      LOW_STOCK_THRESHOLD: 5
+    depends_on:
+      - event-bus-service
+    ports:
+      - "5021:5000"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Procurement Service (Gestion des approvisionnements)
+  procurement-service:
+    build: ./procurement-service
+    environment:
+      EVENT_STORE_URL: http://event-bus-service:5000
+      DEFAULT_RESTOCK_QUANTITY: 50
+      AUTO_APPROVAL_THRESHOLD: 100
+    depends_on:
+      - event-bus-service
+    ports:
+      - "5022:5000"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Supplier Service (Simulation des fournisseurs)
+  supplier-service:
+    build: ./supplier-service
+    environment:
+      EVENT_STORE_URL: http://event-bus-service:5000
+      INVENTORY_SERVICE_URL: http://inventory-event-service:5000
+      MIN_DELIVERY_DAYS: 1
+      MAX_DELIVERY_DAYS: 7
+    depends_on:
+      - event-bus-service
+      - inventory-event-service
+    ports:
+      - "5023:5000"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Analytics Service (CQRS - Projections de lecture)
+  analytics-service:
+    build: ./analytics-service
+    environment:
+      EVENT_STORE_URL: http://event-bus-service:5000
+    depends_on:
+      - event-bus-service
+    ports:
+      - "5024:5000"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================
+  # SERVICES EXISTANTS (LAB 6) - Optionnels
+  # ==========================================
+
+  # API Gateway (pour l'interface web)
+  api-gateway:
+    build: ./api-gateway
+    environment:
+      SECRET_KEY: gateway_secret_key
+      JWT_SECRET_KEY: jwt_secret_key
+      # Services Lab 7
+      EVENT_STORE_URL: http://event-bus-service:5000
+      INVENTORY_EVENT_URL: http://inventory-event-service:5000
+      PROCUREMENT_URL: http://procurement-service:5000
+      SUPPLIER_URL: http://supplier-service:5000
+      ANALYTICS_URL: http://analytics-service:5000
+    depends_on:
+      - event-bus-service
+      - inventory-event-service
+      - analytics-service
+    ports:
+      - "5010:5000"
+    networks:
+      - microservices-network
+
+  # Web Interface (pour tester l'architecture)
+  web-interface-service:
+    build: ./web-interface-service
+    environment:
+      SECRET_KEY: web_secret_key
+      API_GATEWAY_URL: http://api-gateway:5000
+    depends_on:
+      - api-gateway
+    ports:
+      - "8080:5000"
+    networks:
+      - microservices-network
+
+  # ==========================================
+  # OBSERVABILITÉ
+  # ==========================================
+
+  # Prometheus pour métriques
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - microservices-network
+
+  # Grafana pour dashboards
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - microservices-network
+
+volumes:
+  redis_events_data:
+  mongodb_events_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  microservices-network:
+    driver: bridge

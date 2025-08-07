@@ -1,0 +1,81 @@
+# Configuration Prometheus pour monitoring Lab 7
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Event Bus Service
+  - job_name: 'event-bus-service'
+    static_configs:
+      - targets: ['event-bus-service:5000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Inventory Event Service
+  - job_name: 'inventory-event-service'
+    static_configs:
+      - targets: ['inventory-event-service:5001']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Procurement Service
+  - job_name: 'procurement-service'
+    static_configs:
+      - targets: ['procurement-service:5002']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Supplier Service
+  - job_name: 'supplier-service'
+    static_configs:
+      - targets: ['supplier-service:5003']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Analytics Service
+  - job_name: 'analytics-service'
+    static_configs:
+      - targets: ['analytics-service:5007']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # API Gateway
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:5000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Web Interface
+  - job_name: 'web-interface'
+    static_configs:
+      - targets: ['web-interface-service:5008']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Infrastructure services
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-events:6379']
+    scrape_interval: 30s
+
+  - job_name: 'mongodb'
+    static_configs:
+      - targets: ['mongodb-eventstore:27017']
+    scrape_interval: 30s
+
+# Alerting
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093

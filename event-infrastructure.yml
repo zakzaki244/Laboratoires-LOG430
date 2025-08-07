@@ -1,0 +1,48 @@
+# Event Infrastructure Service for Lab 7
+# Redis Streams-based Event Bus
+
+version: '3.8'
+
+services:
+  # Infrastructure Redis pour événements
+  redis-events:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_events_data:/data
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # MongoDB pour Event Store
+  mongodb-eventstore:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: log430
+      MONGO_INITDB_ROOT_PASSWORD: laboratoire
+      MONGO_INITDB_DATABASE: eventstore
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_events_data:/data/db
+    networks:
+      - microservices-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  redis_events_data:
+  mongodb_events_data:
+
+networks:
+  microservices-network:
+    external: true

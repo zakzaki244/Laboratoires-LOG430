@@ -1,0 +1,203 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Lab 7 - Architecture Événementielle",
+    "tags": ["lab7", "event-driven", "microservices"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Événements Traités par Seconde",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(events_processed_total[5m])",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Santé des Services",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Niveaux de Stock",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "stock_level",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Alertes de Stock Bas",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "low_stock_alerts_total",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 17
+        }
+      },
+      {
+        "id": 5,
+        "title": "Performance Fournisseurs",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "supplier_delivery_time_avg",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 17
+        }
+      },
+      {
+        "id": 6,
+        "title": "Ventes en Temps Réel",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(sales_total[5m])",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 17
+        }
+      },
+      {
+        "id": 7,
+        "title": "Saga - États des Transactions",
+        "type": "pie",
+        "targets": [
+          {
+            "expr": "saga_transaction_status",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 25
+        }
+      },
+      {
+        "id": 8,
+        "title": "Event Store - Événements par Type",
+        "type": "bar",
+        "targets": [
+          {
+            "expr": "events_by_type_total",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 25
+        }
+      },
+      {
+        "id": 9,
+        "title": "Latence des Événements",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "event_processing_duration_seconds",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 33
+        }
+      },
+      {
+        "id": 10,
+        "title": "Redis - Utilisation Mémoire",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "redis_memory_used_bytes",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 41
+        }
+      },
+      {
+        "id": 11,
+        "title": "MongoDB - Connexions Actives",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "mongodb_connections_current",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 41
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s"
+  }
+}

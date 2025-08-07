@@ -1,8 +1,126 @@
-# 9. Décisions d'Architecture (ADR)
+# Architecture Decision Records (ADR) - Lab 7
 
 ---
 
-## ADR 001 - Choix du Pattern Saga Orchestrée vs Saga Chorégraphiée
+## ADR 001 - Choix de Redis Streams vs Apache Kafka pour le Pub/Sub
+
+**Status:** accepted  
+**Context:** Lab 7 - Architecture Événementielle avec Pub/Sub
+
+### Contexte
+Pour implémenter l'architecture événementielle du Lab 7, nous devions choisir une solution de message broker pour le pattern Pub/Sub. Les principales options évaluées étaient :
+
+1. **Redis Streams** : Solution légère basée sur Redis
+2. **Apache Kafka** : Plateforme de streaming distribuée
+3. **RabbitMQ** : Message broker traditionnel AMQP
+
+### Décision
+Adoption de **Redis Streams** comme solution de Pub/Sub pour le Lab 7.
+
+### Justification
+
+**Avantages Redis Streams :**
+- ✅ **Simplicité de déploiement** : Une seule instance Redis suffit
+- ✅ **Performance** : Latence très faible (< 1ms) pour le lab
+- ✅ **Persistance** : Messages persistés sur disque automatiquement
+- ✅ **Groupes de consommateurs** : Support natif pour distribution des messages
+- ✅ **Atomic operations** : Garanties ACID sur les opérations
+- ✅ **Compatibilité** : S'intègre facilement avec l'écosystème Redis existant
+- ✅ **Ressources** : Consommation mémoire et CPU réduite
+- ✅ **Développement rapide** : API simple pour le prototypage
+
+**Inconvénients :**
+- ❌ **Scalabilité limitée** : Moins adapté pour des millions de messages/seconde
+- ❌ **Écosystème** : Moins d'outils tiers que Kafka
+- ❌ **Durabilité** : Moins de garanties de durabilité que Kafka
+
+### Alternatives Considérées
+
+1. **Apache Kafka**
+   - Rejeté car complexité excessive pour un laboratoire 
+   - Nécessite Zookeeper et configuration cluster
+   - Overhead de ressources important pour les volumes du lab
+
+2. **RabbitMQ**
+   - Rejeté car modèle plus orienté queues traditionnelles
+   - Moins adapté au streaming d'événements en temps réel
+
+### Conséquences
+
+**Positives :**
+- Déploiement simplifié avec Docker Compose
+- Performance excellente pour les besoins du lab
+- Code plus simple à comprendre et maintenir
+- Tests plus rapides à exécuter
+
+**Négatives :**
+- Solution moins "production-ready" pour grandes échelles
+- Expertise Redis requise plutôt que Kafka (standard industrie)
+
+---
+
+## ADR 002 - Choix de MongoDB vs PostgreSQL pour l'Event Store
+
+**Status:** accepted  
+**Context:** Lab 7 - Implémentation Event Sourcing avec Event Store
+
+### Contexte
+L'implémentation d'Event Sourcing nécessite un Event Store pour persister tous les événements du système. Nous avions le choix entre :
+
+1. **MongoDB** : Base NoSQL orientée documents
+2. **PostgreSQL** : Base relationnelle avec support JSON
+3. **EventStore DB** : Base spécialisée pour Event Sourcing
+
+### Décision
+Adoption de **MongoDB** comme Event Store pour le Lab 7.
+
+### Justification
+
+**Avantages MongoDB :**
+- ✅ **Structure naturelle** : Documents JSON parfaits pour les événements
+- ✅ **Schéma flexible** : Évolution des événements sans migration
+- ✅ **Performance** : Insertions très rapides pour append-only workload
+- ✅ **Requêtes riches** : Agrégations complexes pour projections CQRS
+- ✅ **Indexation** : Index sur timestamp, type d'événement, aggregate_id
+- ✅ **Sharding** : Scalabilité horizontale native
+- ✅ **Compression** : Stockage efficace des événements JSON
+- ✅ **Change Streams** : Notifications temps réel des changements
+
+**Inconvénients :**
+- ❌ **Consistance** : Eventual consistency par défaut
+- ❌ **Transactions** : Support limité des transactions ACID
+- ❌ **Expertise** : Courbe d'apprentissage pour l'équipe
+
+### Alternatives Considérées
+
+1. **PostgreSQL avec JSONB**
+   - Rejeté car less natural pour documents nested JSON
+   - Performance moindre pour append-only workloads
+   - Complexité des requêtes d'agrégation
+
+2. **EventStore DB**
+   - Rejeté car spécialisé mais overhead pour un laboratoire
+   - Moins de documentation et d'exemples
+   - Compétences spécifiques requises
+
+### Conséquences
+
+**Positives :**
+- Modèle de données très naturel pour les événements
+- Performance excellente pour les insertions et lectures
+- Projections CQRS facilitées par le pipeline d'agrégation
+- Intégration simple avec les services Python/Flask
+
+**Négatives :**
+- Gestion de la cohérence plus complexe
+- Backup et recovery différents des bases relationnelles
+
+---
+
+## ADR 003 - Choix du Pattern Saga Orchestrée vs Saga Chorégraphiée (Lab 6)
+
+**Status:** accepted (Lab 6) → superseded (Lab 7)  
+**Context:** Évolution du Lab 6 vers Lab 7
 
 **Status:** accepted  
 **Context:** Laboratoire 6 - Saga pour transactions distribuées
@@ -57,80 +175,4 @@ Adoption du **Pattern Saga Orchestrée** avec orchestrateur centralisé synchron
 - Monitoring renforcé avec alertes sur l'orchestrateur
 - Health checks et circuit breakers
 - Réplication future de l'orchestrateur pour la haute disponibilité
-
 ---
-
-## ADR 002 - Communication Synchrone vs Asynchrone pour la Saga
-
-**Status:** accepted  
-**Context:** Laboratoire 6 - Architecture de communication inter-services
-
-### Contexte
-L'orchestrateur Saga doit communiquer avec les microservices (product, sales, customer) pour exécuter les étapes de la transaction distribuée. Le choix du mode de communication impacte les performances, la fiabilité et la complexité d'infrastructure.
-
-**Options considérées :**
-1. **Communication synchrone** (HTTP REST)
-2. **Communication asynchrone** (Messages via broker)
-3. **Approche hybride** (sync pour lectures, async pour écritures)
-
-### Décision
-Adoption de la **communication synchrone HTTP REST** pour tous les appels inter-services de la Saga.
-
-### Justification
-
-**Avantages du synchrone :**
-- ✅ **Simplicité d'infrastructure** : Pas de broker de messages à gérer (RabbitMQ/Kafka)
-- ✅ **Cohérence immédiate** : Réponse directe des services avec statut de l'opération
-- ✅ **Debugging facilité** : Traces directes dans les logs, call stack claire
-- ✅ **Gestion d'erreurs standard** : Codes HTTP pour succès/échecs
-- ✅ **Tests simplifiés** : Pas de mocking de queues/topics
-- ✅ **Développement rapide** : APIs REST déjà disponibles dans les microservices
-
-**Inconvénients assumés :**
-- ❌ **Latence plus élevée** : Attente des réponses à chaque étape
-- ❌ **Disponibilité couplée** : Échec si service cible indisponible
-- ❌ **Scalabilité limitée** : Moins performant sous très forte charge
-- ❌ **Timeouts nécessaires** : Gestion des services lents
-
-### Alternatives Considérées
-
-1. **Messages asynchrones (Event-driven)**
-   - Rejetée car complexité infrastructure trop importante pour le laboratoire
-   - Nécessiterait RabbitMQ/Kafka + gestion des Dead Letter Queues
-   - Difficulté de corrélation des événements
-
-2. **Approche hybride (sync + async)**
-   - Rejetée car complexité de développement
-   - Difficile de tester et maintenir
-
-### Conséquences
-
-**Positives :**
-- Infrastructure Docker simplifiée (pas de broker de messages)
-- Développement et déploiement rapides
-- Debugging direct avec curl/Postman
-- Logs de requêtes HTTP tracés facilement
-
-**Négatives :**
-- Timeouts et retry patterns nécessaires
-- Circuit breakers recommandés pour la production
-- Monitoring de la latence end-to-end critique
-
-**Stratégies de mitigation :**
-- Timeouts configurés sur tous les appels (30s max)
-- Retry automatique avec backoff exponentiel (3 tentatives)
-- Health checks sur tous les services
-- Métriques de latence dans Prometheus
-
-### Configuration Technique
-
-```python
-# Timeouts et retry dans l'orchestrateur
-TIMEOUT_CONFIG = {
-    "connect_timeout": 5,    # 5s pour établir la connexion
-    "read_timeout": 30,      # 30s pour recevoir la réponse
-    "max_retries": 3,        # 3 tentatives maximum
-    "backoff_factor": 1      # 1s, 2s, 4s entre tentatives
-}
-```
-
