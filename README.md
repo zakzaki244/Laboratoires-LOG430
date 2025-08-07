@@ -45,6 +45,24 @@ Client → [API Gateway] → [Saga Orchestrator]
 - **Traçabilité** : Suivre l'état de chaque commande
 - **Compensation** : Annuler les opérations partielles en cas d'échec
 
+### 📊 Diagramme de la Machine d'État
+
+![Diagramme Machine d'État Saga](./Diagrammes-lab6/machineetat.png)
+
+**États principaux :**
+- `CREATED` : Commande initiée
+- `STOCK_VERIFIED` : Vérification du stock réussie
+- `STOCK_RESERVED` : Réservation du stock confirmée  
+- `PAYMENT_PROCESSED` : Paiement traité avec succès
+- `COMPLETED` : Commande finalisée (état final de succès)
+- `FAILED` : Échec avec compensation (état final d'échec)
+
+**Transitions critiques :**
+- Chaque échec déclenche les compensations appropriées
+- Les états sont persistés en base de données
+- Traçabilité complète via les logs de saga
+
+
 ## 2. 🔄 Saga Implémentée : Orchestration Synchrone
 
 ### Architecture Choisie
